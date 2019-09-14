@@ -1,0 +1,13 @@
+C:\Users\c\Desktop\C#\MIOStopsVisualization\bin\Debug\MIOStopsVisualization.exe.config
+C:\Users\c\Desktop\C#\MIOStopsVisualization\bin\Debug\MIOStopsVisualization.exe
+C:\Users\c\Desktop\C#\MIOStopsVisualization\bin\Debug\MIOStopsVisualization.pdb
+C:\Users\c\Desktop\C#\MIOStopsVisualization\obj\Debug\MIOStopsVisualization.csprojAssemblyReference.cache
+C:\Users\c\Desktop\C#\MIOStopsVisualization\obj\Debug\MIOStopsVisualization.Form1.resources
+C:\Users\c\Desktop\C#\MIOStopsVisualization\obj\Debug\MIOStopsVisualization.Properties.Resources.resources
+C:\Users\c\Desktop\C#\MIOStopsVisualization\obj\Debug\MIOStopsVisualization.csproj.GenerateResource.cache
+C:\Users\c\Desktop\C#\MIOStopsVisualization\obj\Debug\MIOStopsVisualization.csproj.CoreCompileInputs.cache
+C:\Users\c\Desktop\C#\MIOStopsVisualization\obj\Debug\MIOStopsVisualization.exe
+C:\Users\c\Desktop\C#\MIOStopsVisualization\obj\Debug\MIOStopsVisualization.pdb
+C:\Users\c\Desktop\C#\MIOStopsVisualization\bin\Debug\GMap.NET.Core.dll
+C:\Users\c\Desktop\C#\MIOStopsVisualization\bin\Debug\GMap.NET.WindowsForms.dll
+C:\Users\c\Desktop\C#\MIOStopsVisualization\obj\Debug\MIOStopsVisualization.csproj.CopyComplete
