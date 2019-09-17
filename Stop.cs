@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MIOStopsVisualization
 { 
-    class Stop
+    public class Stop
     {
         public const int StreetStop = 1;
         public const int StationStop = 2;
@@ -28,11 +28,22 @@ namespace MIOStopsVisualization
             this.decLati = decLati;
         }
 
+        public Stop()
+        {
+
+        }
+
         public string StopID { get => stopID; set => stopID = value; }
         public int Type { get => type; set => type = value; }
         public string ShortName { get => shortName; set => shortName = value; }
         public string LongName { get => longName; set => longName = value; }
         public double DecLong { get => decLong; set => decLong = value; }
         public double DecLati { get => decLati; set => decLati = value; }
+
+        public string toString()
+        {
+            return "" + shortName;
+        }
+
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,8 +15,11 @@ namespace MIOStopsVisualization
 {
     public partial class StartWindow : Form
     {
+        MIOApp app;
+
         public StartWindow()
         {
+            app = new MIOApp();
             ReadFile();
             InitializeComponent();
             Image banner = Image.FromFile("images/MIO_Logo.jpg");
@@ -24,23 +28,37 @@ namespace MIOStopsVisualization
 
         public void ReadFile()
         {
-            /*ArrayList stops = new ArrayList();
-            string line = "";
-            ToolTip myToolTip = new ToolTip();
-            myToolTip.SetToolTip(txtTimeTaken, "Tiempo que toma leer el archivo stops.csv");*/
             try
             {
-                /*StreamReader sr = new StreamReader("data/stops.csv");
-                var watch = System.Diagnostics.Stopwatch.StartNew();
+                int i = 0;
+                string line = "";
+                StreamReader sr = new StreamReader("data/stops.csv");
+                //var watch = System.Diagnostics.Stopwatch.StartNew();
                 while ((line = sr.ReadLine()) != null)
                 {
-                    stops.Add(line);
+                    int type = 0;
+                    String[] individual = line.Split(',');
+
+                    double lat = double.Parse(individual[6], CultureInfo.InvariantCulture);
+                    double lon = double.Parse(individual[7], CultureInfo.InvariantCulture); ;
+
+                    if (individual[3].Contains("con") || individual[3].Contains("entre"))
+                    {
+                        type = 1;
+                    }
+                    else
+                    {
+                        type = 2;
+                    }
+                    Stop st = new Stop(individual[0], type, individual[2], individual[3], lon, lat);
+                    app.List.Add(st);
+                    Console.WriteLine(app.List.ElementAt<Stop>(i).ShortName);
+                    i++;
                 }
-                watch.Stop();
+                app.saveElements();
+                /*watch.Stop();
                 var elapsedMs = watch.ElapsedMilliseconds;
-                var timef = elapsedMs * 0.001;
-                txtTimeTaken.Text = "" + timef;
-                MessageBox.Show(""+stops.Count);*/
+                var timef = elapsedMs * 0.001;*/
             }
             catch (Exception e)
             {
