@@ -11,12 +11,12 @@ namespace MIOStopsVisualization
         public const int StreetStop = 1;
         public const int StationStop = 2;
 
-        private string stopID;
-        private int type;
-        private string shortName;
-        private string longName;
-        private double decLong;
-        private double decLati;
+        public string stopID;
+        public int type;
+        public string shortName;
+        public string longName;
+        public double decLong;
+        public double decLati;
 
         public Stop(string stopID, int type, string shortName, string longName, double decLong, double decLati)
         {

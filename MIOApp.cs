@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataStructures;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,27 +12,27 @@ namespace MIOStopsVisualization
     class MIOApp
     {
 
-        private List<Stop> list;
+        private Hashtable<string, Stop> list;
 
         public MIOApp()
         {
-            List = new List<Stop>();
+            List = new Hashtable<string, Stop>(100);
         }
 
-        internal List<Stop> List { get => list; set => list = value; }
+        internal Hashtable<string, Stop> List { get => list; set => list = value; }
 
         public void saveElements()
         {
-            try
+            /*try
             {
                 var stream = File.OpenWrite("data/StopsList.txt");
-                var xmlSer = new XmlSerializer(typeof(List<Stop>));
+                var xmlSer = new XmlSerializer(typeof(Hashtable<string,Stop>));
                 xmlSer.Serialize(stream, list);
                 stream.Close();
             }catch(Exception e)
             {
                 Console.WriteLine(e.Message);
-            }
+            }*/
         }
     }
 }

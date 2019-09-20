@@ -76,6 +76,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HashNode.cs" />
+    <Compile Include="HashTable.cs" />
+    <Compile Include="LinkedList.cs" />
     <Compile Include="MIOApp.cs" />
     <Compile Include="StartWindow.cs">
       <SubType>Form</SubType>

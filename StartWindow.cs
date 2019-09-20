@@ -51,8 +51,7 @@ namespace MIOStopsVisualization
                         type = 2;
                     }
                     Stop st = new Stop(individual[0], type, individual[2], individual[3], lon, lat);
-                    app.List.Add(st);
-                    Console.WriteLine(app.List.ElementAt<Stop>(i).ShortName);
+                    app.List.add(individual[0], st);
                     i++;
                 }
                 app.saveElements();
@@ -68,7 +67,7 @@ namespace MIOStopsVisualization
 
         private void ButStartOperation_Click(object sender, EventArgs e)
         {
-            char s = '/';
+           /* char s = '/';
             char b = '1';
             char p = '-';
             char q = ')';
@@ -87,7 +86,7 @@ namespace MIOStopsVisualization
                 "_\n________" + b + m + m + m + m + m + "_" + m + m + m + m + m + "_" + m + m + m + b + 
                 "_\n__________" + b + m + m + m + m + m + "_" + m + m + m + m + m + "_" + m + m + m + b;
             MessageBox.Show(fuck);
-
+            */
             MapWindow mw = new MapWindow(this);
             this.Hide();
             mw.Show();
