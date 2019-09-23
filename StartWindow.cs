@@ -20,9 +20,9 @@ namespace MIOStopsVisualization
         public MIOApp app;
         public StartWindow()
         {
-            InitializeComponent();
             app = new MIOApp();
             ReadFile();
+            InitializeComponent();
             Image banner = Image.FromFile("images/MIO_Logo.jpg");
             imgBanner.Image = banner;
         }
@@ -57,7 +57,16 @@ namespace MIOStopsVisualization
                         type = 2;
                     }
                     Stop st = new Stop(individual[0], type, individual[2], individual[3], lon, lat);
+
                     app.getHash().add(individual[0], st);
+
+                    if (type==1) {
+                        app.getStreetStop().Add(st);
+                    }
+                    else
+                    {
+                        app.getStationStop().Add(st);
+                    }
                     i++;
                 }
                 app.saveElements();

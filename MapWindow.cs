@@ -38,7 +38,51 @@ namespace MIOStopsVisualization
 
         private void drawStops()
         {
-            for (int i=0;i<st.GetApp().getHash().size();i++)
+            for (int i=0;i<st.GetApp().getStationStop().Count;i++)
+            {
+                stopMap.DragButton = MouseButtons.Left;
+                stopMap.CanDragMap = true;
+                stopMap.MapProvider = GMapProviders.GoogleMap;
+                stopMap.Position = new PointLatLng(st.GetApp().getStationStop()[i].DecLati, st.GetApp().getStationStop()[i].DecLong);
+                stopMap.MinZoom = 0;
+                stopMap.MaxZoom = 24;
+                stopMap.Zoom = 9;
+                stopMap.AutoScroll = true;
+
+                //marcador
+                markerOverlay = new GMapOverlay("Marcador");
+                marker = new GMarkerGoogle(new PointLatLng(st.GetApp().getStationStop()[i].DecLati, st.GetApp().getStationStop()[i].DecLong), GMarkerGoogleType.blue);
+                markerOverlay.Markers.Add(marker);
+
+                marker.ToolTipMode = MarkerTooltipMode.Always;
+
+
+                stopMap.Overlays.Add(markerOverlay);
+            }
+
+            for (int i = 0; i < st.GetApp().getStreetStop().Count; i++)
+            {
+                stopMap.DragButton = MouseButtons.Left;
+                stopMap.CanDragMap = true;
+                stopMap.MapProvider = GMapProviders.GoogleMap;
+                stopMap.Position = new PointLatLng(st.GetApp().getStreetStop()[i].DecLati, st.GetApp().getStreetStop()[i].DecLong);
+                stopMap.MinZoom = 0;
+                stopMap.MaxZoom = 24;
+                stopMap.Zoom = 9;
+                stopMap.AutoScroll = true;
+
+                //marcador
+                markerOverlay = new GMapOverlay("Marcador");
+                marker = new GMarkerGoogle(new PointLatLng(st.GetApp().getStreetStop()[i].DecLati, st.GetApp().getStreetStop()[i].DecLong), GMarkerGoogleType.blue);
+                markerOverlay.Markers.Add(marker);
+
+                marker.ToolTipMode = MarkerTooltipMode.Always;
+
+
+                stopMap.Overlays.Add(markerOverlay);
+            }
+
+            /*for (int i=0;i<st.GetApp().getHash().size();i++)
             {
                 LinkedList<string, Stop>[] node = st.GetApp().getHash().getNodes();
                 for(int j = 0; j < 3; j++)
@@ -73,7 +117,7 @@ namespace MIOStopsVisualization
                         }
                     }
                 }
-            }
+            }*/
         }
 
         private void StopMap_Load(object sender, EventArgs e)

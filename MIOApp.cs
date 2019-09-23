@@ -11,16 +11,23 @@ namespace MIOStopsVisualization
 {
     public class MIOApp
     { 
-        private Hashtable<string, Stop> hash;
+        private List<Stop> streetStopList;
+        private List<Stop> stationStopList;
 
         public MIOApp()
         {
-            hash = new Hashtable<string, Stop>(100);
+            streetStopList = new List<Stop>();
+            stationStopList = new List<Stop>();
         }
 
-        public Hashtable<string, Stop> getHash()
+        public List<Stop> getStreetStop()
         {
-            return hash;
+            return streetStopList;
+        }
+
+        public List<Stop> getStationStop()
+        {
+            return stationStopList;
         }
 
         public void saveElements()
