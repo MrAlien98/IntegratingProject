@@ -20,8 +20,6 @@ namespace MIOStopsVisualization
         GMarkerGoogle marker;
         GMapOverlay markerOverlay;
         String nombre = "";
-        double latInicial = 3.3417918;
-        double lngInicial = -76.5328215;
 
         StartWindow st;
 
@@ -47,30 +45,18 @@ namespace MIOStopsVisualization
         private void drawStops()
         {
             stopMap.Overlays.Clear();
-           
+
             for (int i = 0; i < st.GetApp().getStreetStop().Count; i++)
             {
-                stopMap.DragButton = MouseButtons.Left;
-                stopMap.CanDragMap = true;
-                stopMap.MapProvider = GMapProviders.GoogleMap;
-                stopMap.Position = new PointLatLng(st.GetApp().getStreetStop()[i].DecLati, st.GetApp().getStreetStop()[i].DecLong);
-                stopMap.MinZoom = 0;
-                stopMap.MaxZoom = 24;
-                stopMap.Zoom = 12;
-                stopMap.AutoScroll = true;
+                PointLatLng point = new PointLatLng(st.GetApp().getStreetStop()[i].DecLati, st.GetApp().getStreetStop()[i].DecLong);
+                GMapMarker theMarker = new GMarkerGoogle(point, GMarkerGoogleType.blue_dot);
 
-                //marcador
-                markerOverlay = new GMapOverlay("Marcador");
-                marker = new GMarkerGoogle(new PointLatLng(st.GetApp().getStreetStop()[i].DecLati, st.GetApp().getStreetStop()[i].DecLong), GMarkerGoogleType.blue);
-                markerOverlay.Markers.Add(marker);
-
-                marker.ToolTipMode = MarkerTooltipMode.Always;
-
-                stopMap.Overlays.Add(markerOverlay);
+                GMapOverlay markers = new GMapOverlay("markers");
+                markers.Markers.Add(theMarker);
+                stopMap.Overlays.Add(markers);
             }
 
             MessageBox.Show("Termino de dibujar las paradas");
-
         }
 
         public void drawStations()
@@ -119,17 +105,77 @@ namespace MIOStopsVisualization
 
         }
 
+
+
+
+        /*private void drawStops()
+        {
+            //stopMap.Overlays.Clear();
+           
+            foreach (var aux in st.GetApp().getStreetStop())
+            {
+                
+                stopMap.Position = new PointLatLng(aux.DecLati, aux.DecLong);
+             
+                //marcador
+                markerOverlay = new GMapOverlay("Marcador");
+                marker = new GMarkerGoogle(new PointLatLng(aux.DecLati, aux.DecLong), GMarkerGoogleType.blue);
+                markerOverlay.Markers.Add(marker);
+
+                Console.WriteLine(aux.DecLati+" , "+aux.DecLong);
+
+                marker.ToolTipMode = MarkerTooltipMode.Always;
+
+                stopMap.Overlays.Add(markerOverlay);
+            }
+
+            MessageBox.Show("Termino de dibujar las paradas");
+
+        }
+
+        public void drawStations()
+        {
+            //stopMap.Overlays.Clear();
+
+            foreach (var aux in st.GetApp().getStationStop())
+            {
+                stopMap.Position = new PointLatLng(aux.DecLati, aux.DecLong);
+
+                //marcador
+                markerOverlay = new GMapOverlay("Marcador");
+                marker = new GMarkerGoogle(new PointLatLng(aux.DecLati, aux.DecLong), GMarkerGoogleType.blue);
+                markerOverlay.Markers.Add(marker);
+
+                Console.WriteLine(aux.DecLati+" , "+aux.DecLong);
+
+                marker.ToolTipMode = MarkerTooltipMode.Always;
+
+                stopMap.Overlays.Add(markerOverlay);
+            }
+
+            MessageBox.Show("Termino de dibujar las estaciones");
+
+        }
+
+        public void drawZones()
+        {
+            stopMap.Overlays.Clear();
+
+            MessageBox.Show("Termino de dibujar las zonas");
+
+        }*/
+
         private void StopMap_Load(object sender, EventArgs e)
         {
 
             stopMap.DragButton = MouseButtons.Left;
-            stopMap.CanDragMap = true;
             stopMap.MapProvider = GMapProviders.GoogleMap;
-            stopMap.Position = new PointLatLng(3.3417918, -76.5328215);
-            stopMap.MinZoom = 0;
-            stopMap.MaxZoom = 24;
-            stopMap.Zoom = 12;
-            stopMap.AutoScroll = true;
+            double latitud = 3.4372201;
+            double longitud = -76.5224991;
+            stopMap.Position = new PointLatLng(latitud, longitud);
+            stopMap.MinZoom = 1;
+            stopMap.MaxZoom = 100;
+            stopMap.Zoom = 13;
 
             /*char s = '/';
             char b = '1';

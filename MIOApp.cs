@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace MIOStopsVisualization
@@ -49,14 +50,17 @@ namespace MIOStopsVisualization
 
         public void loadElelemts()
         {
-            try
+            XmlSerializer ser = new XmlSerializer(typeof(List<Stop>));
+            string path = "data/StreetStopsList.txt";
+            using (XmlReader reader = XmlReader.Create(path))
             {
-                var stream = File.OpenWrite("data/StreetStopsList.txt");
-                //stream.Read = streetStopList;
-            }catch(Exception e) {
-
+                streetStopList = (List<Stop>)ser.Deserialize(reader);
             }
-            
+            path = "data/StationStopsList.txt";
+            using (XmlReader reader = XmlReader.Create(path))
+            {
+                stationStopList = (List<Stop>)ser.Deserialize(reader);
+            }
         }
     }
 }
