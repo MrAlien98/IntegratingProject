@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataStructures
 {
-    class LinkedList<K, V>
+    public class LinkedList<K, V>
     {
 
         private HashNode<K, V> first;

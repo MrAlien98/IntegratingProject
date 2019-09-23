@@ -9,17 +9,19 @@ using System.Xml.Serialization;
 
 namespace MIOStopsVisualization
 {
-    class MIOApp
-    {
-
-        private Hashtable<string, Stop> list;
+    public class MIOApp
+    { 
+        private Hashtable<string, Stop> hash;
 
         public MIOApp()
         {
-            List = new Hashtable<string, Stop>(100);
+            hash = new Hashtable<string, Stop>(100);
         }
 
-        internal Hashtable<string, Stop> List { get => list; set => list = value; }
+        public Hashtable<string, Stop> getHash()
+        {
+            return hash;
+        }
 
         public void saveElements()
         {

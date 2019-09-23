@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataStructures
 {
-    class Hashtable<K, V>
+    public class Hashtable<K, V>
     {
         public const double X = 128.0;
         public LinkedList<K, V>[] nodes;
@@ -61,7 +61,10 @@ namespace DataStructures
             this.nodes = nodes;
         }
 
-
+        public int size()
+        {
+            return nodes.Length;
+        }
 
     }
 }
