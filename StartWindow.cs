@@ -58,8 +58,6 @@ namespace MIOStopsVisualization
                     }
                     Stop st = new Stop(individual[0], type, individual[2], individual[3], lon, lat);
 
-                    app.getHash().add(individual[0], st);
-
                     if (type==1) {
                         app.getStreetStop().Add(st);
                     }
@@ -81,36 +79,8 @@ namespace MIOStopsVisualization
             }
         }
 
-        /*public void threadReader()
-        {
-            ThreadStart delegado = new ThreadStart(ReadFile);
-            Thread hilo = new Thread(delegado);
-            hilo.Start();
-        }*/
-
         private void heehee()
         {
-            /* char s = '/';
-             char b = '1';
-             char p = '-';
-             char q = ')';
-             char m = '.';
-             char c = '"';
-             String fuck = "\n__________________" + s + c + "_" + s + q +
-                 "\n_________________" + s + c + "_" + m + m + s + 
-                 "\n_______________" + s + m + m + m + "_" + m + s + 
-                 "\n_____________" + s + m + m + m + "_" + m + s + 
-                 "\n_______" + s + c + c + s + c + "_" + m + m + m + c + s + c + c + c + m + 
-                 "¸\n___" + s + c + s + m + m + m + s + m + m + m + "_" + m + s + m + m + m + "_" + m + m + m + m + 
-                 "--\n_" + p + c + p + m + m + m + c + p + m + m + m + "_" + m + m + m + m + m + m + m + "_,~" + s + c + m + m + m + c + q + 
-                 "\n__" + b + m + m + m + m + m + m + m + m + m + m + "_" + m + m + m + m + m + "_" + m + m + b + s + m + m + m + m + s + 
-                 "\n_____" + c + c + m + m + m + b + m + m + m + m + "_" + m + m + m + m + m + "_" + m + "__" + m + m + c + 
-                 "\n______" + b + m + m + m + m + m + m + m + "_" + m + m + m + m + m + "_" + m + m + p + 
-                 "_\n________" + b + m + m + m + m + m + "_" + m + m + m + m + m + "_" + m + m + m + b + 
-                 "_\n__________" + b + m + m + m + m + m + "_" + m + m + m + m + m + "_" + m + m + m + b;
-             MessageBox.Show(fuck);
-             */
-            //threadReader();
             MapWindow mw = new MapWindow(this);
             this.Hide();
             mw.Show();

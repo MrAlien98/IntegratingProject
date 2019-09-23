@@ -1,5 +1,4 @@
-﻿using DataStructures;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,16 +31,32 @@ namespace MIOStopsVisualization
 
         public void saveElements()
         {
-            /*try
+            try
             {
-                var stream = File.OpenWrite("data/StopsList.txt");
-                var xmlSer = new XmlSerializer(typeof(Hashtable<string,Stop>));
-                xmlSer.Serialize(stream, list);
+                var stream = File.OpenWrite("data/StreetStopsList.txt");
+                var xmlSer = new XmlSerializer(typeof(List<Stop>));
+                xmlSer.Serialize(stream, streetStopList);
+
+                var stream2 = File.OpenWrite("data/StationStopsList.txt");
+                xmlSer.Serialize(stream2, stationStopList);
+
                 stream.Close();
             }catch(Exception e)
             {
                 Console.WriteLine(e.Message);
-            }*/
+            }
+        }
+
+        public void loadElelemts()
+        {
+            try
+            {
+                var stream = File.OpenWrite("data/StreetStopsList.txt");
+                //stream.Read = streetStopList;
+            }catch(Exception e) {
+
+            }
+            
         }
     }
 }
