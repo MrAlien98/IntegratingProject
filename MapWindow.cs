@@ -65,15 +65,6 @@ namespace MIOStopsVisualization
 
             for (int i = 0; i < st.GetApp().getStationStop().Count; i++)
             {
-                stopMap.DragButton = MouseButtons.Left;
-                stopMap.CanDragMap = true;
-                stopMap.MapProvider = GMapProviders.GoogleMap;
-                stopMap.Position = new PointLatLng(st.GetApp().getStationStop()[i].DecLati, st.GetApp().getStationStop()[i].DecLong);
-                stopMap.MinZoom = 0;
-                stopMap.MaxZoom = 24;
-                stopMap.Zoom = 12;
-                stopMap.AutoScroll = true;
-
                 //marcador
                 markerOverlay = new GMapOverlay("Marcador");
                 marker = new GMarkerGoogle(new PointLatLng(st.GetApp().getStationStop()[i].DecLati, st.GetApp().getStationStop()[i].DecLong), GMarkerGoogleType.blue);
