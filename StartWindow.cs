@@ -16,13 +16,14 @@ namespace MIOStopsVisualization
 {
     public partial class StartWindow : Form
     {
-
         public MIOApp app;
         public StartWindow()
         {
+            InitializeComponent();
+
             app = new MIOApp();
             ReadFile();
-            InitializeComponent();
+
             Image banner = Image.FromFile("images/MIO_Logo.jpg");
             imgBanner.Image = banner;
         }
@@ -81,8 +82,8 @@ namespace MIOStopsVisualization
 
         private void heehee()
         {
-            MapWindow mw = new MapWindow(this);
             this.Hide();
+            MapWindow mw = new MapWindow(this);
             mw.Show();
         }
     }

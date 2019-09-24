@@ -16,11 +16,6 @@ namespace MIOStopsVisualization
 {
     public partial class MapWindow : Form
     {
-
-        GMarkerGoogle marker;
-        GMapOverlay markerOverlay;
-        String nombre = "";
-
         StartWindow st;
 
         public MapWindow(StartWindow st)
@@ -29,6 +24,7 @@ namespace MIOStopsVisualization
             InitializeComponent();
 
             var options = new List<String>();
+            options.Add(" ");
             options.Add("Estaciones");
             options.Add("Paradas");
             options.Add("Zonas");
@@ -44,121 +40,53 @@ namespace MIOStopsVisualization
 
         private void drawStops()
         {
-            stopMap.Overlays.Clear();
-
-            for (int i = 0; i < st.GetApp().getStreetStop().Count; i++)
-            {
-                PointLatLng point = new PointLatLng(st.GetApp().getStreetStop()[i].DecLati, st.GetApp().getStreetStop()[i].DecLong);
-                GMapMarker theMarker = new GMarkerGoogle(point, GMarkerGoogleType.blue_dot);
-
-                GMapOverlay markers = new GMapOverlay("markers");
-                markers.Markers.Add(theMarker);
-                stopMap.Overlays.Add(markers);
-            }
-
-            MessageBox.Show("Termino de dibujar las paradas");
-        }
-
-        public void drawStations()
-        {
-            stopMap.Overlays.Clear();
-
-            for (int i = 0; i < st.GetApp().getStationStop().Count; i++)
-            {
-                //marcador
-                markerOverlay = new GMapOverlay("Marcador");
-                marker = new GMarkerGoogle(new PointLatLng(st.GetApp().getStationStop()[i].DecLati, st.GetApp().getStationStop()[i].DecLong), GMarkerGoogleType.blue);
-                markerOverlay.Markers.Add(marker);
-
-                marker.ToolTipMode = MarkerTooltipMode.Always;
-
-                stopMap.Overlays.Add(markerOverlay);
-            }
-
-            MessageBox.Show("Termino de dibujar las estaciones");
-
-        }
-
-        public void drawZones()
-        {
-            stopMap.Overlays.Clear();
-
-            stopMap.DragButton = MouseButtons.Left;
-            stopMap.CanDragMap = true;
-            stopMap.MapProvider = GMapProviders.GoogleMap;
-            stopMap.Position = new PointLatLng(3.3417918, -76.5328215);
-            stopMap.MinZoom = 0;
-            stopMap.MaxZoom = 24;
-            stopMap.Zoom = 12;
-            stopMap.AutoScroll = true;
-
-            MessageBox.Show("Termino de dibujar las zonas");
-
-        }
-
-
-
-
-        /*private void drawStops()
-        {
-            //stopMap.Overlays.Clear();
-           
+            GMapOverlay markers = new GMapOverlay("markers");
             foreach (var aux in st.GetApp().getStreetStop())
             {
-                
-                stopMap.Position = new PointLatLng(aux.DecLati, aux.DecLong);
-             
-                //marcador
-                markerOverlay = new GMapOverlay("Marcador");
-                marker = new GMarkerGoogle(new PointLatLng(aux.DecLati, aux.DecLong), GMarkerGoogleType.blue);
-                markerOverlay.Markers.Add(marker);
-
-                Console.WriteLine(aux.DecLati+" , "+aux.DecLong);
-
-                marker.ToolTipMode = MarkerTooltipMode.Always;
-
-                stopMap.Overlays.Add(markerOverlay);
+                    streetsMarker(aux.DecLati, aux.DecLati);
             }
-
+            stopMap.Overlays.Add(markers);
             MessageBox.Show("Termino de dibujar las paradas");
+        }
 
+        private void streetsMarker(double lat, double lng)
+        {
+            PointLatLng point = new PointLatLng(lat, lng);
+            GMapMarker theMarker = new GMarkerGoogle(point, GMarkerGoogleType.red_dot);
+
+            GMapOverlay markers = new GMapOverlay("markers");
+
+            markers.Markers.Add(theMarker);
+            stopMap.Overlays.Add(markers);
         }
 
         public void drawStations()
         {
-            //stopMap.Overlays.Clear();
-
             foreach (var aux in st.GetApp().getStationStop())
             {
-                stopMap.Position = new PointLatLng(aux.DecLati, aux.DecLong);
-
-                //marcador
-                markerOverlay = new GMapOverlay("Marcador");
-                marker = new GMarkerGoogle(new PointLatLng(aux.DecLati, aux.DecLong), GMarkerGoogleType.blue);
-                markerOverlay.Markers.Add(marker);
-
-                Console.WriteLine(aux.DecLati+" , "+aux.DecLong);
-
-                marker.ToolTipMode = MarkerTooltipMode.Always;
-
-                stopMap.Overlays.Add(markerOverlay);
+                    stationsMarker(aux.DecLati, aux.DecLati);
             }
-
             MessageBox.Show("Termino de dibujar las estaciones");
+        }
 
+        private void stationsMarker(double lat, double lng)
+        {
+            PointLatLng point = new PointLatLng(lat, lng);
+            GMapMarker theMarker = new GMarkerGoogle(point, GMarkerGoogleType.blue_dot);
+
+            GMapOverlay markers = new GMapOverlay("markers");
+         
+            markers.Markers.Add(theMarker);
+            stopMap.Overlays.Add(markers);
         }
 
         public void drawZones()
         {
-            stopMap.Overlays.Clear();
-
             MessageBox.Show("Termino de dibujar las zonas");
-
-        }*/
+        }
 
         private void StopMap_Load(object sender, EventArgs e)
         {
-
             stopMap.DragButton = MouseButtons.Left;
             stopMap.MapProvider = GMapProviders.GoogleMap;
             double latitud = 3.4372201;
@@ -199,17 +127,24 @@ namespace MIOStopsVisualization
         {
             int ind = optionComBox.SelectedIndex;
 
-            if (ind == 0 )
+            if (ind == 1 )
             {
                 drawStations();
-            }else if(ind == 1)
+            }else if(ind == 2)
             {
                 drawStops();
             }
-            else
+            else if(ind == 3)
             {
                 drawZones();
             }
+            else
+            {
+
+            }
         }
+
+
+
     }
 }
