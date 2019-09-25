@@ -43,7 +43,7 @@ namespace MIOStopsVisualization
             GMapOverlay markers = new GMapOverlay("markers");
             foreach (var aux in st.GetApp().getStreetStop())
             {
-                    streetsMarker(aux.DecLati, aux.DecLati);
+                streetsMarker(aux.DecLati, aux.DecLong);
             }
             stopMap.Overlays.Add(markers);
             MessageBox.Show("Termino de dibujar las paradas");
@@ -64,7 +64,7 @@ namespace MIOStopsVisualization
         {
             foreach (var aux in st.GetApp().getStationStop())
             {
-                    stationsMarker(aux.DecLati, aux.DecLati);
+                stationsMarker(aux.DecLati, aux.DecLong);
             }
             MessageBox.Show("Termino de dibujar las estaciones");
         }
