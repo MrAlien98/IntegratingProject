@@ -1,4 +1,8 @@
-﻿using System;
+﻿using GMap.NET;
+using GMap.NET.MapProviders;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,12 +24,18 @@ namespace MIOStopsVisualization
         public StartWindow()
         {
             InitializeComponent();
-
             app = new MIOApp();
-            ReadFile();
 
-            Image banner = Image.FromFile("images/MIO_Logo.jpg");
-            imgBanner.Image = banner;
+            //ReadFile();
+
+            var options = new List<String>();
+            options.Add(" ");
+            options.Add("Estaciones");
+            options.Add("Paradas");
+            options.Add("Zonas");
+            this.optionComBox.DataSource = options;
+
+            this.optionComBox.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         public MIOApp GetApp()
@@ -33,7 +43,7 @@ namespace MIOStopsVisualization
             return app;
         }
 
-        public void ReadFile()
+        /*public void ReadFile()
         {
             try
             {
@@ -46,8 +56,8 @@ namespace MIOStopsVisualization
                     int type = 0;
                     String[] individual = line.Split(',');
 
-                    double lat = double.Parse(individual[6], CultureInfo.InvariantCulture);
-                    double lon = double.Parse(individual[7], CultureInfo.InvariantCulture); ;
+                    double lat = double.Parse(individual[7], CultureInfo.InvariantCulture);
+                    double lon = double.Parse(individual[6], CultureInfo.InvariantCulture);
 
                     if (individual[3].Contains("con") || individual[3].Contains("entre"))
                     {
@@ -69,22 +79,108 @@ namespace MIOStopsVisualization
                     i++;
                 }
                 app.saveElements();
-                heehee();
-                /*watch.Stop();
+                watch.Stop();
                 var elapsedMs = watch.ElapsedMilliseconds;
-                var timef = elapsedMs * 0.001;*/
+                var timef = elapsedMs * 0.001;
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
+        }*/
+
+
+        private void StopMap_Load(object sender, EventArgs e)
+        {
+            stopMap.DragButton = MouseButtons.Left;
+            stopMap.MapProvider = GMapProviders.GoogleMap;
+            double latitud = 3.4372201;
+            double longitud = -76.5224991;
+            stopMap.Position = new PointLatLng(latitud, longitud);
+            stopMap.MinZoom = 1;
+            stopMap.MaxZoom = 100;
+            stopMap.Zoom = 13;
         }
 
-        private void heehee()
+
+        private void drawStops()
         {
-            this.Hide();
-            MapWindow mw = new MapWindow(this);
-            mw.Show();
+            stopMap.Overlays.Clear();
+
+            GMapOverlay markers = new GMapOverlay("markers");
+            foreach (var aux in GetApp().getStreetStop())
+            {
+                streetsMarker(aux.DecLati, aux.DecLong);
+            }
+            stopMap.Overlays.Add(markers);
+            MessageBox.Show("Termino de dibujar las paradas");
         }
+
+        private void streetsMarker(double lat, double lng)
+        {
+            PointLatLng point = new PointLatLng(lat, lng);
+            GMapMarker theMarker = new GMarkerGoogle(point, GMarkerGoogleType.red_dot);
+
+            GMapOverlay markers = new GMapOverlay("markers");
+
+            markers.Markers.Add(theMarker);
+            stopMap.Overlays.Add(markers);
+        }
+
+        public void drawStations()
+        {
+            stopMap.Overlays.Clear();
+
+            foreach (var aux in GetApp().getStationStop())
+            {
+                stationsMarker(aux.DecLati, aux.DecLong);
+            }
+            MessageBox.Show("Termino de dibujar las estaciones");
+        }
+
+        private void stationsMarker(double lat, double lng)
+        {
+            PointLatLng point = new PointLatLng(lat, lng);
+            GMapMarker theMarker = new GMarkerGoogle(point, GMarkerGoogleType.blue_dot);
+
+            GMapOverlay markers = new GMapOverlay("markers");
+
+            markers.Markers.Add(theMarker);
+            stopMap.Overlays.Add(markers);
+        }
+
+        public void drawZones()
+        {
+            MessageBox.Show("Termino de dibujar las zonas");
+        }
+
+        private void OptionComBox_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            verification();
+        }
+
+        private void verification()
+        {
+            int ind = optionComBox.SelectedIndex;
+
+            if (ind == 1)
+            {
+                drawStations();
+            }
+            else if (ind == 2)
+            {
+                drawStops();
+            }
+            else if (ind == 3)
+            {
+                drawZones();
+            }
+            else
+            {
+
+            }
+        }
+
+        
     }
 }

@@ -17,7 +17,6 @@ C:\Users\1143876043\Downloads\IntegratingProject-master\bin\Debug\MIOStopsVisual
 C:\Users\1143876043\Downloads\IntegratingProject-master\bin\Debug\GMap.NET.Core.dll
 C:\Users\1143876043\Downloads\IntegratingProject-master\bin\Debug\GMap.NET.WindowsForms.dll
 C:\Users\1143876043\Downloads\IntegratingProject-master\obj\Debug\MIOStopsVisualization.csprojAssemblyReference.cache
-C:\Users\1143876043\Downloads\IntegratingProject-master\obj\Debug\MIOStopsVisualization.MapWindow.resources
 C:\Users\1143876043\Downloads\IntegratingProject-master\obj\Debug\MIOStopsVisualization.StartWindow.resources
 C:\Users\1143876043\Downloads\IntegratingProject-master\obj\Debug\MIOStopsVisualization.Properties.Resources.resources
 C:\Users\1143876043\Downloads\IntegratingProject-master\obj\Debug\MIOStopsVisualization.csproj.GenerateResource.cache

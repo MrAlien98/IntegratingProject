@@ -16,8 +16,9 @@ namespace MIOStopsVisualization
 
         public MIOApp()
         {
-            streetStopList = new List<Stop>();
-            stationStopList = new List<Stop>();
+            loadElements();
+            //streetStopList = new List<Stop>();
+            //stationStopList = new List<Stop>();
         }
 
         public List<Stop> getStreetStop()
@@ -48,7 +49,7 @@ namespace MIOStopsVisualization
             }
         }
 
-        public void loadElelemts()
+        public void loadElements()
         {
             XmlSerializer ser = new XmlSerializer(typeof(List<Stop>));
             string path = "data/StreetStopsList.txt";
