@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -35,33 +36,36 @@ namespace MIOStopsVisualization
         {
             try
             {
-                var stream = File.OpenWrite("data/StreetStopsList.txt");
-                var xmlSer = new XmlSerializer(typeof(List<Stop>));
-                xmlSer.Serialize(stream, streetStopList);
+                BinaryFormatter format = new BinaryFormatter();
+                FileStream stream = new FileStream("data/StreetStopsList.txt", FileMode.Create);
+                format.Serialize(stream, streetStopList);
 
-                var stream2 = File.OpenWrite("data/StationStopsList.txt");
-                xmlSer.Serialize(stream2, stationStopList);
+                FileStream stream2 = new FileStream("data/StationStopsList.txt", FileMode.Create);
+                format.Serialize(stream2, stationStopList);
 
                 stream.Close();
-            }catch(Exception e)
+                stream2.Close();
+            }
+            catch(Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+            
         }
 
         public void loadElements()
         {
-            XmlSerializer ser = new XmlSerializer(typeof(List<Stop>));
-            string path = "data/StreetStopsList.txt";
-            using (XmlReader reader = XmlReader.Create(path))
-            {
-                streetStopList = (List<Stop>)ser.Deserialize(reader);
-            }
-            path = "data/StationStopsList.txt";
-            using (XmlReader reader = XmlReader.Create(path))
-            {
-                stationStopList = (List<Stop>)ser.Deserialize(reader);
-            }
+            BinaryFormatter format = new BinaryFormatter();
+
+            FileStream stream = new FileStream("data/StreetStopsList.txt", FileMode.Open);
+
+            FileStream stream2 = new FileStream("data/StationStopsList.txt", FileMode.Open);
+
+            streetStopList = (List<Stop>) format.Deserialize(stream);
+            stationStopList = (List<Stop>)format.Deserialize(stream2);
+
+            stream.Close();
+            stream2.Close();
         }
     }
 }

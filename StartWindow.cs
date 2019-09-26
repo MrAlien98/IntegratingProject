@@ -43,7 +43,7 @@ namespace MIOStopsVisualization
             return app;
         }
 
-        /*public void ReadFile()
+        public void ReadFile()
         {
             try
             {
@@ -79,15 +79,15 @@ namespace MIOStopsVisualization
                     i++;
                 }
                 app.saveElements();
-                watch.Stop();
-                var elapsedMs = watch.ElapsedMilliseconds;
-                var timef = elapsedMs * 0.001;
+                //watch.Stop();
+                //var elapsedMs = watch.ElapsedMilliseconds;
+                //var timef = elapsedMs * 0.001;
             }
             catch (Exception e)
-            {
+            { 
                 MessageBox.Show(e.Message);
             }
-        }*/
+        }
 
 
         private void StopMap_Load(object sender, EventArgs e)

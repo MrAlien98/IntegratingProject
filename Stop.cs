@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MIOStopsVisualization
 { 
+    [Serializable]
     public class Stop
     {
         public const int StreetStop = 1;
