@@ -139,3 +139,27 @@ C:\Users\c\Documents\universidad\Semestre 6\integrador\IntegratingProject\obj\De
 C:\Users\c\Documents\universidad\Semestre 6\integrador\IntegratingProject\obj\Debug\MIOStopsVisualization.csproj.CopyComplete
 C:\Users\c\Documents\universidad\Semestre 6\integrador\IntegratingProject\obj\Debug\MIOStopsVisualization.exe
 C:\Users\c\Documents\universidad\Semestre 6\integrador\IntegratingProject\obj\Debug\MIOStopsVisualization.pdb
+D:\Git\IntegratingProject\bin\Debug\MIOStopsVisualization.exe.config
+D:\Git\IntegratingProject\bin\Debug\MIOStopsVisualization.exe
+D:\Git\IntegratingProject\bin\Debug\MIOStopsVisualization.pdb
+D:\Git\IntegratingProject\bin\Debug\EntityFramework.dll
+D:\Git\IntegratingProject\bin\Debug\EntityFramework.SqlServer.dll
+D:\Git\IntegratingProject\bin\Debug\GMap.NET.Core.dll
+D:\Git\IntegratingProject\bin\Debug\GMap.NET.WindowsForms.dll
+D:\Git\IntegratingProject\bin\Debug\GMap.NET.WindowsPresentation.dll
+D:\Git\IntegratingProject\bin\Debug\Newtonsoft.Json.dll
+D:\Git\IntegratingProject\bin\Debug\System.Data.SQLite.dll
+D:\Git\IntegratingProject\bin\Debug\System.Data.SQLite.EF6.dll
+D:\Git\IntegratingProject\bin\Debug\System.Data.SQLite.Linq.dll
+D:\Git\IntegratingProject\bin\Debug\EntityFramework.xml
+D:\Git\IntegratingProject\bin\Debug\EntityFramework.SqlServer.xml
+D:\Git\IntegratingProject\bin\Debug\Newtonsoft.Json.xml
+D:\Git\IntegratingProject\bin\Debug\System.Data.SQLite.xml
+D:\Git\IntegratingProject\bin\Debug\System.Data.SQLite.dll.config
+D:\Git\IntegratingProject\obj\Debug\MIOStopsVisualization.csprojAssemblyReference.cache
+D:\Git\IntegratingProject\obj\Debug\MIOStopsVisualization.StartWindow.resources
+D:\Git\IntegratingProject\obj\Debug\MIOStopsVisualization.Properties.Resources.resources
+D:\Git\IntegratingProject\obj\Debug\MIOStopsVisualization.csproj.GenerateResource.cache
+D:\Git\IntegratingProject\obj\Debug\MIOStopsVisualization.csproj.CopyComplete
+D:\Git\IntegratingProject\obj\Debug\MIOStopsVisualization.exe
+D:\Git\IntegratingProject\obj\Debug\MIOStopsVisualization.pdb

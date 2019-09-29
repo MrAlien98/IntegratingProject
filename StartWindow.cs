@@ -27,12 +27,12 @@ namespace MIOStopsVisualization
             app = new MIOApp();
 
             //ReadFile();
-
+            label1.BackColor = Color.Transparent;
             var options = new List<String>();
             options.Add(" ");
-            options.Add("Estaciones");
-            options.Add("Paradas");
-            options.Add("Zonas");
+            options.Add("ESTACIONES");
+            options.Add("PARADAS");
+            options.Add("ZONAS");
             this.optionComBox.DataSource = options;
 
             this.optionComBox.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -181,6 +181,34 @@ namespace MIOStopsVisualization
             }
         }
 
-        
+        private void label1_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btnSatelite_Click(object sender, EventArgs e)
+        {
+            stopMap.MapProvider = GMapProviders.GoogleChinaSatelliteMap;
+        }
+
+        private void btnNormal_Click(object sender, EventArgs e)
+        {
+            stopMap.MapProvider = GMapProviders.GoogleMap;
+        }
+
+        private void btnRelieve_Click(object sender, EventArgs e)
+        {
+            stopMap.MapProvider = GMapProviders.GoogleTerrainMap;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            tbZoom.Value = Convert.ToInt32(stopMap.Zoom);
+        }
+
+        private void tbZoom_ValueChanged(object sender, EventArgs e)
+        {
+            stopMap.Zoom = tbZoom.Value;
+        }
     }
 }
