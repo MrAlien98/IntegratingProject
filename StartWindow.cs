@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows.Forms; 
 
 namespace MIOStopsVisualization
 {
@@ -22,13 +22,14 @@ namespace MIOStopsVisualization
     {
         public static MIOApp app;
 
+        int index;
         public static GMapMarker testBus;
 
         public StartWindow()
         {
             testBus = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(
                         new GMap.NET.PointLatLng(3.4041000, -76.5467650),
-                            new Bitmap("images/bus-stop (1).png"));
+                            new Bitmap("images/MIO_BUS.png"));
             GMapOverlay markers = new GMapOverlay("markers");
 
             markers.Markers.Add(testBus);
@@ -38,8 +39,8 @@ namespace MIOStopsVisualization
             stopMap.Overlays.Add(markers);
 
             app = new MIOApp();
-
-            app.setTestBus("34041000", "-765467650", "238");
+            index = 0;
+            app.setTestBus("34041000", "-765467650", "383");
 
             saveCoordinates();
 
@@ -54,19 +55,6 @@ namespace MIOStopsVisualization
 
             this.optionComBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            Run();
-        }
-
-        public static void Run()
-        {
-            int seconds = 1 * 1000;
-
-            var timer = new System.Threading.Timer(TimerMethod, null, 0, seconds);
-        }
-
-        public static void TimerMethod(object o)
-        {
-            testBus.Position = new PointLatLng(3.4041000, -76.5467650);          
         }
 
         public void saveCoordinates()
@@ -74,7 +62,7 @@ namespace MIOStopsVisualization
             try
             {
                 string line = "";
-                StreamReader sr = new StreamReader("data/stops.csv");
+                StreamReader sr = new StreamReader("data/BDTEXTO.txt");
                 while ((line = sr.ReadLine()) != null)
                 {
                     if (line.Split(',')[3].Equals(app.getTestBus().getBusId()))
@@ -484,6 +472,23 @@ namespace MIOStopsVisualization
         private void tbZoom_ValueChanged(object sender, EventArgs e)
         {
             stopMap.Zoom = tbZoom.Value;
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            if (index < app.getTestBus().getCoordinates().Count)
+            {
+                double newLat = app.getTestBus().getCoordinates()[index].Key;
+                double newLon = app.getTestBus().getCoordinates()[index].Value;
+                testBus.Position = new PointLatLng(newLat, newLon);
+                index++;
+
+            }
+            else
+            {
+                timer2.Stop();
+            }
+            
         }
     }
 }

@@ -8,8 +8,6 @@ namespace MIOStopsVisualization
 {
     public class Bus
     {
-        public int index;
-
         private double lat;
         private double lon;
         private string busId;
@@ -18,25 +16,11 @@ namespace MIOStopsVisualization
 
         public Bus(double lat, double lon, string busId)
         {
-            index = 0;
             this.lat = lat;
             this.lon = lon;
             this.busId = busId;
             coordinates = new List<KeyValuePair<double, double>>();
-        }
-
-        public void setIndex()
-        {
-            index++;
-            if (index >= coordinates.Count)
-            {
-                index = 0;
-            }
-        }
-
-        public int getIndex()
-        {
-            return index;
+            coordinates.Add(new KeyValuePair<double, double>(lat, lon));
         }
 
         public void setLat(double lat)
