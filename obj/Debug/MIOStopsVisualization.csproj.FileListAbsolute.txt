@@ -106,7 +106,6 @@ C:\Users\c\Desktop\C#\IntegratingProject\bin\Debug\Newtonsoft.Json.xml
 C:\Users\c\Desktop\C#\IntegratingProject\bin\Debug\System.Data.SQLite.xml
 C:\Users\c\Desktop\C#\IntegratingProject\bin\Debug\System.Data.SQLite.dll.config
 C:\Users\c\Desktop\C#\IntegratingProject\obj\Debug\MIOStopsVisualization.csprojAssemblyReference.cache
-C:\Users\c\Desktop\C#\IntegratingProject\obj\Debug\MIOStopsVisualization.MapWindow.resources
 C:\Users\c\Desktop\C#\IntegratingProject\obj\Debug\MIOStopsVisualization.StartWindow.resources
 C:\Users\c\Desktop\C#\IntegratingProject\obj\Debug\MIOStopsVisualization.Properties.Resources.resources
 C:\Users\c\Desktop\C#\IntegratingProject\obj\Debug\MIOStopsVisualization.csproj.GenerateResource.cache
