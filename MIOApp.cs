@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -15,11 +16,30 @@ namespace MIOStopsVisualization
         private List<Stop> streetStopList;
         private List<Stop> stationStopList;
 
+        private Bus testBus;
+
         public MIOApp()
         {
             loadElements();
+            testBus = null;
             //streetStopList = new List<Stop>();
             //stationStopList = new List<Stop>();
+        }
+
+        public double adjustCoordinates(string value)
+        {
+            double result = double.Parse(value, CultureInfo.InvariantCulture);
+            return result / 10000000;
+        }
+
+        public void setTestBus(string lat, string lon, string busId)
+        {
+            this.testBus = new Bus(adjustCoordinates(lat), adjustCoordinates(lon), busId);
+        }
+
+        public Bus getTestBus()
+        {
+            return testBus;
         }
 
         public List<Stop> getStreetStop()

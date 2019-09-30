@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bus.cs" />
     <Compile Include="MIOApp.cs" />
     <Compile Include="StartWindow.cs">
       <SubType>Form</SubType>

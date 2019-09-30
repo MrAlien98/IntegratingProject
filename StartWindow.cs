@@ -20,11 +20,28 @@ namespace MIOStopsVisualization
 {
     public partial class StartWindow : Form
     {
-        public MIOApp app;
+        public static MIOApp app;
+
+        public static GMapMarker testBus;
+
         public StartWindow()
         {
+            testBus = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(
+                        new GMap.NET.PointLatLng(3.4041000, -76.5467650),
+                            new Bitmap("images/bus-stop (1).png"));
+            GMapOverlay markers = new GMapOverlay("markers");
+
+            markers.Markers.Add(testBus);
+
             InitializeComponent();
+
+            stopMap.Overlays.Add(markers);
+
             app = new MIOApp();
+
+            app.setTestBus("34041000", "-765467650", "238");
+
+            saveCoordinates();
 
             //ReadFile();
             label1.BackColor = Color.Transparent;
@@ -36,6 +53,43 @@ namespace MIOStopsVisualization
             this.optionComBox.DataSource = options;
 
             this.optionComBox.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            Run();
+        }
+
+        public static void Run()
+        {
+            int seconds = 1 * 1000;
+
+            var timer = new System.Threading.Timer(TimerMethod, null, 0, seconds);
+        }
+
+        public static void TimerMethod(object o)
+        {
+            testBus.Position = new PointLatLng(3.4041000, -76.5467650);          
+        }
+
+        public void saveCoordinates()
+        {
+            try
+            {
+                string line = "";
+                StreamReader sr = new StreamReader("data/stops.csv");
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if (line.Split(',')[3].Equals(app.getTestBus().getBusId()))
+                    {
+                        double newLat = app.adjustCoordinates(line.Split(',')[0]);
+                        double newLon = app.adjustCoordinates(line.Split(',')[1]);
+
+                        app.getTestBus().getCoordinates().Add(new KeyValuePair<double, double>(newLat, newLon));
+                    }
+                }
+            } 
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         public MIOApp GetApp()
