@@ -24,6 +24,15 @@ namespace MIOStopsVisualization
 
         int index;
         public static GMapMarker testBus;
+        GMapOverlay zona0;
+        GMapOverlay zona1;
+        GMapOverlay zona2;
+        GMapOverlay zona3;
+        GMapOverlay zona4;
+        GMapOverlay zona5;
+        GMapOverlay zona6;
+        GMapOverlay zona7;
+        GMapOverlay zona8;
 
         public StartWindow()
         {
@@ -45,7 +54,7 @@ namespace MIOStopsVisualization
             saveCoordinates();
 
             //ReadFile();
-            label1.BackColor = Color.Transparent;
+            lbOpt.BackColor = Color.Transparent;
             var options = new List<String>();
             options.Add(" ");
             options.Add("ESTACIONES");
@@ -197,9 +206,31 @@ namespace MIOStopsVisualization
 
         public void drawZones()
         {
+            cbCentro.Visible = true;
+            cbMenga.Visible = true;
+            cbCalima.Visible = true;
+            cbAguablanca.Visible = true;
+            cbCiudadCordoba.Visible = true;
+            cbCañaveralejo.Visible = true;
+            cbValleDeLili.Visible = true;
+            cbPrado.Visible = true;
+            cbGuadalupe.Visible = true;
+            lbOpt.Location = new Point(12,271);
+            optionComBox.Location = new Point(40,300);
+            btnSatelite.Location = new Point(25, 501);
+            btnRelieve.Location = new Point(106, 501);
+            btnNormal.Location = new Point(64, 530);
+            LbZoom.Location = new Point(37, 556);
+            tbZoom.Location = new Point(40, 572);
             stopMap.Overlays.Clear();
-            GMapOverlay zonas = new GMapOverlay("Zonas");
-            //CENTRO ZONA 0
+
+
+
+        }
+
+        public void drawZone0()
+        {
+            zona0 = new GMapOverlay("Zonas");
             List<PointLatLng> puntosZ0 = new List<PointLatLng>();
             puntosZ0.Add(new PointLatLng(3.458952, -76.513447));
             puntosZ0.Add(new PointLatLng(3.463029, -76.521014));
@@ -216,8 +247,17 @@ namespace MIOStopsVisualization
             puntosZ0.Add(new PointLatLng(3.434846, -76.523287));
             puntosZ0.Add(new PointLatLng(3.443270, -76.518067));
 
+            GMapPolygon poligonoZ0 = new GMapPolygon(puntosZ0, "CENTRO");
+            zona0.Polygons.Add(poligonoZ0);
+            stopMap.Overlays.Add(zona0);
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
 
-            //VALLE DE LILI ZONA 1
+        }
+
+        public void drawZone1()
+        {
+            zona1 = new GMapOverlay("Zona 1");
             List<PointLatLng> puntosZ1 = new List<PointLatLng>();
             puntosZ1.Add(new PointLatLng(3.387889, -76.513426));
             puntosZ1.Add(new PointLatLng(3.388507, -76.519616));
@@ -247,9 +287,17 @@ namespace MIOStopsVisualization
             puntosZ1.Add(new PointLatLng(3.366069, -76.508377));
             puntosZ1.Add(new PointLatLng(3.371381, -76.509578));
             puntosZ1.Add(new PointLatLng(3.382049, -76.507089));
+            GMapPolygon poligonoZ1 = new GMapPolygon(puntosZ1, "VALLE DE LILI");
+            zona1.Polygons.Add(poligonoZ1);
+            stopMap.Overlays.Add(zona1);
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
 
+        }
 
-            //MENGA ZONA 2
+        public void drawZone2()
+        {
+            zona2 = new GMapOverlay("Zona 2");
             List<PointLatLng> puntosZ2 = new List<PointLatLng>();
             puntosZ2.Add(new PointLatLng(3.463029, -76.521014));
             puntosZ2.Add(new PointLatLng(3.460478, -76.527052));
@@ -278,9 +326,17 @@ namespace MIOStopsVisualization
             puntosZ2.Add(new PointLatLng(3.505948, -76.500053));
             puntosZ2.Add(new PointLatLng(3.505516, -76.492691));
             puntosZ2.Add(new PointLatLng(3.499343, -76.492160));
+            GMapPolygon poligonoZ2 = new GMapPolygon(puntosZ2, "MENGA");
+            zona2.Polygons.Add(poligonoZ2);
+            stopMap.Overlays.Add(zona2);
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
 
+        }
 
-            //CALIMA ZONA 3
+        public void drawZone3()
+        {
+            zona3 = new GMapOverlay("Zona 3");
             List<PointLatLng> puntosZ3 = new List<PointLatLng>();
             puntosZ3.Add(new PointLatLng(3.499343, -76.492160));
             puntosZ3.Add(new PointLatLng(3.497010, -76.485022));
@@ -291,11 +347,18 @@ namespace MIOStopsVisualization
             puntosZ3.Add(new PointLatLng(3.468334, -76.475987));
             puntosZ3.Add(new PointLatLng(3.458952, -76.513447));
             puntosZ3.Add(new PointLatLng(3.463029, -76.521014));
+            GMapPolygon poligonoZ3 = new GMapPolygon(puntosZ3, "CALIMA");
+            zona3.Polygons.Add(poligonoZ3);
+            stopMap.Overlays.Add(zona3);
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
+        }
 
-
-            //AGUABLANCA ZONA 4
+        public void drawZone4()
+        {
+            zona4 = new GMapOverlay("Zona4");
             List<PointLatLng> puntosZ4 = new List<PointLatLng>();
-            puntosZ4.Add(new PointLatLng(3.443270,  -76.518067));
+            puntosZ4.Add(new PointLatLng(3.443270, -76.518067));
             puntosZ4.Add(new PointLatLng(3.458952, -76.513447));
             puntosZ4.Add(new PointLatLng(3.468334, -76.475987));
             puntosZ4.Add(new PointLatLng(3.465410, -76.474958));
@@ -310,9 +373,17 @@ namespace MIOStopsVisualization
             puntosZ4.Add(new PointLatLng(3.428568, -76.483722));
             puntosZ4.Add(new PointLatLng(3.446679, -76.484064));
             puntosZ4.Add(new PointLatLng(3.443159, -76.493519));
+            GMapPolygon poligonoZ4 = new GMapPolygon(puntosZ4, "AGUABLANCA");
+            zona4.Polygons.Add(poligonoZ4);
+            stopMap.Overlays.Add(zona4);
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
 
+        }
 
-            //CIUDAD CORDOBA ZONA 5
+        public void drawZone5()
+        {
+            zona5 = new GMapOverlay("Zonas 5");
             List<PointLatLng> puntosZ5 = new List<PointLatLng>();
             puntosZ5.Add(new PointLatLng(3.443827, -76.491165));
             puntosZ5.Add(new PointLatLng(3.428302, -76.498642));
@@ -334,9 +405,17 @@ namespace MIOStopsVisualization
             puntosZ5.Add(new PointLatLng(3.418084, -76.486381));
             puntosZ5.Add(new PointLatLng(3.428568, -76.483722));
             puntosZ5.Add(new PointLatLng(3.446679, -76.484064));
+            GMapPolygon poligonoZ5 = new GMapPolygon(puntosZ5, "CIUDAD CORDOBA");
+            zona5.Polygons.Add(poligonoZ5);
+            stopMap.Overlays.Add(zona5);
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
 
+        }
 
-            //GUADALUPE ZONA 6
+        public void drawZone6()
+        {
+            zona6 = new GMapOverlay("Zona 6");
             List<PointLatLng> puntosZ6 = new List<PointLatLng>();
             puntosZ6.Add(new PointLatLng(3.419485, -76.508024));
             puntosZ6.Add(new PointLatLng(3.419999, -76.508604));
@@ -360,8 +439,16 @@ namespace MIOStopsVisualization
             puntosZ6.Add(new PointLatLng(3.402954, -76.520984));
             puntosZ6.Add(new PointLatLng(3.404841, -76.518878));
             puntosZ6.Add(new PointLatLng(3.407200, -76.521070));
+            GMapPolygon poligonoZ6 = new GMapPolygon(puntosZ6, "GUADALUPE");
+            zona6.Polygons.Add(poligonoZ6);
+            stopMap.Overlays.Add(zona6);
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
+        }
 
-            //CAÑAVERALEJO ZONA 7
+        public void drawZone7()
+        {
+            zona7 = new GMapOverlay("Zona 7");
             List<PointLatLng> puntosZ7 = new List<PointLatLng>();
             puntosZ7.Add(new PointLatLng(3.428423, -76.533186));
             puntosZ7.Add(new PointLatLng(3.441510, -76.536748));
@@ -378,9 +465,16 @@ namespace MIOStopsVisualization
             puntosZ7.Add(new PointLatLng(3.386310, -76.544481));
             puntosZ7.Add(new PointLatLng(3.398277, -76.542537));
             puntosZ7.Add(new PointLatLng(3.398191, -76.538025));
+            GMapPolygon poligonoZ7 = new GMapPolygon(puntosZ7, "CAÑAVERALEJO");
+            zona7.Polygons.Add(poligonoZ7);
+            stopMap.Overlays.Add(zona7);
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
+        }
 
-
-            //PRADO ZONA 8
+        public void drawZone8()
+        {
+            zona8 = new GMapOverlay("Zona 8");
             List<PointLatLng> puntosZ8 = new List<PointLatLng>();
             puntosZ8.Add(new PointLatLng(3.443827, -76.491165));
             puntosZ8.Add(new PointLatLng(3.428302, -76.498642));
@@ -390,31 +484,12 @@ namespace MIOStopsVisualization
             puntosZ8.Add(new PointLatLng(3.434846, -76.523287));
             puntosZ8.Add(new PointLatLng(3.443270, -76.518067));
             puntosZ8.Add(new PointLatLng(3.443159, -76.493519));
-
-
-            GMapPolygon poligonoZ0 = new GMapPolygon(puntosZ0, "CENTRO");
-            GMapPolygon poligonoZ1 = new GMapPolygon(puntosZ1, "VALLE DE LILI");
-            GMapPolygon poligonoZ2 = new GMapPolygon(puntosZ2, "MENGA");
-            GMapPolygon poligonoZ3 = new GMapPolygon(puntosZ3, "CALIMA");
-            GMapPolygon poligonoZ4 = new GMapPolygon(puntosZ4, "AGUABLANCA");
-            GMapPolygon poligonoZ5 = new GMapPolygon(puntosZ5, "CIUDAD CORDOBA");
-            GMapPolygon poligonoZ6 = new GMapPolygon(puntosZ6, "GUADALUPE");
-            GMapPolygon poligonoZ7 = new GMapPolygon(puntosZ7, "CAÑAVERALEJO");
             GMapPolygon poligonoZ8 = new GMapPolygon(puntosZ8, "PRADO");
-            zonas.Polygons.Add(poligonoZ0);
-            zonas.Polygons.Add(poligonoZ1);
-            zonas.Polygons.Add(poligonoZ2);
-            zonas.Polygons.Add(poligonoZ3);
-            zonas.Polygons.Add(poligonoZ4);
-            zonas.Polygons.Add(poligonoZ5);
-            zonas.Polygons.Add(poligonoZ6);
-            zonas.Polygons.Add(poligonoZ7);
-            zonas.Polygons.Add(poligonoZ8);
-            stopMap.Overlays.Add(zonas);
+            zona8.Polygons.Add(poligonoZ8);
+            stopMap.Overlays.Add(zona8);
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
 
-            
         }
 
         private void OptionComBox_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -476,19 +551,129 @@ namespace MIOStopsVisualization
 
         private void timer2_Tick(object sender, EventArgs e)
         {
+                               
             if (index < app.getTestBus().getCoordinates().Count)
             {
                 double newLat = app.getTestBus().getCoordinates()[index].Key;
                 double newLon = app.getTestBus().getCoordinates()[index].Value;
                 testBus.Position = new PointLatLng(newLat, newLon);
                 index++;
-
             }
             else
             {
                 timer2.Stop();
             }
             
+        }
+
+        private void cbValleDeLili_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbValleDeLili.Checked == true)
+            {
+                drawZone1();
+            }
+            else
+            {
+                zona1.Clear();
+            }
+        }
+
+        private void cbMenga_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbMenga.Checked == true)
+            {
+                drawZone2();
+            }
+            else
+            {
+                zona2.Clear();
+            }
+        }
+
+        private void cbCañaveralejo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbCañaveralejo.Checked == true)
+            {
+                drawZone7();
+            }
+            else
+            {
+                zona7.Clear();
+            }
+        }
+
+        private void cbCentro_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbCentro.Checked == true)
+            {
+                drawZone0();
+            }
+            else
+            {
+                zona0.Clear();
+            }
+        }
+
+        private void cbGuadalupe_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbGuadalupe.Checked == true)
+            {
+                drawZone6();
+            }
+            else
+            {
+                zona6.Clear();
+            }
+        }
+
+        private void cbPrado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbPrado.Checked == true)
+            {
+                drawZone8();
+            }
+            else
+            {
+                zona8.Clear();
+            }
+        }
+
+        private void cbAguablanca_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbAguablanca.Checked == true)
+            {
+                drawZone4();
+            }
+            else
+            {
+                zona4.Clear();
+            }
+        }
+
+        private void cbCalima_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbCalima.Checked == true)
+            {
+                drawZone3();
+            }
+            else
+            {
+                zona3.Clear();
+            }
+        }
+
+        private void cbCiudadCordoba_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbCiudadCordoba.Checked == true)
+            {
+                drawZone5();
+            }
+            else
+            {
+                zona5.Clear();
+            }
+
+
         }
     }
 }
