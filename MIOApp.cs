@@ -15,6 +15,7 @@ namespace MIOStopsVisualization
     { 
         private List<Stop> streetStopList;
         private List<Stop> stationStopList;
+        private List<Stop> specificStation;
 
         private Bus testBus;
 

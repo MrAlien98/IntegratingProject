@@ -222,7 +222,7 @@ namespace MIOStopsVisualization
             btnNormal.Location = new Point(64, 530);
             LbZoom.Location = new Point(37, 556);
             tbZoom.Location = new Point(40, 572);
-            stopMap.Overlays.Clear();
+           
 
 
 
@@ -230,7 +230,7 @@ namespace MIOStopsVisualization
 
         public void drawZone0()
         {
-            zona0 = new GMapOverlay("Zonas");
+            zona0 = new GMapOverlay("Zona 0");
             List<PointLatLng> puntosZ0 = new List<PointLatLng>();
             puntosZ0.Add(new PointLatLng(3.458952, -76.513447));
             puntosZ0.Add(new PointLatLng(3.463029, -76.521014));
@@ -246,6 +246,8 @@ namespace MIOStopsVisualization
             puntosZ0.Add(new PointLatLng(3.428423, -76.533186));
             puntosZ0.Add(new PointLatLng(3.434846, -76.523287));
             puntosZ0.Add(new PointLatLng(3.443270, -76.518067));
+
+            
 
             GMapPolygon poligonoZ0 = new GMapPolygon(puntosZ0, "CENTRO");
             zona0.Polygons.Add(poligonoZ0);
