@@ -9,21 +9,13 @@ namespace MIOStopsVisualization
     [Serializable]
     public class Stop
     {
-        public const int StreetStop = 1;
-        public const int StationStop = 2;
 
-        public string stopID;
-        public int type;
-        public string shortName;
         public string longName;
         public double decLong;
         public double decLati;
 
-        public Stop(string stopID, int type, string shortName, string longName, double decLong, double decLati)
+        public Stop(string longName, double decLati, double decLong)
         {
-            this.stopID = stopID;
-            this.type = type;
-            this.shortName = shortName;
             this.longName = longName;
             this.decLong = decLong;
             this.decLati = decLati;
@@ -33,17 +25,13 @@ namespace MIOStopsVisualization
         {
 
         }
-
-        public string StopID { get => stopID; set => stopID = value; }
-        public int Type { get => type; set => type = value; }
-        public string ShortName { get => shortName; set => shortName = value; }
         public string LongName { get => longName; set => longName = value; }
         public double DecLong { get => decLong; set => decLong = value; }
         public double DecLati { get => decLati; set => decLati = value; }
 
         public string toString()
         {
-            return "" + shortName;
+            return "" + LongName;
         }
 
     }
