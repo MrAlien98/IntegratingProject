@@ -24,6 +24,7 @@ namespace MIOStopsVisualization
 
         int index;
         public static GMapMarker testBus;
+
         GMapOverlay zona0;
         GMapOverlay zona1;
         GMapOverlay zona2;
@@ -33,6 +34,16 @@ namespace MIOStopsVisualization
         GMapOverlay zona6;
         GMapOverlay zona7;
         GMapOverlay zona8;
+
+        GMapPolygon poligonoZ0;
+        GMapPolygon poligonoZ1;
+        GMapPolygon poligonoZ2;
+        GMapPolygon poligonoZ3;
+        GMapPolygon poligonoZ4;
+        GMapPolygon poligonoZ5;
+        GMapPolygon poligonoZ6;
+        GMapPolygon poligonoZ7;
+        GMapPolygon poligonoZ8;
 
         public StartWindow()
         {
@@ -89,7 +100,7 @@ namespace MIOStopsVisualization
             }
         }
 
-        public MIOApp GetApp()
+        public MIOApp getApp()
         {
             return app;
         }
@@ -159,9 +170,9 @@ namespace MIOStopsVisualization
             stopMap.Overlays.Clear();
 
             GMapOverlay markers = new GMapOverlay("markers");
-            foreach (var aux in GetApp().getStreetStop())
+            foreach (var aux in getApp().getStreetStop())
             {
-                streetsMarker(aux.DecLati, aux.DecLong);
+                stopsMarker(aux.DecLati, aux.DecLong);
             }
             stopMap.Overlays.Add(markers);
             stopMap.Zoom = stopMap.Zoom + 1;
@@ -169,7 +180,7 @@ namespace MIOStopsVisualization
             
         }
 
-        private void streetsMarker(double lat, double lng)
+        private void stopsMarker(double lat, double lng)
         {
             PointLatLng point = new PointLatLng(lat, lng);
             GMapMarker theMarker = new GMarkerGoogle(point, GMarkerGoogleType.red_dot);
@@ -184,7 +195,7 @@ namespace MIOStopsVisualization
         {
             stopMap.Overlays.Clear();
 
-            foreach (var aux in GetApp().getStationStop())
+            foreach (var aux in getApp().getStationStop())
             {
                 stationsMarker(aux.DecLati, aux.DecLong);
             }
@@ -202,6 +213,34 @@ namespace MIOStopsVisualization
 
             markers.Markers.Add(theMarker);
             stopMap.Overlays.Add(markers);
+        }
+
+        public void clearZone(GMapPolygon zone, GMapOverlay zz)
+        {
+            foreach (GMapMarker actual in stopMap.Overlays.OfType<GMapMarker>())
+            {
+                if (zone.IsInside(actual.Position))
+                {
+                    zz.Markers.Remove(actual);
+                }
+            }
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
+        }
+
+        public void drawInZone(GMapOverlay zone, GMapPolygon poly)
+        {
+            foreach (var actual in getApp().getStationStop())
+            {
+                var p = new PointLatLng(actual.DecLati, actual.DecLong);
+                if (poly.IsInside(p))
+                {
+                    GMapMarker theMarker = new GMarkerGoogle(p, GMarkerGoogleType.blue_dot);
+                    poly.Overlay.Markers.Add(theMarker);
+                }
+            }
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
         }
 
         public void drawZones()
@@ -222,10 +261,6 @@ namespace MIOStopsVisualization
             btnNormal.Location = new Point(64, 530);
             LbZoom.Location = new Point(37, 556);
             tbZoom.Location = new Point(40, 572);
-           
-
-
-
         }
 
         public void drawZone0()
@@ -247,14 +282,13 @@ namespace MIOStopsVisualization
             puntosZ0.Add(new PointLatLng(3.434846, -76.523287));
             puntosZ0.Add(new PointLatLng(3.443270, -76.518067));
 
-            
-
-            GMapPolygon poligonoZ0 = new GMapPolygon(puntosZ0, "CENTRO");
+            poligonoZ0 = new GMapPolygon(puntosZ0, "CENTRO");
             zona0.Polygons.Add(poligonoZ0);
             stopMap.Overlays.Add(zona0);
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
 
+            drawInZone(zona0, poligonoZ0);
         }
 
         public void drawZone1()
@@ -289,12 +323,14 @@ namespace MIOStopsVisualization
             puntosZ1.Add(new PointLatLng(3.366069, -76.508377));
             puntosZ1.Add(new PointLatLng(3.371381, -76.509578));
             puntosZ1.Add(new PointLatLng(3.382049, -76.507089));
-            GMapPolygon poligonoZ1 = new GMapPolygon(puntosZ1, "VALLE DE LILI");
+
+            poligonoZ1 = new GMapPolygon(puntosZ1, "VALLE DE LILI");
             zona1.Polygons.Add(poligonoZ1);
             stopMap.Overlays.Add(zona1);
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
 
+            drawInZone(zona1, poligonoZ1);
         }
 
         public void drawZone2()
@@ -328,12 +364,14 @@ namespace MIOStopsVisualization
             puntosZ2.Add(new PointLatLng(3.505948, -76.500053));
             puntosZ2.Add(new PointLatLng(3.505516, -76.492691));
             puntosZ2.Add(new PointLatLng(3.499343, -76.492160));
-            GMapPolygon poligonoZ2 = new GMapPolygon(puntosZ2, "MENGA");
+
+            poligonoZ2 = new GMapPolygon(puntosZ2, "MENGA");
             zona2.Polygons.Add(poligonoZ2);
             stopMap.Overlays.Add(zona2);
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
 
+            drawInZone(zona2, poligonoZ2);
         }
 
         public void drawZone3()
@@ -349,11 +387,14 @@ namespace MIOStopsVisualization
             puntosZ3.Add(new PointLatLng(3.468334, -76.475987));
             puntosZ3.Add(new PointLatLng(3.458952, -76.513447));
             puntosZ3.Add(new PointLatLng(3.463029, -76.521014));
-            GMapPolygon poligonoZ3 = new GMapPolygon(puntosZ3, "CALIMA");
+
+            poligonoZ3 = new GMapPolygon(puntosZ3, "CALIMA");
             zona3.Polygons.Add(poligonoZ3);
             stopMap.Overlays.Add(zona3);
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
+
+            drawInZone(zona3, poligonoZ3);
         }
 
         public void drawZone4()
@@ -375,12 +416,14 @@ namespace MIOStopsVisualization
             puntosZ4.Add(new PointLatLng(3.428568, -76.483722));
             puntosZ4.Add(new PointLatLng(3.446679, -76.484064));
             puntosZ4.Add(new PointLatLng(3.443159, -76.493519));
-            GMapPolygon poligonoZ4 = new GMapPolygon(puntosZ4, "AGUABLANCA");
+
+            poligonoZ4 = new GMapPolygon(puntosZ4, "AGUABLANCA");
             zona4.Polygons.Add(poligonoZ4);
             stopMap.Overlays.Add(zona4);
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
 
+            drawInZone(zona4, poligonoZ4);
         }
 
         public void drawZone5()
@@ -407,12 +450,14 @@ namespace MIOStopsVisualization
             puntosZ5.Add(new PointLatLng(3.418084, -76.486381));
             puntosZ5.Add(new PointLatLng(3.428568, -76.483722));
             puntosZ5.Add(new PointLatLng(3.446679, -76.484064));
-            GMapPolygon poligonoZ5 = new GMapPolygon(puntosZ5, "CIUDAD CORDOBA");
+
+            poligonoZ5 = new GMapPolygon(puntosZ5, "CIUDAD CORDOBA");
             zona5.Polygons.Add(poligonoZ5);
             stopMap.Overlays.Add(zona5);
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
 
+            drawInZone(zona5, poligonoZ5);
         }
 
         public void drawZone6()
@@ -441,11 +486,14 @@ namespace MIOStopsVisualization
             puntosZ6.Add(new PointLatLng(3.402954, -76.520984));
             puntosZ6.Add(new PointLatLng(3.404841, -76.518878));
             puntosZ6.Add(new PointLatLng(3.407200, -76.521070));
-            GMapPolygon poligonoZ6 = new GMapPolygon(puntosZ6, "GUADALUPE");
+
+            poligonoZ6 = new GMapPolygon(puntosZ6, "GUADALUPE");
             zona6.Polygons.Add(poligonoZ6);
             stopMap.Overlays.Add(zona6);
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
+
+            drawInZone(zona6, poligonoZ6);
         }
 
         public void drawZone7()
@@ -467,11 +515,14 @@ namespace MIOStopsVisualization
             puntosZ7.Add(new PointLatLng(3.386310, -76.544481));
             puntosZ7.Add(new PointLatLng(3.398277, -76.542537));
             puntosZ7.Add(new PointLatLng(3.398191, -76.538025));
-            GMapPolygon poligonoZ7 = new GMapPolygon(puntosZ7, "CAÑAVERALEJO");
+
+            poligonoZ7 = new GMapPolygon(puntosZ7, "CAÑAVERALEJO");
             zona7.Polygons.Add(poligonoZ7);
             stopMap.Overlays.Add(zona7);
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
+
+            drawInZone(zona7, poligonoZ7);
         }
 
         public void drawZone8()
@@ -486,12 +537,14 @@ namespace MIOStopsVisualization
             puntosZ8.Add(new PointLatLng(3.434846, -76.523287));
             puntosZ8.Add(new PointLatLng(3.443270, -76.518067));
             puntosZ8.Add(new PointLatLng(3.443159, -76.493519));
-            GMapPolygon poligonoZ8 = new GMapPolygon(puntosZ8, "PRADO");
+
+            poligonoZ8 = new GMapPolygon(puntosZ8, "PRADO");
             zona8.Polygons.Add(poligonoZ8);
             stopMap.Overlays.Add(zona8);
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
 
+            drawInZone(zona8, poligonoZ8);
         }
 
         private void OptionComBox_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -672,10 +725,14 @@ namespace MIOStopsVisualization
             }
             else
             {
+                clearZone(poligonoZ5, zona5);
                 zona5.Clear();
             }
+        }
 
-
+        private void StartWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
