@@ -53,6 +53,9 @@
             this.cbGuadalupe = new System.Windows.Forms.CheckBox();
             this.cbCañaveralejo = new System.Windows.Forms.CheckBox();
             this.cbPrado = new System.Windows.Forms.CheckBox();
+            this.cbStation = new System.Windows.Forms.CheckBox();
+            this.cbStops = new System.Windows.Forms.CheckBox();
+            this.lbChoose = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.tbZoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -153,7 +156,7 @@
             // 
             this.LbZoom.AutoSize = true;
             this.LbZoom.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.LbZoom.Location = new System.Drawing.Point(33, 491);
+            this.LbZoom.Location = new System.Drawing.Point(12, 508);
             this.LbZoom.Name = "LbZoom";
             this.LbZoom.Size = new System.Drawing.Size(34, 13);
             this.LbZoom.TabIndex = 10;
@@ -328,11 +331,52 @@
             this.cbPrado.Visible = false;
             this.cbPrado.CheckedChanged += new System.EventHandler(this.cbPrado_CheckedChanged);
             // 
+            // cbStation
+            // 
+            this.cbStation.AutoSize = true;
+            this.cbStation.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.cbStation.Location = new System.Drawing.Point(15, 471);
+            this.cbStation.Name = "cbStation";
+            this.cbStation.Size = new System.Drawing.Size(94, 17);
+            this.cbStation.TabIndex = 23;
+            this.cbStation.Text = "ESTACIONES";
+            this.cbStation.UseVisualStyleBackColor = false;
+            this.cbStation.Visible = false;
+            this.cbStation.CheckedChanged += new System.EventHandler(this.cbStation_CheckedChanged);
+            // 
+            // cbStops
+            // 
+            this.cbStops.AutoSize = true;
+            this.cbStops.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.cbStops.Location = new System.Drawing.Point(115, 471);
+            this.cbStops.Name = "cbStops";
+            this.cbStops.Size = new System.Drawing.Size(77, 17);
+            this.cbStops.TabIndex = 24;
+            this.cbStops.Text = "PARADAS";
+            this.cbStops.UseVisualStyleBackColor = false;
+            this.cbStops.Visible = false;
+            this.cbStops.CheckedChanged += new System.EventHandler(this.cbStops_CheckedChanged);
+            // 
+            // lbChoose
+            // 
+            this.lbChoose.AutoSize = true;
+            this.lbChoose.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.lbChoose.Location = new System.Drawing.Point(9, 445);
+            this.lbChoose.Name = "lbChoose";
+            this.lbChoose.Size = new System.Drawing.Size(175, 13);
+            this.lbChoose.TabIndex = 27;
+            this.lbChoose.Text = "____________________________";
+            this.lbChoose.Visible = false;
+            this.lbChoose.Click += new System.EventHandler(this.label4_Click);
+            // 
             // StartWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(997, 629);
+            this.Controls.Add(this.lbChoose);
+            this.Controls.Add(this.cbStops);
+            this.Controls.Add(this.cbStation);
             this.Controls.Add(this.cbPrado);
             this.Controls.Add(this.cbCañaveralejo);
             this.Controls.Add(this.cbGuadalupe);
@@ -390,6 +434,9 @@
         private System.Windows.Forms.CheckBox cbGuadalupe;
         private System.Windows.Forms.CheckBox cbCañaveralejo;
         private System.Windows.Forms.CheckBox cbPrado;
+        private System.Windows.Forms.CheckBox cbStation;
+        private System.Windows.Forms.CheckBox cbStops;
+        private System.Windows.Forms.Label lbChoose;
     }
 }
 

@@ -67,7 +67,7 @@ namespace MIOStopsVisualization
             //ReadFile();
             lbOpt.BackColor = Color.Transparent;
             var options = new List<String>();
-            options.Add(" ");
+            options.Add("OPCIONES");
             options.Add("ESTACIONES");
             options.Add("PARADAS");
             options.Add("ZONAS");
@@ -254,6 +254,9 @@ namespace MIOStopsVisualization
             cbValleDeLili.Visible = true;
             cbPrado.Visible = true;
             cbGuadalupe.Visible = true;
+            cbStation.Visible = true;
+            cbStops.Visible = true;
+            lbChoose.Visible = true;
             lbOpt.Location = new Point(12,271);
             optionComBox.Location = new Point(40,300);
             btnSatelite.Location = new Point(25, 501);
@@ -733,6 +736,21 @@ namespace MIOStopsVisualization
         private void StartWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbStation_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbStops_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
