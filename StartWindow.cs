@@ -283,7 +283,43 @@ namespace MIOStopsVisualization
             }
             else
             {
-
+                MessageBox.Show("POR FAVOR ESCOGA SI DESEA VER LAS ESTACIONES O LAS PARADAS");
+                if (cbCentro.Checked == true)
+                {
+                    cbCentro.Checked = false;
+                }
+                else if(cbValleDeLili.Checked == true)
+                {
+                    cbValleDeLili.Checked = false;
+                }
+                else if (cbMenga.Checked == true)
+                {
+                    cbMenga.Checked = false;
+                }
+                else if (cbCalima.Checked == true)
+                {
+                    cbCalima.Checked = false;
+                }
+                else if(cbAguablanca.Checked == true)
+                {
+                    cbAguablanca.Checked = false;
+                }
+                else if (cbCiudadCordoba.Checked == true)
+                {
+                    cbCiudadCordoba.Checked = false;
+                }
+                else if (cbGuadalupe.Checked == true)
+                {
+                    cbGuadalupe.Checked = false;
+                }
+                else if(cbCañaveralejo.Checked == true)
+                {
+                    cbCañaveralejo.Checked = false;
+                }
+                else if(cbPrado.Checked == true)
+                {
+                    cbPrado.Checked = false;
+                }
             }
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
