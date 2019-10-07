@@ -15,22 +15,41 @@ namespace MIOStopsVisualization
     { 
         private List<Stop> streetStopList;
         private List<Stop> stationStopList;
-        private List<Stop> specificStation;
+        private List<Bus> buses;
 
         private Bus testBus;
 
         public MIOApp()
         {
             loadElements();
+            
             testBus = null;
+
+            //buses = new List<Bus>();
             //streetStopList = new List<Stop>();
             //stationStopList = new List<Stop>();
+        }
+
+        public List<Bus> getBuses()
+        {
+            return buses;
+        }
+
+        public void setBuses(List<Bus> buses)
+        {
+            this.buses = buses;
         }
 
         public double adjustCoordinates(string value)
         {
             double result = double.Parse(value, CultureInfo.InvariantCulture);
             return result;
+        }
+
+        public double adjustCoordinates(string value, int i)
+        {
+            double result = double.Parse(value, CultureInfo.InvariantCulture);
+            return result/10000000;
         }
 
         public void setTestBus(string lat, string lon, string busId)
@@ -74,6 +93,22 @@ namespace MIOStopsVisualization
             
         }
 
+        public void saveBuses()
+        {
+            try
+            {
+                BinaryFormatter format = new BinaryFormatter();
+                FileStream stream = new FileStream("data/Buses.txt", FileMode.Create);
+
+                format.Serialize(stream, buses);
+
+                stream.Close();
+            }catch(Exception e)
+            {
+
+            }
+        }
+
         public void loadElements()
         {
             BinaryFormatter format = new BinaryFormatter();
@@ -82,11 +117,15 @@ namespace MIOStopsVisualization
 
             FileStream stream2 = new FileStream("data/StationStopsList.txt", FileMode.Open);
 
+            FileStream stream3 = new FileStream("data/Buses.txt", FileMode.Open);
+
             streetStopList = (List<Stop>) format.Deserialize(stream);
             stationStopList = (List<Stop>)format.Deserialize(stream2);
+                        buses = (List<Bus>)format.Deserialize(stream3);
 
             stream.Close();
             stream2.Close();
+            stream3.Close();
         }
     }
 }

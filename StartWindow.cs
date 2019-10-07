@@ -23,7 +23,12 @@ namespace MIOStopsVisualization
         public static MIOApp app;
 
         int index;
+
+        int index2 = 0;
+
         public static GMapMarker testBus;
+
+        public List<GMapMarker> buses;
 
         GMapOverlay zona0;
         GMapOverlay zona1;
@@ -49,7 +54,9 @@ namespace MIOStopsVisualization
         {
             testBus = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(
                         new GMap.NET.PointLatLng(3.4041000, -76.5467650),
-                            new Bitmap("images/MIO_BUS.png"));
+                            new Bitmap("images/bus.png"));
+
+            buses = new List<GMapMarker>();
 
             GMapOverlay markers = new GMapOverlay("markers");
 
@@ -60,10 +67,14 @@ namespace MIOStopsVisualization
             stopMap.Overlays.Add(markers);
 
             app = new MIOApp();
-            index = 0;
+
             app.setTestBus("3.4041000", "-76.5467650", "383");
 
             saveCoordinates();
+
+            loadBusesToModel();
+
+            index = 0;
 
             //ReadFile();
             lbOpt.BackColor = Color.Transparent;
@@ -76,6 +87,63 @@ namespace MIOStopsVisualization
 
             this.optionComBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
+        }
+
+        public void loadBusesToModel()
+        {
+            try
+            {
+                string line = "";
+                StreamReader sr = new StreamReader("data/DATAGRAM_TEST.txt");
+                while ((line = sr.ReadLine()) != null)
+                {
+                    double lat = app.adjustCoordinates(line.Split(',')[4], 0);
+                    double lon = app.adjustCoordinates(line.Split(',')[5], 0);
+                    //11 nombre del bus
+                    if (app.getBuses().Count==0)
+                    {
+                        app.getBuses().Add(new Bus(lat, lon, line.Split(',')[11]));
+                        buses.Add(new GMap.NET.WindowsForms.Markers.GMarkerGoogle
+                            (new PointLatLng(lat, lon), 
+                            new Bitmap("images/bus.png")));
+                    }
+                    else
+                    {
+                        Boolean flag = false;
+                        int j=getApp().getBuses().Count();
+                        int z = 0;
+                        for (int i = 0; i < j; i++)
+                        {
+                            if (getApp().getBuses()[i].getBusId().Equals(line.Split(',')[11]))
+                            {
+                                flag = true;
+                                z = i;
+                            }
+                            if (flag)
+                            {
+                                break;
+                            }
+                        }
+                        if (flag)
+                        {
+                            getApp().getBuses()[z].getCoordinates().Add(new KeyValuePair<double, double>(lat, lon));
+                        }
+                        else
+                        {
+                            app.getBuses().Add(new Bus(lat, lon, line.Split(',')[11]));
+                            app.getBuses().Add(new Bus(lat, lon, line.Split(',')[11]));
+                            buses.Add(new GMap.NET.WindowsForms.Markers.GMarkerGoogle
+                                (new PointLatLng(lat, lon),
+                                new Bitmap("images/bus.png")));
+                        }
+                    }
+                }
+                MessageBox.Show(""+ app.getBuses().Count);
+                app.saveBuses();
+            }catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         public void saveCoordinates()
@@ -106,7 +174,7 @@ namespace MIOStopsVisualization
             return app;
         }
 
-        public void ReadFile()
+        /*public void ReadFile()
         {
             Console.WriteLine("Entro");
             try
@@ -155,7 +223,7 @@ namespace MIOStopsVisualization
             { 
                 MessageBox.Show(e.Message);
             }
-        }
+        }*/
 
 
         private void StopMap_Load(object sender, EventArgs e)
@@ -189,7 +257,7 @@ namespace MIOStopsVisualization
         private void stopsMarker(double lat, double lng)
         {
             PointLatLng point = new PointLatLng(lat, lng);
-            GMapMarker theMarker = new GMarkerGoogle(point, GMarkerGoogleType.red_dot);
+            GMapMarker theMarker = new GMarkerGoogle(point, new Bitmap("images/bus_stop_sign.png"));
 
             GMapOverlay markers = new GMapOverlay("markers");
 
@@ -213,7 +281,7 @@ namespace MIOStopsVisualization
         private void stationsMarker(double lat, double lng)
         {
             PointLatLng point = new PointLatLng(lat, lng);
-            GMapMarker theMarker = new GMarkerGoogle(point, GMarkerGoogleType.blue_dot);
+            GMapMarker theMarker = new GMarkerGoogle(point, new Bitmap("images/bus_station.png"));
 
             GMapOverlay markers = new GMapOverlay("markers");
 
@@ -243,7 +311,7 @@ namespace MIOStopsVisualization
                     var p = new PointLatLng(actual.DecLati, actual.DecLong);
                     if (poly.IsInside(p))
                     {
-                        GMapMarker theMarker = new GMarkerGoogle(p, GMarkerGoogleType.blue_dot);
+                        GMapMarker theMarker = new GMarkerGoogle(p, new Bitmap("images/bus_station.png"));
                         poly.Overlay.Markers.Add(theMarker);
                     }
                 }
@@ -255,7 +323,7 @@ namespace MIOStopsVisualization
                     var p = new PointLatLng(actual.DecLati, actual.DecLong);
                     if (poly.IsInside(p))
                     {
-                        GMapMarker theMarker = new GMarkerGoogle(p, GMarkerGoogleType.red_dot);
+                        GMapMarker theMarker = new GMarkerGoogle(p, new Bitmap("images/bus_stop_sign.png"));
                         poly.Overlay.Markers.Add(theMarker);
                     }
                 }
@@ -267,7 +335,7 @@ namespace MIOStopsVisualization
                     var p = new PointLatLng(actual.DecLati, actual.DecLong);
                     if (poly.IsInside(p))
                     {
-                        GMapMarker theMarker = new GMarkerGoogle(p, GMarkerGoogleType.blue_dot);
+                        GMapMarker theMarker = new GMarkerGoogle(p, new Bitmap("images/bus_station.png"));
                         poly.Overlay.Markers.Add(theMarker);
                     }
                 }
@@ -276,7 +344,7 @@ namespace MIOStopsVisualization
                     var p = new PointLatLng(actual.DecLati, actual.DecLong);
                     if (poly.IsInside(p))
                     {
-                        GMapMarker theMarker = new GMarkerGoogle(p, GMarkerGoogleType.red_dot);
+                        GMapMarker theMarker = new GMarkerGoogle(p, new Bitmap("images/bus_stop_sign.png"));
                         poly.Overlay.Markers.Add(theMarker);
                     }
                 }
@@ -725,7 +793,7 @@ namespace MIOStopsVisualization
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            tbZoom.Value = Convert.ToInt32(stopMap.Zoom);
+            
         }
 
         private void tbZoom_ValueChanged(object sender, EventArgs e)
@@ -735,7 +803,6 @@ namespace MIOStopsVisualization
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-                               
             if (index < app.getTestBus().getCoordinates().Count)
             {
                 double newLat = app.getTestBus().getCoordinates()[index].Key;

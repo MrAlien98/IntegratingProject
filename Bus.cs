@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace MIOStopsVisualization
 {
+    [Serializable]
     public class Bus
     {
         private double lat;
         private double lon;
         private string busId;
         //KeyValuePair double : lat, double : long
+
         private List<KeyValuePair<double, double>> coordinates;
 
         public Bus(double lat, double lon, string busId)
