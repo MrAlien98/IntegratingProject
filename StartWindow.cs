@@ -72,7 +72,7 @@ namespace MIOStopsVisualization
 
             saveCoordinates();
 
-            loadBusesToModel();
+            //loadBusesToModel();
 
             index = 0;
 
@@ -87,6 +87,26 @@ namespace MIOStopsVisualization
 
             this.optionComBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
+            fillBusesList();
+
+            /*for (int i = 0; i < app.getBuses().Count; i++)
+            {
+                Console.WriteLine(app.getBuses()[i].getCoordinates().Count);
+            }
+            */
+        }
+
+        public void fillBusesList()
+        {
+            GMapOverlay markers = new GMapOverlay("markers");
+            for (int i = 0; i < app.getBuses().Count; i++)
+            {
+                buses.Add(new GMap.NET.WindowsForms.Markers.GMarkerGoogle
+                               (new PointLatLng(app.getBuses()[i].getLat(), app.getBuses()[i].getLon()),
+                                new Bitmap("images/bus.png")));
+                markers.Markers.Add(buses[i]);
+            }
+            stopMap.Overlays.Add(markers);
         }
 
         public void loadBusesToModel()
@@ -131,14 +151,12 @@ namespace MIOStopsVisualization
                         else
                         {
                             app.getBuses().Add(new Bus(lat, lon, line.Split(',')[11]));
-                            app.getBuses().Add(new Bus(lat, lon, line.Split(',')[11]));
                             buses.Add(new GMap.NET.WindowsForms.Markers.GMarkerGoogle
                                 (new PointLatLng(lat, lon),
                                 new Bitmap("images/bus.png")));
                         }
                     }
                 }
-                MessageBox.Show(""+ app.getBuses().Count);
                 app.saveBuses();
             }catch(Exception e)
             {
@@ -793,7 +811,18 @@ namespace MIOStopsVisualization
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            
+            for (int i = 0; i < getApp().getBuses().Count; i++)
+            {
+                if (index2 < getApp().getBuses()[i].getCoordinates().Count)
+                {
+                    double newLat = app.getBuses()[i].getCoordinates()[index2].Key;
+                    double newLon = app.getBuses()[i].getCoordinates()[index2].Value;
+
+                    buses[i].Position = new PointLatLng(newLat, newLon);
+
+                    index2++;
+                }
+            }
         }
 
         private void tbZoom_ValueChanged(object sender, EventArgs e)
