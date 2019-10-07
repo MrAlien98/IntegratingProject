@@ -50,6 +50,7 @@ namespace MIOStopsVisualization
             testBus = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(
                         new GMap.NET.PointLatLng(3.4041000, -76.5467650),
                             new Bitmap("images/MIO_BUS.png"));
+
             GMapOverlay markers = new GMapOverlay("markers");
 
             markers.Markers.Add(testBus);
@@ -60,7 +61,7 @@ namespace MIOStopsVisualization
 
             app = new MIOApp();
             index = 0;
-            app.setTestBus("34041000", "-765467650", "383");
+            app.setTestBus("3.4041000", "-76.5467650", "383");
 
             saveCoordinates();
 
@@ -107,43 +108,48 @@ namespace MIOStopsVisualization
 
         public void ReadFile()
         {
+            Console.WriteLine("Entro");
             try
             {
-                int i = 0;
                 string line = "";
-                StreamReader sr = new StreamReader("data/stops.csv");
+                StreamReader sr = new StreamReader("data/Stops.txt");
                 //var watch = System.Diagnostics.Stopwatch.StartNew();
-                while ((line = sr.ReadLine()) != null)
-                {
-                    int type = 0;
-                    String[] individual = line.Split(',');
-
-                    double lat = double.Parse(individual[7], CultureInfo.InvariantCulture);
-                    double lon = double.Parse(individual[6], CultureInfo.InvariantCulture);
-
-                    if (individual[3].Contains("con") || individual[3].Contains("entre"))
-                    {
-                        type = 1;
-                    }
-                    else
-                    {
-                        type = 2;
-                    }
-                    Stop st = new Stop(individual[0], type, individual[2], individual[3], lon, lat);
-
-                    if (type==1) {
-                        app.getStreetStop().Add(st);
-                    }
-                    else
-                    {
-                        app.getStationStop().Add(st);
-                    }
-                    i++;
-                }
-                app.saveElements();
                 //watch.Stop();
                 //var elapsedMs = watch.ElapsedMilliseconds;
                 //var timef = elapsedMs * 0.001;
+                int i = 1;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    String[] individual = line.Split(',');
+
+                    double lat = app.adjustCoordinates(individual[1]);
+                    double lon = app.adjustCoordinates(individual[2]);
+
+                    Stop st = new Stop(individual[0], lat, lon);
+                    app.getStreetStop().Add(st);
+
+                    Console.WriteLine("Hasta aqui va bien (Paradas) : " + i);
+                    i++;
+                }
+                i = 1;
+                MessageBox.Show("" + app.getStreetStop().Count);
+                line = "";
+                StreamReader sr2 = new StreamReader("data/Stations.txt");
+                while ((line = sr2.ReadLine()) != null)
+                {
+                    String[] individual = line.Split(',');
+
+                    double lat = app.adjustCoordinates(individual[1]);
+                    double lon = app.adjustCoordinates(individual[2]);
+
+                    Stop st = new Stop(individual[0], lat, lon);
+                    app.getStationStop().Add(st);
+
+                    Console.WriteLine("Hasta aqui va bien (Estaciones): " + i);
+                    i++;
+                }
+                MessageBox.Show("" + app.getStationStop().Count);
+                app.saveElements();
             }
             catch (Exception e)
             { 
@@ -228,23 +234,88 @@ namespace MIOStopsVisualization
             stopMap.Zoom = stopMap.Zoom - 1;
         }
 
-        public void drawInZone(GMapOverlay zone, GMapPolygon poly)
+        public void drawInZone(GMapOverlay zone, GMapPolygon poly, int op)
         {
-            foreach (var actual in getApp().getStationStop())
+            if (op==1)
             {
-                var p = new PointLatLng(actual.DecLati, actual.DecLong);
-                if (poly.IsInside(p))
+                foreach (var actual in getApp().getStationStop())
                 {
-                    GMapMarker theMarker = new GMarkerGoogle(p, GMarkerGoogleType.blue_dot);
-                    poly.Overlay.Markers.Add(theMarker);
+                    var p = new PointLatLng(actual.DecLati, actual.DecLong);
+                    if (poly.IsInside(p))
+                    {
+                        GMapMarker theMarker = new GMarkerGoogle(p, GMarkerGoogleType.blue_dot);
+                        poly.Overlay.Markers.Add(theMarker);
+                    }
                 }
+            }
+            else if (op==-1)
+            {
+                foreach (var actual in getApp().getStreetStop())
+                {
+                    var p = new PointLatLng(actual.DecLati, actual.DecLong);
+                    if (poly.IsInside(p))
+                    {
+                        GMapMarker theMarker = new GMarkerGoogle(p, GMarkerGoogleType.red_dot);
+                        poly.Overlay.Markers.Add(theMarker);
+                    }
+                }
+            }
+            else if(op==0)
+            {
+                foreach (var actual in getApp().getStationStop())
+                {
+                    var p = new PointLatLng(actual.DecLati, actual.DecLong);
+                    if (poly.IsInside(p))
+                    {
+                        GMapMarker theMarker = new GMarkerGoogle(p, GMarkerGoogleType.blue_dot);
+                        poly.Overlay.Markers.Add(theMarker);
+                    }
+                }
+                foreach (var actual in getApp().getStreetStop())
+                {
+                    var p = new PointLatLng(actual.DecLati, actual.DecLong);
+                    if (poly.IsInside(p))
+                    {
+                        GMapMarker theMarker = new GMarkerGoogle(p, GMarkerGoogleType.red_dot);
+                        poly.Overlay.Markers.Add(theMarker);
+                    }
+                }
+            }
+            else
+            {
+
             }
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
         }
 
+        public int verification2()
+        {
+            if (cbStation.Checked && cbStops.Checked)
+            {
+                return 0;
+            }
+            else  if (cbStation.Checked)
+            {
+                return 1;
+            }
+            else if (cbStops.Checked)
+            {
+                return -1;
+            }
+            else
+            {
+                return 999;
+            }
+        }
+
         public void drawZones()
         {
+            stopMap.Overlays.Clear();
+
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
+
             cbCentro.Visible = true;
             cbMenga.Visible = true;
             cbCalima.Visible = true;
@@ -291,7 +362,10 @@ namespace MIOStopsVisualization
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
 
-            drawInZone(zona0, poligonoZ0);
+            int op = verification2();
+
+            drawInZone(zona0, poligonoZ0, op);
+
         }
 
         public void drawZone1()
@@ -333,7 +407,9 @@ namespace MIOStopsVisualization
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
 
-            drawInZone(zona1, poligonoZ1);
+            int op = verification2();
+
+            drawInZone(zona1, poligonoZ1, op);
         }
 
         public void drawZone2()
@@ -374,7 +450,9 @@ namespace MIOStopsVisualization
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
 
-            drawInZone(zona2, poligonoZ2);
+            int op = verification2();
+
+            drawInZone(zona2, poligonoZ2, op);
         }
 
         public void drawZone3()
@@ -397,7 +475,9 @@ namespace MIOStopsVisualization
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
 
-            drawInZone(zona3, poligonoZ3);
+            int op = verification2();
+
+            drawInZone(zona3, poligonoZ3, op);
         }
 
         public void drawZone4()
@@ -426,7 +506,9 @@ namespace MIOStopsVisualization
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
 
-            drawInZone(zona4, poligonoZ4);
+            int op = verification2();
+
+            drawInZone(zona4, poligonoZ4, op);
         }
 
         public void drawZone5()
@@ -460,7 +542,9 @@ namespace MIOStopsVisualization
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
 
-            drawInZone(zona5, poligonoZ5);
+            int op = verification2();
+
+            drawInZone(zona5, poligonoZ5, op);
         }
 
         public void drawZone6()
@@ -496,7 +580,9 @@ namespace MIOStopsVisualization
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
 
-            drawInZone(zona6, poligonoZ6);
+            int op = verification2();
+
+            drawInZone(zona6, poligonoZ6, op);
         }
 
         public void drawZone7()
@@ -525,7 +611,9 @@ namespace MIOStopsVisualization
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
 
-            drawInZone(zona7, poligonoZ7);
+            int op = verification2();
+
+            drawInZone(zona7, poligonoZ7, op);
         }
 
         public void drawZone8()
@@ -547,7 +635,9 @@ namespace MIOStopsVisualization
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
 
-            drawInZone(zona8, poligonoZ8);
+            int op = verification2();
+
+            drawInZone(zona8, poligonoZ8, op);
         }
 
         private void OptionComBox_SelectedIndexChanged_1(object sender, EventArgs e)

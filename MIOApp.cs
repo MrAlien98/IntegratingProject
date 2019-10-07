@@ -30,7 +30,7 @@ namespace MIOStopsVisualization
         public double adjustCoordinates(string value)
         {
             double result = double.Parse(value, CultureInfo.InvariantCulture);
-            return result / 10000000;
+            return result;
         }
 
         public void setTestBus(string lat, string lon, string busId)
