@@ -322,7 +322,7 @@ namespace MIOStopsVisualization
 
         public void drawInZone(GMapOverlay zone, GMapPolygon poly, int op)
         {
-            if (op==1)
+            if (op == 1)
             {
                 foreach (var actual in getApp().getStationStop())
                 {
@@ -331,6 +331,14 @@ namespace MIOStopsVisualization
                     {
                         GMapMarker theMarker = new GMarkerGoogle(p, new Bitmap("images/bus_station.png"));
                         poly.Overlay.Markers.Add(theMarker);
+                    }
+                }
+                foreach (var actual in buses)
+                {
+                    var p = actual.Position;
+                    if (poly.IsInside(p))
+                    {
+                        poly.Overlay.Markers.Add(actual);
                     }
                 }
             }
