@@ -20,6 +20,8 @@ namespace MIOStopsVisualization
 
         int index2 = 0;
 
+        Thread clock;
+
         public static GMapMarker testBus;
 
         public List<GMapMarker> buses;
@@ -62,7 +64,7 @@ namespace MIOStopsVisualization
 
             app = new MIOApp();
 
-            app.setTestBus("3.4041000", "-76.5467650", "383");
+            app.setTestBus("3.4041000", "-76.5467650", "383", "421");
 
             saveCoordinates();
 
@@ -83,17 +85,12 @@ namespace MIOStopsVisualization
 
             fillBusesList();
 
-            /*for (int i = 0; i < app.getBuses().Count; i++)
-            {
-                Console.WriteLine(app.getBuses()[i].getCoordinates().Count);
-            }
-            */
-
             Control.CheckForIllegalCrossThreadCalls = false;
 
             ThreadStart delegated = new ThreadStart(new Action(() => RunClock(9, 5, 38)));
-            Thread thread = new Thread(delegated);
-            thread.Start();
+            clock = new Thread(delegated);
+
+            timer1.Stop();
         }
 
         public void fillBusesList()
@@ -122,7 +119,7 @@ namespace MIOStopsVisualization
                     //11 nombre del bus
                     if (app.getBuses().Count == 0)
                     {
-                        app.getBuses().Add(new Bus(lat, lon, line.Split(',')[11]));
+                        app.getBuses().Add(new Bus(lat, lon, line.Split(',')[11], line.Split(',')[7]));
                         buses.Add(new GMap.NET.WindowsForms.Markers.GMarkerGoogle
                             (new PointLatLng(lat, lon),
                             new Bitmap("images/bus.png")));
@@ -150,7 +147,7 @@ namespace MIOStopsVisualization
                         }
                         else
                         {
-                            app.getBuses().Add(new Bus(lat, lon, line.Split(',')[11]));
+                            app.getBuses().Add(new Bus(lat, lon, line.Split(',')[11], line.Split(',')[7]));
                             buses.Add(new GMap.NET.WindowsForms.Markers.GMarkerGoogle
                                 (new PointLatLng(lat, lon),
                                 new Bitmap("images/bus.png")));
@@ -853,17 +850,7 @@ namespace MIOStopsVisualization
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            if (index < app.getTestBus().getCoordinates().Count)
-            {
-                double newLat = app.getTestBus().getCoordinates()[index].Key;
-                double newLon = app.getTestBus().getCoordinates()[index].Value;
-                testBus.Position = new PointLatLng(newLat, newLon);
-                index++;
-            }
-            else
-            {
-                timer2.Stop();
-            }
+           
 
         }
 
@@ -1034,6 +1021,12 @@ namespace MIOStopsVisualization
             {
                 stopMap.Zoom--;
             }
+        }
+
+        private void ButStartSimulation_Click(object sender, EventArgs e)
+        {
+            clock.Start();
+            timer1.Start();
         }
     }
 }

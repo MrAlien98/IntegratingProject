@@ -52,9 +52,9 @@ namespace MIOStopsVisualization
             return result/10000000;
         }
 
-        public void setTestBus(string lat, string lon, string busId)
+        public void setTestBus(string lat, string lon, string busId, string lineId)
         {
-            this.testBus = new Bus(adjustCoordinates(lat), adjustCoordinates(lon), busId);
+            this.testBus = new Bus(adjustCoordinates(lat), adjustCoordinates(lon), busId, lineId);
         }
 
         public Bus getTestBus()

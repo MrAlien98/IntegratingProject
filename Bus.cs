@@ -12,18 +12,20 @@ namespace MIOStopsVisualization
         private double lat;
         private double lon;
         private string busId;
+        private string lineId;
         //KeyValuePair double : lat, double : long
 
         private List<KeyValuePair<double, double>> coordinates;
 
-        public Bus(double lat, double lon, string busId)
-        {
+        public Bus(double lat, double lon, string busId, string lineId) {
             this.lat = lat;
             this.lon = lon;
             this.busId = busId;
+            this.lineId = lineId;
             coordinates = new List<KeyValuePair<double, double>>();
             coordinates.Add(new KeyValuePair<double, double>(lat, lon));
         }
+
 
         public void setLat(double lat)
         {
@@ -53,6 +55,11 @@ namespace MIOStopsVisualization
         public string getBusId()
         {
             return busId;
+        }
+
+        public string getLineId()
+        {
+            return lineId;
         }
 
         public void setCoordinates(List<KeyValuePair<double, double>> coordinates)

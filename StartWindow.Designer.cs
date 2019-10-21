@@ -62,6 +62,7 @@
             this.hoursLabel = new System.Windows.Forms.Label();
             this.zoomOutButton = new System.Windows.Forms.Button();
             this.zoomInButton = new System.Windows.Forms.Button();
+            this.butStartSimulation = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -439,11 +440,22 @@
             this.zoomInButton.UseVisualStyleBackColor = false;
             this.zoomInButton.Click += new System.EventHandler(this.zoomInButton_Click);
             // 
+            // butStartSimulation
+            // 
+            this.butStartSimulation.Location = new System.Drawing.Point(64, 562);
+            this.butStartSimulation.Name = "butStartSimulation";
+            this.butStartSimulation.Size = new System.Drawing.Size(99, 23);
+            this.butStartSimulation.TabIndex = 30;
+            this.butStartSimulation.Text = "Iniciar Simulación";
+            this.butStartSimulation.UseVisualStyleBackColor = true;
+            this.butStartSimulation.Click += new System.EventHandler(this.ButStartSimulation_Click);
+            // 
             // StartWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(997, 629);
+            this.Controls.Add(this.butStartSimulation);
             this.Controls.Add(this.zoomInButton);
             this.Controls.Add(this.zoomOutButton);
             this.Controls.Add(this.panel1);
@@ -515,6 +527,7 @@
         private System.Windows.Forms.Label hoursLabel;
         private System.Windows.Forms.Button zoomOutButton;
         private System.Windows.Forms.Button zoomInButton;
+        private System.Windows.Forms.Button butStartSimulation;
     }
 }
 
