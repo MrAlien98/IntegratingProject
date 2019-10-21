@@ -354,6 +354,14 @@ namespace MIOStopsVisualization
                         poly.Overlay.Markers.Add(theMarker);
                     }
                 }
+                foreach (var actual in buses)
+                {
+                    var p = actual.Position;
+                    if (poly.IsInside(p))
+                    {
+                        poly.Overlay.Markers.Add(actual);
+                    }
+                }
             }
             else if (op == 0)
             {
@@ -373,6 +381,14 @@ namespace MIOStopsVisualization
                     {
                         GMapMarker theMarker = new GMarkerGoogle(p, new Bitmap("images/bus_stop_sign.png"));
                         poly.Overlay.Markers.Add(theMarker);
+                    }
+                }
+                foreach (var actual in buses)
+                {
+                    var p = actual.Position;
+                    if (poly.IsInside(p))
+                    {
+                        poly.Overlay.Markers.Add(actual);
                     }
                 }
             }
