@@ -14,7 +14,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms; 
+using System.Windows.Forms;
+using System.Threading;
 
 namespace MIOStopsVisualization
 {
@@ -94,6 +95,12 @@ namespace MIOStopsVisualization
                 Console.WriteLine(app.getBuses()[i].getCoordinates().Count);
             }
             */
+
+            Control.CheckForIllegalCrossThreadCalls = false;
+
+            ThreadStart delegated = new ThreadStart(new Action(() => RunClock(9, 5, 38)));
+            Thread thread = new Thread(delegated);
+            thread.Start();
         }
 
         public void fillBusesList()
@@ -963,6 +970,7 @@ namespace MIOStopsVisualization
             }
         }
 
+
         private void StartWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
@@ -981,6 +989,29 @@ namespace MIOStopsVisualization
         private void cbStops_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void RunClock(int paramHour, int paramMin, int paramSec)
+        {
+            int sec = paramSec, min = paramMin, hour = paramHour;
+            while(hour < 24)
+            {
+                Thread.Sleep(1000);
+                if(sec > 60)
+                {
+                    sec = 0;
+                    min++;
+                    if(min > 59)
+                    {
+                        min = 0;
+                        hour++;
+                    }
+                }
+                secondsLabel.Text = Convert.ToString(sec);
+                minutesLabel.Text = Convert.ToString(min);
+                hoursLabel.Text = Convert.ToString(hour);
+                sec++;
+            }
         }
     }
 }

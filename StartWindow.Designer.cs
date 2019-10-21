@@ -56,8 +56,15 @@
             this.cbStation = new System.Windows.Forms.CheckBox();
             this.cbStops = new System.Windows.Forms.CheckBox();
             this.lbChoose = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.hoursLabel = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.minutesLabel = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.secondsLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.tbZoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // stopMap
@@ -369,11 +376,69 @@
             this.lbChoose.Visible = false;
             this.lbChoose.Click += new System.EventHandler(this.label4_Click);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.secondsLabel);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.minutesLabel);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.hoursLabel);
+            this.panel1.Location = new System.Drawing.Point(239, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(127, 37);
+            this.panel1.TabIndex = 28;
+            // 
+            // hoursLabel
+            // 
+            this.hoursLabel.AutoSize = true;
+            this.hoursLabel.Location = new System.Drawing.Point(13, 12);
+            this.hoursLabel.Name = "hoursLabel";
+            this.hoursLabel.Size = new System.Drawing.Size(19, 13);
+            this.hoursLabel.TabIndex = 0;
+            this.hoursLabel.Text = "00";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(39, 12);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(10, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = ":";
+            // 
+            // minutesLabel
+            // 
+            this.minutesLabel.AutoSize = true;
+            this.minutesLabel.Location = new System.Drawing.Point(56, 12);
+            this.minutesLabel.Name = "minutesLabel";
+            this.minutesLabel.Size = new System.Drawing.Size(19, 13);
+            this.minutesLabel.TabIndex = 2;
+            this.minutesLabel.Text = "00";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(82, 12);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(10, 13);
+            this.label5.TabIndex = 3;
+            this.label5.Text = ":";
+            // 
+            // secondsLabel
+            // 
+            this.secondsLabel.AutoSize = true;
+            this.secondsLabel.Location = new System.Drawing.Point(98, 12);
+            this.secondsLabel.Name = "secondsLabel";
+            this.secondsLabel.Size = new System.Drawing.Size(19, 13);
+            this.secondsLabel.TabIndex = 4;
+            this.secondsLabel.Text = "00";
+            // 
             // StartWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(997, 629);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.lbChoose);
             this.Controls.Add(this.cbStops);
             this.Controls.Add(this.cbStation);
@@ -405,6 +470,8 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StartWindow_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.tbZoom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -437,6 +504,12 @@
         private System.Windows.Forms.CheckBox cbStation;
         private System.Windows.Forms.CheckBox cbStops;
         private System.Windows.Forms.Label lbChoose;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label secondsLabel;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label minutesLabel;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label hoursLabel;
     }
 }
 

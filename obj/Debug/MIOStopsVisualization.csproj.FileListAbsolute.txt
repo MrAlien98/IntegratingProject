@@ -235,3 +235,27 @@ C:\Users\ADMIN\Documents\IntegratingProject\obj\Debug\MIOStopsVisualization.cspr
 C:\Users\ADMIN\Documents\IntegratingProject\obj\Debug\MIOStopsVisualization.csproj.CopyComplete
 C:\Users\ADMIN\Documents\IntegratingProject\obj\Debug\MIOStopsVisualization.exe
 C:\Users\ADMIN\Documents\IntegratingProject\obj\Debug\MIOStopsVisualization.pdb
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\bin\Debug\MIOStopsVisualization.exe.config
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\bin\Debug\MIOStopsVisualization.exe
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\bin\Debug\MIOStopsVisualization.pdb
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\bin\Debug\EntityFramework.dll
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\bin\Debug\GMap.NET.Core.dll
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\bin\Debug\GMap.NET.WindowsForms.dll
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\bin\Debug\GMap.NET.WindowsPresentation.dll
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\bin\Debug\System.Data.SQLite.dll
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\bin\Debug\EntityFramework.xml
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\bin\Debug\System.Data.SQLite.xml
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\obj\Debug\MIOStopsVisualization.csprojAssemblyReference.cache
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\obj\Debug\MIOStopsVisualization.StartWindow.resources
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\obj\Debug\MIOStopsVisualization.Properties.Resources.resources
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\obj\Debug\MIOStopsVisualization.csproj.GenerateResource.cache
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\obj\Debug\MIOStopsVisualization.csproj.CopyComplete
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\obj\Debug\MIOStopsVisualization.exe
+C:\Users\Camilo\Desktop\Proyecto Integrador I\Proyecto\IntegratingProject\obj\Debug\MIOStopsVisualization.pdb
