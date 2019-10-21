@@ -36,8 +36,6 @@
             this.btnSatelite = new System.Windows.Forms.Button();
             this.btnNormal = new System.Windows.Forms.Button();
             this.btnRelieve = new System.Windows.Forms.Button();
-            this.tbZoom = new System.Windows.Forms.TrackBar();
-            this.LbZoom = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.label2 = new System.Windows.Forms.Label();
@@ -57,12 +55,13 @@
             this.cbStops = new System.Windows.Forms.CheckBox();
             this.lbChoose = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.hoursLabel = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.minutesLabel = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.secondsLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.tbZoom)).BeginInit();
+            this.label5 = new System.Windows.Forms.Label();
+            this.minutesLabel = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.hoursLabel = new System.Windows.Forms.Label();
+            this.zoomOutButton = new System.Windows.Forms.Button();
+            this.zoomInButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -148,26 +147,6 @@
             this.btnRelieve.Text = "Relieve";
             this.btnRelieve.UseVisualStyleBackColor = true;
             this.btnRelieve.Click += new System.EventHandler(this.btnRelieve_Click);
-            // 
-            // tbZoom
-            // 
-            this.tbZoom.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.tbZoom.Location = new System.Drawing.Point(40, 524);
-            this.tbZoom.Maximum = 25;
-            this.tbZoom.Name = "tbZoom";
-            this.tbZoom.Size = new System.Drawing.Size(141, 45);
-            this.tbZoom.TabIndex = 9;
-            this.tbZoom.ValueChanged += new System.EventHandler(this.tbZoom_ValueChanged);
-            // 
-            // LbZoom
-            // 
-            this.LbZoom.AutoSize = true;
-            this.LbZoom.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.LbZoom.Location = new System.Drawing.Point(12, 508);
-            this.LbZoom.Name = "LbZoom";
-            this.LbZoom.Size = new System.Drawing.Size(34, 13);
-            this.LbZoom.TabIndex = 10;
-            this.LbZoom.Text = "Zoom";
             // 
             // timer1
             // 
@@ -378,6 +357,7 @@
             // 
             // panel1
             // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.secondsLabel);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.minutesLabel);
@@ -388,32 +368,14 @@
             this.panel1.Size = new System.Drawing.Size(127, 37);
             this.panel1.TabIndex = 28;
             // 
-            // hoursLabel
+            // secondsLabel
             // 
-            this.hoursLabel.AutoSize = true;
-            this.hoursLabel.Location = new System.Drawing.Point(13, 12);
-            this.hoursLabel.Name = "hoursLabel";
-            this.hoursLabel.Size = new System.Drawing.Size(19, 13);
-            this.hoursLabel.TabIndex = 0;
-            this.hoursLabel.Text = "00";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(39, 12);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(10, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = ":";
-            // 
-            // minutesLabel
-            // 
-            this.minutesLabel.AutoSize = true;
-            this.minutesLabel.Location = new System.Drawing.Point(56, 12);
-            this.minutesLabel.Name = "minutesLabel";
-            this.minutesLabel.Size = new System.Drawing.Size(19, 13);
-            this.minutesLabel.TabIndex = 2;
-            this.minutesLabel.Text = "00";
+            this.secondsLabel.AutoSize = true;
+            this.secondsLabel.Location = new System.Drawing.Point(98, 12);
+            this.secondsLabel.Name = "secondsLabel";
+            this.secondsLabel.Size = new System.Drawing.Size(19, 13);
+            this.secondsLabel.TabIndex = 4;
+            this.secondsLabel.Text = "00";
             // 
             // label5
             // 
@@ -424,20 +386,66 @@
             this.label5.TabIndex = 3;
             this.label5.Text = ":";
             // 
-            // secondsLabel
+            // minutesLabel
             // 
-            this.secondsLabel.AutoSize = true;
-            this.secondsLabel.Location = new System.Drawing.Point(98, 12);
-            this.secondsLabel.Name = "secondsLabel";
-            this.secondsLabel.Size = new System.Drawing.Size(19, 13);
-            this.secondsLabel.TabIndex = 4;
-            this.secondsLabel.Text = "00";
+            this.minutesLabel.AutoSize = true;
+            this.minutesLabel.Location = new System.Drawing.Point(56, 12);
+            this.minutesLabel.Name = "minutesLabel";
+            this.minutesLabel.Size = new System.Drawing.Size(19, 13);
+            this.minutesLabel.TabIndex = 2;
+            this.minutesLabel.Text = "00";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(39, 12);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(10, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = ":";
+            // 
+            // hoursLabel
+            // 
+            this.hoursLabel.AutoSize = true;
+            this.hoursLabel.Location = new System.Drawing.Point(13, 12);
+            this.hoursLabel.Name = "hoursLabel";
+            this.hoursLabel.Size = new System.Drawing.Size(19, 13);
+            this.hoursLabel.TabIndex = 0;
+            this.hoursLabel.Text = "00";
+            // 
+            // zoomOutButton
+            // 
+            this.zoomOutButton.BackColor = System.Drawing.Color.LightGray;
+            this.zoomOutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.zoomOutButton.ForeColor = System.Drawing.Color.Black;
+            this.zoomOutButton.Location = new System.Drawing.Point(948, 593);
+            this.zoomOutButton.Name = "zoomOutButton";
+            this.zoomOutButton.Size = new System.Drawing.Size(37, 29);
+            this.zoomOutButton.TabIndex = 29;
+            this.zoomOutButton.Text = "-";
+            this.zoomOutButton.UseVisualStyleBackColor = false;
+            this.zoomOutButton.Click += new System.EventHandler(this.zoomOutButton_Click);
+            // 
+            // zoomInButton
+            // 
+            this.zoomInButton.BackColor = System.Drawing.Color.LightGray;
+            this.zoomInButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.zoomInButton.ForeColor = System.Drawing.Color.Black;
+            this.zoomInButton.Location = new System.Drawing.Point(948, 556);
+            this.zoomInButton.Name = "zoomInButton";
+            this.zoomInButton.Size = new System.Drawing.Size(37, 29);
+            this.zoomInButton.TabIndex = 29;
+            this.zoomInButton.Text = "+";
+            this.zoomInButton.UseVisualStyleBackColor = false;
+            this.zoomInButton.Click += new System.EventHandler(this.zoomInButton_Click);
             // 
             // StartWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(997, 629);
+            this.Controls.Add(this.zoomInButton);
+            this.Controls.Add(this.zoomOutButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lbChoose);
             this.Controls.Add(this.cbStops);
@@ -454,8 +462,6 @@
             this.Controls.Add(this.LAB3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.LbZoom);
-            this.Controls.Add(this.tbZoom);
             this.Controls.Add(this.btnRelieve);
             this.Controls.Add(this.btnNormal);
             this.Controls.Add(this.btnSatelite);
@@ -468,7 +474,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MIO";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StartWindow_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.tbZoom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -484,8 +489,6 @@
         private System.Windows.Forms.Button btnSatelite;
         private System.Windows.Forms.Button btnNormal;
         private System.Windows.Forms.Button btnRelieve;
-        private System.Windows.Forms.TrackBar tbZoom;
-        private System.Windows.Forms.Label LbZoom;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.PictureBox pictureBox2;
@@ -510,6 +513,8 @@
         private System.Windows.Forms.Label minutesLabel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label hoursLabel;
+        private System.Windows.Forms.Button zoomOutButton;
+        private System.Windows.Forms.Button zoomInButton;
     }
 }
 

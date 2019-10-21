@@ -3,19 +3,12 @@ using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
 
 namespace MIOStopsVisualization
 {
@@ -127,17 +120,17 @@ namespace MIOStopsVisualization
                     double lat = app.adjustCoordinates(line.Split(',')[4], 0);
                     double lon = app.adjustCoordinates(line.Split(',')[5], 0);
                     //11 nombre del bus
-                    if (app.getBuses().Count==0)
+                    if (app.getBuses().Count == 0)
                     {
                         app.getBuses().Add(new Bus(lat, lon, line.Split(',')[11]));
                         buses.Add(new GMap.NET.WindowsForms.Markers.GMarkerGoogle
-                            (new PointLatLng(lat, lon), 
+                            (new PointLatLng(lat, lon),
                             new Bitmap("images/bus.png")));
                     }
                     else
                     {
                         Boolean flag = false;
-                        int j=getApp().getBuses().Count();
+                        int j = getApp().getBuses().Count();
                         int z = 0;
                         for (int i = 0; i < j; i++)
                         {
@@ -165,7 +158,8 @@ namespace MIOStopsVisualization
                     }
                 }
                 app.saveBuses();
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
@@ -187,7 +181,7 @@ namespace MIOStopsVisualization
                         app.getTestBus().getCoordinates().Add(new KeyValuePair<double, double>(newLat, newLon));
                     }
                 }
-            } 
+            }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
@@ -258,8 +252,8 @@ namespace MIOStopsVisualization
             double latitud = 3.4372201;
             double longitud = -76.5224991;
             stopMap.Position = new PointLatLng(latitud, longitud);
-            stopMap.MinZoom = 1;
-            stopMap.MaxZoom = 100;
+            stopMap.MinZoom = 3;
+            stopMap.MaxZoom = 20;
             stopMap.Zoom = 13;
         }
 
@@ -276,7 +270,7 @@ namespace MIOStopsVisualization
             stopMap.Overlays.Add(markers);
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
-            
+
         }
 
         private void stopsMarker(double lat, double lng)
@@ -300,7 +294,7 @@ namespace MIOStopsVisualization
             }
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
-           
+
         }
 
         private void stationsMarker(double lat, double lng)
@@ -349,7 +343,7 @@ namespace MIOStopsVisualization
                     }
                 }
             }
-            else if (op==-1)
+            else if (op == -1)
             {
                 foreach (var actual in getApp().getStreetStop())
                 {
@@ -361,7 +355,7 @@ namespace MIOStopsVisualization
                     }
                 }
             }
-            else if(op==0)
+            else if (op == 0)
             {
                 foreach (var actual in getApp().getStationStop())
                 {
@@ -389,7 +383,7 @@ namespace MIOStopsVisualization
                 {
                     cbCentro.Checked = false;
                 }
-                else if(cbValleDeLili.Checked == true)
+                else if (cbValleDeLili.Checked == true)
                 {
                     cbValleDeLili.Checked = false;
                 }
@@ -401,7 +395,7 @@ namespace MIOStopsVisualization
                 {
                     cbCalima.Checked = false;
                 }
-                else if(cbAguablanca.Checked == true)
+                else if (cbAguablanca.Checked == true)
                 {
                     cbAguablanca.Checked = false;
                 }
@@ -413,11 +407,11 @@ namespace MIOStopsVisualization
                 {
                     cbGuadalupe.Checked = false;
                 }
-                else if(cbCañaveralejo.Checked == true)
+                else if (cbCañaveralejo.Checked == true)
                 {
                     cbCañaveralejo.Checked = false;
                 }
-                else if(cbPrado.Checked == true)
+                else if (cbPrado.Checked == true)
                 {
                     cbPrado.Checked = false;
                 }
@@ -432,7 +426,7 @@ namespace MIOStopsVisualization
             {
                 return 0;
             }
-            else  if (cbStation.Checked)
+            else if (cbStation.Checked)
             {
                 return 1;
             }
@@ -465,13 +459,13 @@ namespace MIOStopsVisualization
             cbStation.Visible = true;
             cbStops.Visible = true;
             lbChoose.Visible = true;
-            lbOpt.Location = new Point(12,271);
-            optionComBox.Location = new Point(40,300);
+            lbOpt.Location = new Point(12, 271);
+            optionComBox.Location = new Point(40, 300);
             btnSatelite.Location = new Point(25, 501);
             btnRelieve.Location = new Point(106, 501);
             btnNormal.Location = new Point(64, 530);
-            LbZoom.Location = new Point(37, 556);
-            tbZoom.Location = new Point(40, 572);
+            //LbZoom.Location = new Point(37, 556);
+            //tbZoom.Location = new Point(40, 572);
         }
 
         public void drawZone0()
@@ -806,7 +800,7 @@ namespace MIOStopsVisualization
 
         private void label1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnSatelite_Click(object sender, EventArgs e)
@@ -840,10 +834,6 @@ namespace MIOStopsVisualization
             }
         }
 
-        private void tbZoom_ValueChanged(object sender, EventArgs e)
-        {
-            stopMap.Zoom = tbZoom.Value;
-        }
 
         private void timer2_Tick(object sender, EventArgs e)
         {
@@ -858,7 +848,7 @@ namespace MIOStopsVisualization
             {
                 timer2.Stop();
             }
-            
+
         }
 
         private void cbValleDeLili_CheckedChanged(object sender, EventArgs e)
@@ -994,14 +984,14 @@ namespace MIOStopsVisualization
         private void RunClock(int paramHour, int paramMin, int paramSec)
         {
             int sec = paramSec, min = paramMin, hour = paramHour;
-            while(hour < 24)
+            while (hour < 24)
             {
                 Thread.Sleep(1000);
-                if(sec > 60)
+                if (sec > 60)
                 {
                     sec = 0;
                     min++;
-                    if(min > 59)
+                    if (min > 59)
                     {
                         min = 0;
                         hour++;
@@ -1011,6 +1001,22 @@ namespace MIOStopsVisualization
                 minutesLabel.Text = Convert.ToString(min);
                 hoursLabel.Text = Convert.ToString(hour);
                 sec++;
+            }
+        }
+
+        private void zoomInButton_Click(object sender, EventArgs e)
+        {
+            if (stopMap.Zoom <= stopMap.MaxZoom)
+            {
+                stopMap.Zoom++;
+            }
+        }
+
+        private void zoomOutButton_Click(object sender, EventArgs e)
+        {
+            if (stopMap.Zoom >= stopMap.MinZoom)
+            {
+                stopMap.Zoom--;
             }
         }
     }
