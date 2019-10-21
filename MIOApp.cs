@@ -16,6 +16,7 @@ namespace MIOStopsVisualization
         private List<Stop> streetStopList;
         private List<Stop> stationStopList;
         private List<Bus> buses;
+        private List<string> routes;
 
         private Bus testBus;
 
@@ -25,9 +26,46 @@ namespace MIOStopsVisualization
             
             testBus = null;
 
+            //routes = new List<string>();
             //buses = new List<Bus>();
             //streetStopList = new List<Stop>();
             //stationStopList = new List<Stop>();
+
+            //routesList();
+        }
+
+        public void routesList()
+        {
+            try
+            {
+                StreamReader sr = new StreamReader("data/routes.txt");
+                string line = "";
+                while ((line = sr.ReadLine()) != null)
+                {
+                    routes.Add(line);
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+            saveRoutes();
+        }
+
+        public void saveRoutes()
+        {
+            try
+            {
+                BinaryFormatter format = new BinaryFormatter();
+                FileStream stream = new FileStream("data/routesList.txt", FileMode.Create);
+                format.Serialize(stream, routes);
+
+                stream.Close();
+            }
+            catch(Exception e)
+            {
+
+            }
         }
 
         public List<Bus> getBuses()
@@ -114,18 +152,19 @@ namespace MIOStopsVisualization
             BinaryFormatter format = new BinaryFormatter();
 
             FileStream stream = new FileStream("data/StreetStopsList.txt", FileMode.Open);
-
             FileStream stream2 = new FileStream("data/StationStopsList.txt", FileMode.Open);
-
             FileStream stream3 = new FileStream("data/Buses.txt", FileMode.Open);
+            FileStream stream4 = new FileStream("data/routesList.txt", FileMode.Open);
 
             streetStopList = (List<Stop>) format.Deserialize(stream);
             stationStopList = (List<Stop>)format.Deserialize(stream2);
                         buses = (List<Bus>)format.Deserialize(stream3);
+                        routes = (List<string>)format.Deserialize(stream4);
 
             stream.Close();
             stream2.Close();
             stream3.Close();
+            stream4.Close();
         }
     }
 }

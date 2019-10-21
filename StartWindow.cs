@@ -73,6 +73,7 @@ namespace MIOStopsVisualization
             index = 0;
 
             //ReadFile();
+
             lbOpt.BackColor = Color.Transparent;
             var options = new List<String>();
             options.Add("OPCIONES");
