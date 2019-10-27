@@ -46,8 +46,12 @@ namespace MIOStopsVisualization
         GMapPolygon poligonoZ7;
         GMapPolygon poligonoZ8;
 
+        GMapOverlay stations;
+
         public StartWindow()
         {
+            stations = new GMapOverlay("Estaciones");
+
             testBus = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(
                         new GMap.NET.PointLatLng(3.4041000, -76.5467650),
                             new Bitmap("images/bus.png"));
@@ -290,6 +294,7 @@ namespace MIOStopsVisualization
             {
                 stationsMarker(aux.DecLati, aux.DecLong);
             }
+            drawStationPolygon();
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
 
@@ -967,6 +972,8 @@ namespace MIOStopsVisualization
 
         private void StartWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
+            timer1.Stop();
+            timer2.Stop();
             Application.Exit();
         }
 
@@ -1029,5 +1036,43 @@ namespace MIOStopsVisualization
             clock.Start();
             timer1.Start();
         }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+        }
+
+        public void drawStationPolygon()
+        {
+            StreamReader sr = new StreamReader("data/StationPolygon.txt");
+            String line = "";
+            String[] dats = new String[2];
+            while ((line = sr.ReadLine()) != null)
+            {
+                List<PointLatLng> station = new List<PointLatLng>();
+                GMapOverlay stations2 = new GMapOverlay("stations");
+                while (!(line.Equals("---")))
+                {
+                    dats = line.Split(',');
+                    double lng = double.Parse(dats[0]);
+                    lng /= 100000000;
+                    double lat = double.Parse(dats[1]);
+                    lat /= 100000000;
+                    station.Add(new PointLatLng(lat, lng));
+                    line = sr.ReadLine();
+                }
+                GMapPolygon poligonoStation = new GMapPolygon(station, "ESTACIONES");
+                stations2.Polygons.Add(poligonoStation);
+                stopMap.Overlays.Add(stations2);
+            }
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
+        }
+
+        public void actualizarMapa()
+        {
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
+        }
+
     }
 }
