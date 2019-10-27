@@ -1069,7 +1069,10 @@ namespace MIOStopsVisualization
             int ind = zonasCombo.SelectedIndex;
             if(ind == 1)
             {
+                //if(aqui se colocario el isSelectedItem() para ver si es asi
                 drawZone0();
+                //else 
+                //zona0.Clear();
             }
             else if(ind == 2)
             {
