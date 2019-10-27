@@ -85,8 +85,34 @@ namespace MIOStopsVisualization
             options.Add("PARADAS");
             options.Add("ZONAS");
             this.optionComBox.DataSource = options;
-
             this.optionComBox.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            var zones = new List<String>();
+            zones.Add("ZONAS");
+            zones.Add("CENTRO");
+            zones.Add("VALLE DE LILI");
+            zones.Add("MENGA");
+            zones.Add("CALIMA");
+            zones.Add("AGUABLANCA");
+            zones.Add("CIUDAD CORDOBA");
+            zones.Add("GUADALUPE");
+            zones.Add("CAÑAVERALEJO");
+            zones.Add("PRADO");
+            this.zonasCombo.DataSource = zones;
+            this.zonasCombo.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            var rutas = new List<String>();
+            rutas.Add("RUTAS");
+            this.rutasCombo.DataSource = rutas;
+            this.rutasCombo.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            var vistas = new List<String>();
+            vistas.Add("VISTAS");
+            vistas.Add("SATELITAL");
+            vistas.Add("RELIEVE");
+            vistas.Add("MAPA 2D");
+            this.vistasCombo.DataSource = vistas;
+            this.vistasCombo.DropDownStyle = ComboBoxStyle.DropDownList;
 
             fillBusesList();
 
@@ -262,7 +288,7 @@ namespace MIOStopsVisualization
 
         private void drawStops()
         {
-            stopMap.Overlays.Clear();
+            
 
             GMapOverlay markers = new GMapOverlay("markers");
             foreach (var aux in getApp().getStreetStop())
@@ -288,7 +314,7 @@ namespace MIOStopsVisualization
 
         public void drawStations()
         {
-            stopMap.Overlays.Clear();
+            
 
             foreach (var aux in getApp().getStationStop())
             {
@@ -397,46 +423,10 @@ namespace MIOStopsVisualization
             }
             else
             {
-                MessageBox.Show("POR FAVOR ESCOGA SI DESEA VER LAS ESTACIONES O LAS PARADAS");
-                if (cbCentro.Checked == true)
-                {
-                    cbCentro.Checked = false;
-                }
-                else if (cbValleDeLili.Checked == true)
-                {
-                    cbValleDeLili.Checked = false;
-                }
-                else if (cbMenga.Checked == true)
-                {
-                    cbMenga.Checked = false;
-                }
-                else if (cbCalima.Checked == true)
-                {
-                    cbCalima.Checked = false;
-                }
-                else if (cbAguablanca.Checked == true)
-                {
-                    cbAguablanca.Checked = false;
-                }
-                else if (cbCiudadCordoba.Checked == true)
-                {
-                    cbCiudadCordoba.Checked = false;
-                }
-                else if (cbGuadalupe.Checked == true)
-                {
-                    cbGuadalupe.Checked = false;
-                }
-                else if (cbCañaveralejo.Checked == true)
-                {
-                    cbCañaveralejo.Checked = false;
-                }
-                else if (cbPrado.Checked == true)
-                {
-                    cbPrado.Checked = false;
-                }
+                
+                
             }
-            stopMap.Zoom = stopMap.Zoom + 1;
-            stopMap.Zoom = stopMap.Zoom - 1;
+            
         }
 
         public int verification2()
@@ -984,12 +974,12 @@ namespace MIOStopsVisualization
 
         private void cbStation_CheckedChanged(object sender, EventArgs e)
         {
-
+            drawStations();
         }
 
         private void cbStops_CheckedChanged(object sender, EventArgs e)
         {
-
+            drawStops();
         }
 
         private void RunClock(int paramHour, int paramMin, int paramSec)
@@ -1074,5 +1064,72 @@ namespace MIOStopsVisualization
             stopMap.Zoom = stopMap.Zoom - 1;
         }
 
+        private void zonasCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int ind = zonasCombo.SelectedIndex;
+            if(ind == 1)
+            {
+                drawZone0();
+            }
+            else if(ind == 2)
+            {
+                drawZone1();
+            }
+            else if(ind == 3)
+            {
+                drawZone2();
+            }
+            else if(ind == 4)
+            {
+                drawZone3();
+            }
+            else if(ind == 5)
+            {
+                drawZone4();
+            }
+            else if(ind == 6)
+            {
+                drawZone5();
+            }
+            else if(ind == 7)
+            {
+                drawZone6();
+            }
+            else if(ind == 8)
+            {
+                drawZone7();
+            }
+            else if(ind == 9)
+            {
+                drawZone8();
+            }
+        }
+
+        private void rutasCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void vistasCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int ind = vistasCombo.SelectedIndex;
+            if(ind == 1)
+            {
+                stopMap.MapProvider = GMapProviders.GoogleChinaSatelliteMap;
+            }
+            else if(ind == 2)
+            {
+                stopMap.MapProvider = GMapProviders.GoogleTerrainMap;
+            }
+            else if( ind == 3)
+            {
+                stopMap.MapProvider = GMapProviders.GoogleMap;
+            }
+        }
+
+        private void btBorrar_Click(object sender, EventArgs e)
+        {
+            stopMap.Overlays.Clear();
+        }
     }
 }

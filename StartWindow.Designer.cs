@@ -63,6 +63,10 @@
             this.zoomOutButton = new System.Windows.Forms.Button();
             this.zoomInButton = new System.Windows.Forms.Button();
             this.butStartSimulation = new System.Windows.Forms.Button();
+            this.zonasCombo = new System.Windows.Forms.ComboBox();
+            this.rutasCombo = new System.Windows.Forms.ComboBox();
+            this.vistasCombo = new System.Windows.Forms.ComboBox();
+            this.btBorrar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -100,10 +104,11 @@
             // optionComBox
             // 
             this.optionComBox.FormattingEnabled = true;
-            this.optionComBox.Location = new System.Drawing.Point(36, 280);
+            this.optionComBox.Location = new System.Drawing.Point(557, 187);
             this.optionComBox.Name = "optionComBox";
             this.optionComBox.Size = new System.Drawing.Size(141, 21);
             this.optionComBox.TabIndex = 2;
+            this.optionComBox.Visible = false;
             this.optionComBox.SelectedIndexChanged += new System.EventHandler(this.OptionComBox_SelectedIndexChanged_1);
             // 
             // lbOpt
@@ -112,41 +117,45 @@
             this.lbOpt.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.lbOpt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbOpt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbOpt.Location = new System.Drawing.Point(12, 249);
+            this.lbOpt.Location = new System.Drawing.Point(533, 156);
             this.lbOpt.Name = "lbOpt";
             this.lbOpt.Size = new System.Drawing.Size(95, 18);
             this.lbOpt.TabIndex = 3;
             this.lbOpt.Text = "OPCIONES";
+            this.lbOpt.Visible = false;
             this.lbOpt.Click += new System.EventHandler(this.label1_Click);
             // 
             // btnSatelite
             // 
-            this.btnSatelite.Location = new System.Drawing.Point(64, 330);
+            this.btnSatelite.Location = new System.Drawing.Point(480, 335);
             this.btnSatelite.Name = "btnSatelite";
             this.btnSatelite.Size = new System.Drawing.Size(75, 23);
             this.btnSatelite.TabIndex = 6;
             this.btnSatelite.Text = "Satelite";
             this.btnSatelite.UseVisualStyleBackColor = true;
+            this.btnSatelite.Visible = false;
             this.btnSatelite.Click += new System.EventHandler(this.btnSatelite_Click);
             // 
             // btnNormal
             // 
-            this.btnNormal.Location = new System.Drawing.Point(64, 419);
+            this.btnNormal.Location = new System.Drawing.Point(480, 424);
             this.btnNormal.Name = "btnNormal";
             this.btnNormal.Size = new System.Drawing.Size(75, 23);
             this.btnNormal.TabIndex = 7;
             this.btnNormal.Text = "Normal";
             this.btnNormal.UseVisualStyleBackColor = true;
+            this.btnNormal.Visible = false;
             this.btnNormal.Click += new System.EventHandler(this.btnNormal_Click);
             // 
             // btnRelieve
             // 
-            this.btnRelieve.Location = new System.Drawing.Point(64, 373);
+            this.btnRelieve.Location = new System.Drawing.Point(480, 378);
             this.btnRelieve.Name = "btnRelieve";
             this.btnRelieve.Size = new System.Drawing.Size(75, 23);
             this.btnRelieve.TabIndex = 8;
             this.btnRelieve.Text = "Relieve";
             this.btnRelieve.UseVisualStyleBackColor = true;
+            this.btnRelieve.Visible = false;
             this.btnRelieve.Click += new System.EventHandler(this.btnRelieve_Click);
             // 
             // timer1
@@ -179,7 +188,7 @@
             // 
             this.LAB3.AutoSize = true;
             this.LAB3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.LAB3.Location = new System.Drawing.Point(12, 221);
+            this.LAB3.Location = new System.Drawing.Point(9, 221);
             this.LAB3.Name = "LAB3";
             this.LAB3.Size = new System.Drawing.Size(205, 13);
             this.LAB3.TabIndex = 13;
@@ -206,7 +215,7 @@
             // 
             this.cbCentro.AutoSize = true;
             this.cbCentro.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.cbCentro.Location = new System.Drawing.Point(135, 353);
+            this.cbCentro.Location = new System.Drawing.Point(656, 260);
             this.cbCentro.Name = "cbCentro";
             this.cbCentro.Size = new System.Drawing.Size(71, 17);
             this.cbCentro.TabIndex = 14;
@@ -219,7 +228,7 @@
             // 
             this.cbValleDeLili.AutoSize = true;
             this.cbValleDeLili.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.cbValleDeLili.Location = new System.Drawing.Point(12, 330);
+            this.cbValleDeLili.Location = new System.Drawing.Point(533, 237);
             this.cbValleDeLili.Name = "cbValleDeLili";
             this.cbValleDeLili.Size = new System.Drawing.Size(98, 17);
             this.cbValleDeLili.TabIndex = 15;
@@ -232,7 +241,7 @@
             // 
             this.cbMenga.AutoSize = true;
             this.cbMenga.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.cbMenga.Location = new System.Drawing.Point(135, 330);
+            this.cbMenga.Location = new System.Drawing.Point(656, 237);
             this.cbMenga.Name = "cbMenga";
             this.cbMenga.Size = new System.Drawing.Size(65, 17);
             this.cbMenga.TabIndex = 16;
@@ -245,7 +254,7 @@
             // 
             this.cbCalima.AutoSize = true;
             this.cbCalima.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.cbCalima.Location = new System.Drawing.Point(135, 402);
+            this.cbCalima.Location = new System.Drawing.Point(656, 309);
             this.cbCalima.Name = "cbCalima";
             this.cbCalima.Size = new System.Drawing.Size(65, 17);
             this.cbCalima.TabIndex = 17;
@@ -258,7 +267,7 @@
             // 
             this.cbAguablanca.AutoSize = true;
             this.cbAguablanca.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.cbAguablanca.Location = new System.Drawing.Point(12, 402);
+            this.cbAguablanca.Location = new System.Drawing.Point(533, 309);
             this.cbAguablanca.Name = "cbAguablanca";
             this.cbAguablanca.Size = new System.Drawing.Size(98, 17);
             this.cbAguablanca.TabIndex = 18;
@@ -271,7 +280,7 @@
             // 
             this.cbCiudadCordoba.AutoSize = true;
             this.cbCiudadCordoba.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.cbCiudadCordoba.Location = new System.Drawing.Point(40, 425);
+            this.cbCiudadCordoba.Location = new System.Drawing.Point(561, 332);
             this.cbCiudadCordoba.Name = "cbCiudadCordoba";
             this.cbCiudadCordoba.Size = new System.Drawing.Size(123, 17);
             this.cbCiudadCordoba.TabIndex = 19;
@@ -284,7 +293,7 @@
             // 
             this.cbGuadalupe.AutoSize = true;
             this.cbGuadalupe.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.cbGuadalupe.Location = new System.Drawing.Point(12, 379);
+            this.cbGuadalupe.Location = new System.Drawing.Point(533, 286);
             this.cbGuadalupe.Name = "cbGuadalupe";
             this.cbGuadalupe.Size = new System.Drawing.Size(92, 17);
             this.cbGuadalupe.TabIndex = 20;
@@ -297,7 +306,7 @@
             // 
             this.cbCañaveralejo.AutoSize = true;
             this.cbCañaveralejo.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.cbCañaveralejo.Location = new System.Drawing.Point(12, 353);
+            this.cbCañaveralejo.Location = new System.Drawing.Point(533, 260);
             this.cbCañaveralejo.Name = "cbCañaveralejo";
             this.cbCañaveralejo.Size = new System.Drawing.Size(110, 17);
             this.cbCañaveralejo.TabIndex = 21;
@@ -310,7 +319,7 @@
             // 
             this.cbPrado.AutoSize = true;
             this.cbPrado.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.cbPrado.Location = new System.Drawing.Point(135, 379);
+            this.cbPrado.Location = new System.Drawing.Point(656, 286);
             this.cbPrado.Name = "cbPrado";
             this.cbPrado.Size = new System.Drawing.Size(64, 17);
             this.cbPrado.TabIndex = 22;
@@ -323,33 +332,31 @@
             // 
             this.cbStation.AutoSize = true;
             this.cbStation.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.cbStation.Location = new System.Drawing.Point(15, 471);
+            this.cbStation.Location = new System.Drawing.Point(20, 237);
             this.cbStation.Name = "cbStation";
             this.cbStation.Size = new System.Drawing.Size(94, 17);
             this.cbStation.TabIndex = 23;
             this.cbStation.Text = "ESTACIONES";
             this.cbStation.UseVisualStyleBackColor = false;
-            this.cbStation.Visible = false;
             this.cbStation.CheckedChanged += new System.EventHandler(this.cbStation_CheckedChanged);
             // 
             // cbStops
             // 
             this.cbStops.AutoSize = true;
             this.cbStops.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.cbStops.Location = new System.Drawing.Point(115, 471);
+            this.cbStops.Location = new System.Drawing.Point(120, 237);
             this.cbStops.Name = "cbStops";
             this.cbStops.Size = new System.Drawing.Size(77, 17);
             this.cbStops.TabIndex = 24;
             this.cbStops.Text = "PARADAS";
             this.cbStops.UseVisualStyleBackColor = false;
-            this.cbStops.Visible = false;
             this.cbStops.CheckedChanged += new System.EventHandler(this.cbStops_CheckedChanged);
             // 
             // lbChoose
             // 
             this.lbChoose.AutoSize = true;
             this.lbChoose.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.lbChoose.Location = new System.Drawing.Point(9, 445);
+            this.lbChoose.Location = new System.Drawing.Point(279, 481);
             this.lbChoose.Name = "lbChoose";
             this.lbChoose.Size = new System.Drawing.Size(175, 13);
             this.lbChoose.TabIndex = 27;
@@ -443,19 +450,60 @@
             // 
             // butStartSimulation
             // 
-            this.butStartSimulation.Location = new System.Drawing.Point(64, 562);
+            this.butStartSimulation.Location = new System.Drawing.Point(40, 437);
             this.butStartSimulation.Name = "butStartSimulation";
-            this.butStartSimulation.Size = new System.Drawing.Size(99, 23);
+            this.butStartSimulation.Size = new System.Drawing.Size(123, 46);
             this.butStartSimulation.TabIndex = 30;
             this.butStartSimulation.Text = "Iniciar Simulación";
             this.butStartSimulation.UseVisualStyleBackColor = true;
             this.butStartSimulation.Click += new System.EventHandler(this.ButStartSimulation_Click);
+            // 
+            // zonasCombo
+            // 
+            this.zonasCombo.FormattingEnabled = true;
+            this.zonasCombo.Location = new System.Drawing.Point(31, 269);
+            this.zonasCombo.Name = "zonasCombo";
+            this.zonasCombo.Size = new System.Drawing.Size(144, 21);
+            this.zonasCombo.TabIndex = 31;
+            this.zonasCombo.SelectedIndexChanged += new System.EventHandler(this.zonasCombo_SelectedIndexChanged);
+            // 
+            // rutasCombo
+            // 
+            this.rutasCombo.FormattingEnabled = true;
+            this.rutasCombo.Location = new System.Drawing.Point(31, 309);
+            this.rutasCombo.Name = "rutasCombo";
+            this.rutasCombo.Size = new System.Drawing.Size(144, 21);
+            this.rutasCombo.TabIndex = 32;
+            this.rutasCombo.SelectedIndexChanged += new System.EventHandler(this.rutasCombo_SelectedIndexChanged);
+            // 
+            // vistasCombo
+            // 
+            this.vistasCombo.FormattingEnabled = true;
+            this.vistasCombo.Location = new System.Drawing.Point(31, 354);
+            this.vistasCombo.Name = "vistasCombo";
+            this.vistasCombo.Size = new System.Drawing.Size(144, 21);
+            this.vistasCombo.TabIndex = 33;
+            this.vistasCombo.SelectedIndexChanged += new System.EventHandler(this.vistasCombo_SelectedIndexChanged);
+            // 
+            // btBorrar
+            // 
+            this.btBorrar.Location = new System.Drawing.Point(64, 394);
+            this.btBorrar.Name = "btBorrar";
+            this.btBorrar.Size = new System.Drawing.Size(75, 37);
+            this.btBorrar.TabIndex = 34;
+            this.btBorrar.Text = "Borrar";
+            this.btBorrar.UseVisualStyleBackColor = true;
+            this.btBorrar.Click += new System.EventHandler(this.btBorrar_Click);
             // 
             // StartWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(997, 629);
+            this.Controls.Add(this.btBorrar);
+            this.Controls.Add(this.vistasCombo);
+            this.Controls.Add(this.rutasCombo);
+            this.Controls.Add(this.zonasCombo);
             this.Controls.Add(this.butStartSimulation);
             this.Controls.Add(this.zoomInButton);
             this.Controls.Add(this.zoomOutButton);
@@ -529,6 +577,10 @@
         private System.Windows.Forms.Button zoomOutButton;
         private System.Windows.Forms.Button zoomInButton;
         private System.Windows.Forms.Button butStartSimulation;
+        private System.Windows.Forms.ComboBox zonasCombo;
+        private System.Windows.Forms.ComboBox rutasCombo;
+        private System.Windows.Forms.ComboBox vistasCombo;
+        private System.Windows.Forms.Button btBorrar;
     }
 }
 
