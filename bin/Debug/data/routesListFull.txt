@@ -1,0 +1,124 @@
+LINEID,PLANVERSIONID,SHORTNAME,DESCRIPTION
+131,178,T31,Terminal Paso del Comercio - Universidades
+140,178,T40,Terminal Andres Sanin - Centro
+2102,178,P10B,Estacion Universidades-El Ingenio-Estacion-Estacio
+2301,178,P30A,Estacion Flora Industrial-Terminal Menga - Centro
+2471,178,P47A,Terminal Andres Sanin - Estacion Unidad Deportiva
+2472,178,P47B,Terminal Andres Sanin - Estacion Unidad Deportiva
+322,178,A22,Brisas de los Aamos- Terminal Menga
+332,178,A32,Flora Industrial - Estacion Chiminangos
+333,178,A33,Ciudadela Floralia
+334,178,A34,Alcazares - Terminal Paso del Comercio
+373,178,A73,Napoles - Caldas - Terminal Ca?averalejo
+376,178,A76,H.U.V - Terminal Ca?averalejo
+421,178,E21,Terminal Menga - Estacion Universidades
+552,178,R52,MENGA RESERVA
+303,178,A03,Nacional - Santa librada
+304,178,A04,Bella Vista - Estacion Manzana del saber
+1472,178,T47B,Terminal Andres Sanin - Estacion Unidad Deportiva
+554,178,R54,SANIN RESERVA
+3011,178,A01A,San Bosco - C.A.M - Centro
+3123,178,A12C,Melendez - Estacion Capri
+3411,178,A41A,Pizamos-Terminal Andres Sanin
+3412,178,A41B,Decepaz - Terminal Andres Sanin
+3421,178,A42A,Terminal Andres Sanin - La Casona - Estacion Nuevo
+551,178,R51,SUR RESERVA
+3142,178,A14B,La Voragine - Estacion Universidades-
+3173,178,A17C,Comfenalco Lili - Estacion  Universidades
+3781,178,A78A,Los Chorros - Estacion Caldas
+302,178,A02,Atenas - Zoologico - Estacion San Bosco
+3172,178,A17B,Hormiguero - Estacion Universidades
+318,178,A18,Hacienda El Castillo - Estacion Universidades
+323,178,A23,Ciudadela Los Alamos-Terminal Menga
+347,178,A47,Pizamos - Terminal Andres Sanin
+375,178,A75,La Sirena-Terminal Ca?averalejo
+441,178,E41,Terminal Andres Sanin - Universidades
+557,178,R57,CA?AVERALEJO RESERVA
+722,178,U22,Prueba u22
+734,178,U34,prueba U34
+723,178,U23,prueba U23
+355,178,A55,Compartir - Manuela Beltran-Estacion Nuevo Latir
+541,178,REA,Reserva eventos Auxiliar
+2521,178,P52A,Amanecer -Terminal Calipso - Av. de las Americas
+547,178,RE7,Reserva eventos ca?averalejo
+357,178,A57,Villa Luz - Estacion Nuevo Latir
+352,178,A52,Hospital Isaias Duarte Cancino - Estacion Nuevo La
+437,178,E37,Terminal Paso del Comercio - Universidades
+553,178,R53,RESERVA PASO DEL COMERCIO
+555,178,R55,CALIPSO RESERVA
+2243,178,P24C,Terminal Menga-Terminal Andres Sanin-Decepaz
+3422,178,A42B,La Casona - Terminal Andres Sanin
+3722,178,A72B,El Cortijo - Terminal Ca?averalejo
+431,178,E31,Terminal Paso del Comercio - Universidades
+452,178,E52,Estacion Nuevo Latir - Terminal Calipso - Terminal
+272,178,P72,Estacion Capri- Centro Empresa
+356,178,A56,Pizamos - Terminal Calipso
+2101,178,P10A,Estacion Universidades - Centro
+2402,178,P40B,Terminal Andres Sanin -Sena-Centro
+3452,178,A45B,San Marino - Estacion Villacolombia
+1571,178,T57A,Estacion Nuevo Latir - Estacion Unidad Deportiva
+3132,178,A13B,Vegas de Comfandi - Caney
+2211,178,P21A,Universidades - Centro - Av Las Americas
+2212,178,P21B,Terminal Menga - Estacion Universidades
+2241,178,P24A,Terminal Menga- Terminal Andres Sanin
+2242,178,P24B,C.A.M.  - Terminal Andres Sanin
+2273,178,P27C,Terminal Menga - Estacion Universidades
+2274,178,P27D,Terminal Menga - Estacion Capri
+385,178,A85,Estacion Santa Monica - Terminal Andres Sanin
+3721,178,A72A,Jardines De La Aurora - Terminal  Ca?averalejo
+306,178,A06,Aguacatal - Estacion San Bosco
+321,178,A21,Ciudadela Floralia - Terminal Menga
+3441,178,A44A,Manuela Beltran - Terminal Andres Sanin
+3442,178,A44B,Puertas Del sol - Terminal Andres Sanin
+370,178,A70,Morti?al - Estacion Tequendama
+324,178,A24,San Miguel - El Bosque - Estacion Vipasa
+305,178,A05,Av. De Las Americas - C.A.M - La Portada
+3131,178,A13A,Caney - Estacion Universidades
+3133,178,A13C,Lili - Estacion Universidades
+353,178,A53,Estacion Amanecer - Los Lagos -Terminal Andres San
+377,178,A77,Ciudad 2000 - Estacion Refugio
+2401,178,P40A,Terminal Andres Sanin - Centro
+271,178,P71,Caney - Estacion Unidad Deportiva
+2104,178,P10D,Estacion Universidades - Centro
+336,178,A36,Guayacanes - Estacion Chiminangos
+2121,178,P12A,Est. Universidades - Est Nuevo Latir - T. A Sanin
+3124,178,A12D,Altos De Santa Elena - Estacion Melendez
+371,178,A71,Los Chorros - Terminal Ca?averalejo
+2141,178,P14A,Estacion Universidades - Terminal Andres Sanin
+3171,178,A17A,U.A.O - U. San Martin - Estacion Universidades
+4272,178,E27B,Estacion Av Las Americas - Estacion Unidad Deporti
+282,178,P82,Terminal Calipso - Terminal Menga
+2801,178,P80A,Terminal Calipso - Santa Elena - Centro
+311,178,A11,Icesi - P.U.J - Estacion Universidades
+2473,178,P47C,Terminal Andres Sanin - Estacion Capri
+150,178,T50,Estacion Nuevo Latir - Centro
+3121,178,A12A,Altos De La Luisa - Melendez - Capri
+3122,178,A12B,Las Palmas - Estacion Melendez
+3191,178,A19A,Comfandi Pance - Estacion Universidades
+3192,178,A19B,La Buitrera - Estacion Buitrera
+142,178,T42,Pizamos - Centro - Terminal
+251,178,P51,Pizamos - Universidades
+3351,178,A35A,Calimio Norte - Terminal Paso del Comercio
+3352,178,A35B,Jorge Eliecer Gaitan - Terminal Paso del Comercio
+2524,178,P52D,Ciudad Cordoba - Centro - Terminal
+3372,178,A37B,Sena - Estacion Flora Industrial
+3141,178,A14A,U.S.B - Estacion Universidades
+3371,178,A37A,Sena - Estacion Salomia
+427,178,E27,Terminal Menga - Estacion Capri
+5616,180,RF16,Ruta de la Feria
+217,183,P17,P.U.J - Icesi - Estacion Unidad Deportiva
+751,181,U51,ruta de medicion terminal calipso
+752,181,U52,ruta de medicion terminal calipso EXTERNAS
+753,181,U53,Ruta de medicion terminal Paso del Comercio
+2842,253,P84B,Terminal Andres Sanin - Terminal Calipso
+283,223,P83,Terminal Calipso - Terminal Paso de Comercio
+651,223,D51,Alimentadora Desvio Av. Ciudad de Cali
+549,223,RE9,Reserva Especial Ermita
+541,223,RE1,Reserva Especial Pance
+5660,223,F60,Feria De Cali 2017
+2841,223,P84A,Terminal Calipso - Terminal Andres Sanin
+3112,200,A11B,Universidad Libre - Universidades
+3413,248,A41C,Valle Grande - Terminal Andres Sanin
+243,249,P43,Terminal Andres Sanin -T. Paso del Comercio
+661,252,F61,Ruta de la Feria 2018
+909,231,MIO,Sin servicio

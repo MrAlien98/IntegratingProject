@@ -101,8 +101,11 @@ namespace MIOStopsVisualization
             this.zonasCombo.DataSource = zones;
             this.zonasCombo.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            var rutas = new List<String>();
-            rutas.Add("RUTAS");
+            var rutas = new List<string>();
+            for (int i=0; i<app.getRoutes().Count;i++)
+            {
+                rutas.Add(app.getRoutes()[i].Key);
+            }
             this.rutasCombo.DataSource = rutas;
             this.rutasCombo.DropDownStyle = ComboBoxStyle.DropDownList;
 
@@ -122,6 +125,21 @@ namespace MIOStopsVisualization
             clock = new Thread(delegated);
 
             timer1.Stop();
+        }
+
+        public void lineFilter(string line, int index)
+        {
+            for (int i=0;i<app.getBuses().Count;i++)
+            {
+                if (!(app.getBuses()[i].getLineId().Equals(app.getRoutes()[index].Value)))
+                {
+                    buses[i].IsVisible = false;
+                }
+                else if (buses[i].IsVisible == false)
+                {
+                    buses[i].IsVisible = true;
+                }
+            }
         }
 
         public void fillBusesList()
@@ -1110,7 +1128,10 @@ namespace MIOStopsVisualization
 
         private void rutasCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (buses.Count!=0)
+            {
+                lineFilter((string)rutasCombo.SelectedItem, rutasCombo.SelectedIndex);
+            }
         }
 
         private void vistasCombo_SelectedIndexChanged(object sender, EventArgs e)
