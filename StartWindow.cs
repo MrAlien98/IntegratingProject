@@ -1067,7 +1067,7 @@ namespace MIOStopsVisualization
 
         public void drawStationPolygon()
         {
-            StreamReader sr = new StreamReader("data/StationPolygon2.txt");
+            StreamReader sr = new StreamReader("data/StationPolygon.txt");
             String line = "";
             String[] dats = new String[2];
             int i = 0;
