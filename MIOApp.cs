@@ -16,7 +16,7 @@ namespace MIOStopsVisualization
         private List<Stop> streetStopList;
         private List<Stop> stationStopList;
         private List<Bus> buses;
-        private List<KeyValuePair<string, string> > routes;
+        private List<KeyValuePair<String, String> > routes;
 
         private Bus testBus;
 
@@ -26,12 +26,14 @@ namespace MIOStopsVisualization
             
             testBus = null;
 
-            routes = new List<KeyValuePair<string, string>>();
+            routes.Sort( (x,y) => x.Key.CompareTo(y.Key) );
+
+            //routes = new List<KeyValuePair<string, string>>();
             //buses = new List<Bus>();
             //streetStopList = new List<Stop>();
             //stationStopList = new List<Stop>();
 
-            routesList();
+            //routesList();
         }
 
         public List<KeyValuePair<string, string>> getRoutes()
@@ -159,17 +161,17 @@ namespace MIOStopsVisualization
             FileStream stream = new FileStream("data/StreetStopsList.txt", FileMode.Open);
             FileStream stream2 = new FileStream("data/StationStopsList.txt", FileMode.Open);
             FileStream stream3 = new FileStream("data/Buses.txt", FileMode.Open);
-            //FileStream stream4 = new FileStream("data/routesList.txt", FileMode.Open);
+            FileStream stream4 = new FileStream("data/routesList.txt", FileMode.Open);
 
             streetStopList = (List<Stop>) format.Deserialize(stream);
             stationStopList = (List<Stop>)format.Deserialize(stream2);
                         buses = (List<Bus>)format.Deserialize(stream3);
-              //          routes = (List<KeyValuePair<string, string>>)format.Deserialize(stream4);
+                        routes = (List<KeyValuePair<string, string>>)format.Deserialize(stream4);
 
             stream.Close();
             stream2.Close();
             stream3.Close();
-            //stream4.Close();
+            stream4.Close();
 
         }
     }

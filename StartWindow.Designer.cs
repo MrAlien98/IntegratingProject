@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartWindow));
             this.stopMap = new GMap.NET.WindowsForms.GMapControl();
             this.optionComBox = new System.Windows.Forms.ComboBox();
-            this.lbOpt = new System.Windows.Forms.Label();
             this.btnSatelite = new System.Windows.Forms.Button();
             this.btnNormal = new System.Windows.Forms.Button();
             this.btnRelieve = new System.Windows.Forms.Button();
@@ -64,9 +63,10 @@
             this.zoomInButton = new System.Windows.Forms.Button();
             this.butStartSimulation = new System.Windows.Forms.Button();
             this.zonasCombo = new System.Windows.Forms.ComboBox();
-            this.rutasCombo = new System.Windows.Forms.ComboBox();
             this.vistasCombo = new System.Windows.Forms.ComboBox();
             this.btBorrar = new System.Windows.Forms.Button();
+            this.routesCheckedList = new System.Windows.Forms.CheckedListBox();
+            this.zonesCheckedList = new System.Windows.Forms.CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -110,20 +110,6 @@
             this.optionComBox.TabIndex = 2;
             this.optionComBox.Visible = false;
             this.optionComBox.SelectedIndexChanged += new System.EventHandler(this.OptionComBox_SelectedIndexChanged_1);
-            // 
-            // lbOpt
-            // 
-            this.lbOpt.AutoSize = true;
-            this.lbOpt.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.lbOpt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbOpt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbOpt.Location = new System.Drawing.Point(533, 156);
-            this.lbOpt.Name = "lbOpt";
-            this.lbOpt.Size = new System.Drawing.Size(95, 18);
-            this.lbOpt.TabIndex = 3;
-            this.lbOpt.Text = "OPCIONES";
-            this.lbOpt.Visible = false;
-            this.lbOpt.Click += new System.EventHandler(this.label1_Click);
             // 
             // btnSatelite
             // 
@@ -461,20 +447,11 @@
             // zonasCombo
             // 
             this.zonasCombo.FormattingEnabled = true;
-            this.zonasCombo.Location = new System.Drawing.Point(31, 269);
+            this.zonasCombo.Location = new System.Drawing.Point(73, 210);
             this.zonasCombo.Name = "zonasCombo";
             this.zonasCombo.Size = new System.Drawing.Size(144, 21);
             this.zonasCombo.TabIndex = 31;
             this.zonasCombo.SelectedIndexChanged += new System.EventHandler(this.zonasCombo_SelectedIndexChanged);
-            // 
-            // rutasCombo
-            // 
-            this.rutasCombo.FormattingEnabled = true;
-            this.rutasCombo.Location = new System.Drawing.Point(31, 309);
-            this.rutasCombo.Name = "rutasCombo";
-            this.rutasCombo.Size = new System.Drawing.Size(144, 21);
-            this.rutasCombo.TabIndex = 32;
-            this.rutasCombo.SelectedIndexChanged += new System.EventHandler(this.rutasCombo_SelectedIndexChanged);
             // 
             // vistasCombo
             // 
@@ -495,14 +472,33 @@
             this.btBorrar.UseVisualStyleBackColor = true;
             this.btBorrar.Click += new System.EventHandler(this.btBorrar_Click);
             // 
+            // routesCheckedList
+            // 
+            this.routesCheckedList.FormattingEnabled = true;
+            this.routesCheckedList.Location = new System.Drawing.Point(31, 309);
+            this.routesCheckedList.Name = "routesCheckedList";
+            this.routesCheckedList.Size = new System.Drawing.Size(144, 34);
+            this.routesCheckedList.TabIndex = 36;
+            this.routesCheckedList.SelectedIndexChanged += new System.EventHandler(this.CheckedListBox1_SelectedIndexChanged);
+            // 
+            // zonesCheckedList
+            // 
+            this.zonesCheckedList.FormattingEnabled = true;
+            this.zonesCheckedList.Location = new System.Drawing.Point(31, 261);
+            this.zonesCheckedList.Name = "zonesCheckedList";
+            this.zonesCheckedList.Size = new System.Drawing.Size(144, 34);
+            this.zonesCheckedList.TabIndex = 37;
+            this.zonesCheckedList.SelectedIndexChanged += new System.EventHandler(this.ZonesCheckedList_SelectedIndexChanged);
+            // 
             // StartWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(997, 629);
+            this.Controls.Add(this.zonesCheckedList);
+            this.Controls.Add(this.routesCheckedList);
             this.Controls.Add(this.btBorrar);
             this.Controls.Add(this.vistasCombo);
-            this.Controls.Add(this.rutasCombo);
             this.Controls.Add(this.zonasCombo);
             this.Controls.Add(this.butStartSimulation);
             this.Controls.Add(this.zoomInButton);
@@ -526,7 +522,6 @@
             this.Controls.Add(this.btnRelieve);
             this.Controls.Add(this.btnNormal);
             this.Controls.Add(this.btnSatelite);
-            this.Controls.Add(this.lbOpt);
             this.Controls.Add(this.optionComBox);
             this.Controls.Add(this.stopMap);
             this.Controls.Add(this.splitter1);
@@ -546,7 +541,6 @@
         #endregion
         private GMap.NET.WindowsForms.GMapControl stopMap;
         private System.Windows.Forms.ComboBox optionComBox;
-        private System.Windows.Forms.Label lbOpt;
         private System.Windows.Forms.Button btnSatelite;
         private System.Windows.Forms.Button btnNormal;
         private System.Windows.Forms.Button btnRelieve;
@@ -578,9 +572,10 @@
         private System.Windows.Forms.Button zoomInButton;
         private System.Windows.Forms.Button butStartSimulation;
         private System.Windows.Forms.ComboBox zonasCombo;
-        private System.Windows.Forms.ComboBox rutasCombo;
         private System.Windows.Forms.ComboBox vistasCombo;
         private System.Windows.Forms.Button btBorrar;
+        private System.Windows.Forms.CheckedListBox routesCheckedList;
+        private System.Windows.Forms.CheckedListBox zonesCheckedList;
     }
 }
 

@@ -16,8 +16,6 @@ namespace MIOStopsVisualization
     {
         public static MIOApp app;
 
-        int index;
-
         int index2 = 0;
 
         Thread clock;
@@ -80,11 +78,8 @@ namespace MIOStopsVisualization
 
             //loadBusesToModel();
 
-            index = 0;
-
             //ReadFile();
 
-            lbOpt.BackColor = Color.Transparent;
             var options = new List<String>();
             options.Add("OPCIONES");
             options.Add("ESTACIONES");
@@ -94,16 +89,16 @@ namespace MIOStopsVisualization
             this.optionComBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
             var zones = new List<String>();
-            zones.Add("ZONAS");
-            zones.Add("CENTRO");
-            zones.Add("VALLE DE LILI");
-            zones.Add("MENGA");
-            zones.Add("CALIMA");
-            zones.Add("AGUABLANCA");
-            zones.Add("CIUDAD CORDOBA");
-            zones.Add("GUADALUPE");
-            zones.Add("CAÑAVERALEJO");
-            zones.Add("PRADO");
+            zonesCheckedList.Items.Add("ZONAS");
+            zonesCheckedList.Items.Add("CENTRO");
+            zonesCheckedList.Items.Add("VALLE DE LILI");
+            zonesCheckedList.Items.Add("MENGA");
+            zonesCheckedList.Items.Add("CALIMA");
+            zonesCheckedList.Items.Add("AGUABLANCA");
+            zonesCheckedList.Items.Add("CIUDAD CORDOBA");
+            zonesCheckedList.Items.Add("GUADALUPE");
+            zonesCheckedList.Items.Add("CAÑAVERALEJO");
+            zonesCheckedList.Items.Add("PRADO");
             this.zonasCombo.DataSource = zones;
             this.zonasCombo.DropDownStyle = ComboBoxStyle.DropDownList;
 
@@ -111,9 +106,9 @@ namespace MIOStopsVisualization
             for (int i=0; i<app.getRoutes().Count;i++)
             {
                 rutas.Add(app.getRoutes()[i].Key);
+
+                routesCheckedList.Items.Add(app.getRoutes()[i].Key);
             }
-            this.rutasCombo.DataSource = rutas;
-            this.rutasCombo.DropDownStyle = ComboBoxStyle.DropDownList;
 
             var vistas = new List<String>();
             vistas.Add("VISTAS");
@@ -134,20 +129,30 @@ namespace MIOStopsVisualization
 
             polygons = new List<GMapPolygon>();
             polygonsOverlays = new List<GMapOverlay>();
+
             drawStationPolygon();
+
+            initializeZonesNPolygons();
         }
 
         public void lineFilter(string line, int index)
         {
             for (int i=0;i<app.getBuses().Count;i++)
             {
-                if (!(app.getBuses()[i].getLineId().Equals(app.getRoutes()[index].Value)))
-                {
-                    buses[i].IsVisible = false;
-                }
-                else if (buses[i].IsVisible == false)
+                if (buses[i].IsVisible == false && app.getBuses()[i].getLineId().Equals(app.getRoutes()[index].Value))
                 {
                     buses[i].IsVisible = true;
+                }
+            }
+        }
+
+        public void deleteLineFilter(string line, int index)
+        {
+            for (int i = 0; i < app.getBuses().Count; i++)
+            {
+                if (buses[i].IsVisible == true && app.getBuses()[i].getLineId().Equals(app.getRoutes()[index].Value))
+                {
+                    buses[i].IsVisible = false;
                 }
             }
         }
@@ -161,6 +166,8 @@ namespace MIOStopsVisualization
                                (new PointLatLng(app.getBuses()[i].getLat(), app.getBuses()[i].getLon()),
                                 new Bitmap("images/bus.png")));
                 markers.Markers.Add(buses[i]);
+
+                buses[i].IsVisible = false;
             }
             stopMap.Overlays.Add(markers);
         }
@@ -496,7 +503,6 @@ namespace MIOStopsVisualization
             cbStation.Visible = true;
             cbStops.Visible = true;
             lbChoose.Visible = true;
-            lbOpt.Location = new Point(12, 271);
             optionComBox.Location = new Point(40, 300);
             btnSatelite.Location = new Point(25, 501);
             btnRelieve.Location = new Point(106, 501);
@@ -505,7 +511,7 @@ namespace MIOStopsVisualization
             //tbZoom.Location = new Point(40, 572);
         }
 
-        public void drawZone0()
+        public void initializeZonesNPolygons()
         {
             zona0 = new GMapOverlay("Zona 0");
             List<PointLatLng> puntosZ0 = new List<PointLatLng>();
@@ -526,18 +532,8 @@ namespace MIOStopsVisualization
 
             poligonoZ0 = new GMapPolygon(puntosZ0, "CENTRO");
             zona0.Polygons.Add(poligonoZ0);
-            stopMap.Overlays.Add(zona0);
-            stopMap.Zoom = stopMap.Zoom + 1;
-            stopMap.Zoom = stopMap.Zoom - 1;
 
-            int op = verification2();
 
-            drawInZone(zona0, poligonoZ0, op);
-
-        }
-
-        public void drawZone1()
-        {
             zona1 = new GMapOverlay("Zona 1");
             List<PointLatLng> puntosZ1 = new List<PointLatLng>();
             puntosZ1.Add(new PointLatLng(3.387889, -76.513426));
@@ -571,17 +567,8 @@ namespace MIOStopsVisualization
 
             poligonoZ1 = new GMapPolygon(puntosZ1, "VALLE DE LILI");
             zona1.Polygons.Add(poligonoZ1);
-            stopMap.Overlays.Add(zona1);
-            stopMap.Zoom = stopMap.Zoom + 1;
-            stopMap.Zoom = stopMap.Zoom - 1;
 
-            int op = verification2();
 
-            drawInZone(zona1, poligonoZ1, op);
-        }
-
-        public void drawZone2()
-        {
             zona2 = new GMapOverlay("Zona 2");
             List<PointLatLng> puntosZ2 = new List<PointLatLng>();
             puntosZ2.Add(new PointLatLng(3.463029, -76.521014));
@@ -614,17 +601,8 @@ namespace MIOStopsVisualization
 
             poligonoZ2 = new GMapPolygon(puntosZ2, "MENGA");
             zona2.Polygons.Add(poligonoZ2);
-            stopMap.Overlays.Add(zona2);
-            stopMap.Zoom = stopMap.Zoom + 1;
-            stopMap.Zoom = stopMap.Zoom - 1;
 
-            int op = verification2();
 
-            drawInZone(zona2, poligonoZ2, op);
-        }
-
-        public void drawZone3()
-        {
             zona3 = new GMapOverlay("Zona 3");
             List<PointLatLng> puntosZ3 = new List<PointLatLng>();
             puntosZ3.Add(new PointLatLng(3.499343, -76.492160));
@@ -638,18 +616,9 @@ namespace MIOStopsVisualization
             puntosZ3.Add(new PointLatLng(3.463029, -76.521014));
 
             poligonoZ3 = new GMapPolygon(puntosZ3, "CALIMA");
-            zona3.Polygons.Add(poligonoZ3);
-            stopMap.Overlays.Add(zona3);
-            stopMap.Zoom = stopMap.Zoom + 1;
-            stopMap.Zoom = stopMap.Zoom - 1;
+            zona3.Polygons.Add(poligonoZ3);;
 
-            int op = verification2();
 
-            drawInZone(zona3, poligonoZ3, op);
-        }
-
-        public void drawZone4()
-        {
             zona4 = new GMapOverlay("Zona4");
             List<PointLatLng> puntosZ4 = new List<PointLatLng>();
             puntosZ4.Add(new PointLatLng(3.443270, -76.518067));
@@ -670,17 +639,8 @@ namespace MIOStopsVisualization
 
             poligonoZ4 = new GMapPolygon(puntosZ4, "AGUABLANCA");
             zona4.Polygons.Add(poligonoZ4);
-            stopMap.Overlays.Add(zona4);
-            stopMap.Zoom = stopMap.Zoom + 1;
-            stopMap.Zoom = stopMap.Zoom - 1;
 
-            int op = verification2();
 
-            drawInZone(zona4, poligonoZ4, op);
-        }
-
-        public void drawZone5()
-        {
             zona5 = new GMapOverlay("Zonas 5");
             List<PointLatLng> puntosZ5 = new List<PointLatLng>();
             puntosZ5.Add(new PointLatLng(3.443827, -76.491165));
@@ -706,17 +666,8 @@ namespace MIOStopsVisualization
 
             poligonoZ5 = new GMapPolygon(puntosZ5, "CIUDAD CORDOBA");
             zona5.Polygons.Add(poligonoZ5);
-            stopMap.Overlays.Add(zona5);
-            stopMap.Zoom = stopMap.Zoom + 1;
-            stopMap.Zoom = stopMap.Zoom - 1;
 
-            int op = verification2();
 
-            drawInZone(zona5, poligonoZ5, op);
-        }
-
-        public void drawZone6()
-        {
             zona6 = new GMapOverlay("Zona 6");
             List<PointLatLng> puntosZ6 = new List<PointLatLng>();
             puntosZ6.Add(new PointLatLng(3.419485, -76.508024));
@@ -744,17 +695,8 @@ namespace MIOStopsVisualization
 
             poligonoZ6 = new GMapPolygon(puntosZ6, "GUADALUPE");
             zona6.Polygons.Add(poligonoZ6);
-            stopMap.Overlays.Add(zona6);
-            stopMap.Zoom = stopMap.Zoom + 1;
-            stopMap.Zoom = stopMap.Zoom - 1;
 
-            int op = verification2();
 
-            drawInZone(zona6, poligonoZ6, op);
-        }
-
-        public void drawZone7()
-        {
             zona7 = new GMapOverlay("Zona 7");
             List<PointLatLng> puntosZ7 = new List<PointLatLng>();
             puntosZ7.Add(new PointLatLng(3.428423, -76.533186));
@@ -775,17 +717,8 @@ namespace MIOStopsVisualization
 
             poligonoZ7 = new GMapPolygon(puntosZ7, "CAÑAVERALEJO");
             zona7.Polygons.Add(poligonoZ7);
-            stopMap.Overlays.Add(zona7);
-            stopMap.Zoom = stopMap.Zoom + 1;
-            stopMap.Zoom = stopMap.Zoom - 1;
 
-            int op = verification2();
 
-            drawInZone(zona7, poligonoZ7, op);
-        }
-
-        public void drawZone8()
-        {
             zona8 = new GMapOverlay("Zona 8");
             List<PointLatLng> puntosZ8 = new List<PointLatLng>();
             puntosZ8.Add(new PointLatLng(3.443827, -76.491165));
@@ -799,6 +732,99 @@ namespace MIOStopsVisualization
 
             poligonoZ8 = new GMapPolygon(puntosZ8, "PRADO");
             zona8.Polygons.Add(poligonoZ8);
+        }
+
+        public void drawZone0()
+        {
+            stopMap.Overlays.Add(zona0);
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
+
+            int op = verification2();
+
+            drawInZone(zona0, poligonoZ0, op);
+
+        }
+
+        public void drawZone1()
+        {
+            stopMap.Overlays.Add(zona1);
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
+
+            int op = verification2();
+
+            drawInZone(zona1, poligonoZ1, op);
+        }
+
+        public void drawZone2()
+        {
+            stopMap.Overlays.Add(zona2);
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
+
+            int op = verification2();
+
+            drawInZone(zona2, poligonoZ2, op);
+        }
+
+        public void drawZone3()
+        {
+            stopMap.Overlays.Add(zona3);
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
+
+            int op = verification2();
+
+            drawInZone(zona3, poligonoZ3, op);
+        }
+
+        public void drawZone4()
+        {
+            stopMap.Overlays.Add(zona4);
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
+
+            int op = verification2();
+
+            drawInZone(zona4, poligonoZ4, op);
+        }
+
+        public void drawZone5()
+        {
+            stopMap.Overlays.Add(zona5);
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
+
+            int op = verification2();
+
+            drawInZone(zona5, poligonoZ5, op);
+        }
+
+        public void drawZone6()
+        {
+            stopMap.Overlays.Add(zona6);
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
+
+            int op = verification2();
+
+            drawInZone(zona6, poligonoZ6, op);
+        }
+
+        public void drawZone7()
+        {   
+            stopMap.Overlays.Add(zona7);
+            stopMap.Zoom = stopMap.Zoom + 1;
+            stopMap.Zoom = stopMap.Zoom - 1;
+
+            int op = verification2();
+
+            drawInZone(zona7, poligonoZ7, op);
+        }
+
+        public void drawZone8()
+        {
             stopMap.Overlays.Add(zona8);
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
@@ -1156,14 +1182,6 @@ namespace MIOStopsVisualization
             }
         }
 
-        private void rutasCombo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (buses.Count!=0)
-            {
-                lineFilter((string)rutasCombo.SelectedItem, rutasCombo.SelectedIndex);
-            }
-        }
-
         private void vistasCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             int ind = vistasCombo.SelectedIndex;
@@ -1181,9 +1199,110 @@ namespace MIOStopsVisualization
             }
         }
 
+        public void routesListVerification(int index)
+        {
+            if (routesCheckedList.CheckedIndices.Contains(index))
+            {
+                lineFilter(app.getRoutes()[index].Key, index);
+            }
+            else
+            {
+                deleteLineFilter(app.getRoutes()[index].Key, index);
+            }
+        }
+
         private void btBorrar_Click(object sender, EventArgs e)
         {
             stopMap.Overlays.Clear();
+        }
+
+        private void CheckedListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            routesListVerification(routesCheckedList.SelectedIndex);
+        }
+
+        public bool zoneCheckedListVerification(int index)
+        {
+            if (zonesCheckedList.SelectedIndices.Contains(index))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void ZonesCheckedList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int eps = zonesCheckedList.SelectedIndex;
+            switch (eps)
+            {
+                case 0:
+                    break;
+                case 1:
+                    if (zonesCheckedList.GetItemCheckState(eps) == CheckState.Checked)
+                    {
+                        drawZone0();
+                        Console.WriteLine("deberia dibujar el centro");
+                    }
+                    else
+                    {
+                        zona0.Clear();
+                        Console.WriteLine("deberia limpiar el centro");
+                    }
+                    break;
+
+                case 2:
+                    if (zonesCheckedList.SelectedIndices.Contains(eps))
+                        drawZone1();
+                    else
+                        zona1.Clear();
+                    break;
+                case 3:
+                    if (zonesCheckedList.SelectedIndices.Contains(eps))
+                        drawZone2();
+                    else
+                        zona2.Clear();
+                    break;
+                case 4:
+                    if (zonesCheckedList.SelectedIndices.Contains(eps))
+                        drawZone3();
+                    else
+                        zona3.Clear();
+                    break;
+                case 5:
+                    if (zonesCheckedList.SelectedIndices.Contains(eps))
+                        drawZone4();
+                    else
+                        zona4.Clear();
+                    break;
+                case 6:
+                    if (zonesCheckedList.SelectedIndices.Contains(eps))
+                        drawZone5();
+                    else
+                        zona5.Clear();
+                    break;
+                case 7:
+                    if (zonesCheckedList.SelectedIndices.Contains(eps))
+                        drawZone6();
+                    else
+                        zona6.Clear();
+                    break;
+                case 8:
+                    if (zonesCheckedList.SelectedIndices.Contains(eps))
+                        drawZone7();
+                    else
+                        zona7.Clear();
+                    break;
+                case 9:
+                    if (zonesCheckedList.SelectedIndices.Contains(eps))
+                        drawZone8();
+                    else
+                        zona8.Clear();
+                    break;
+            }
+                
         }
     }
 }
