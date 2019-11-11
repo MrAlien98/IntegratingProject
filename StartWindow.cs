@@ -1064,11 +1064,11 @@ namespace MIOStopsVisualization
             if (stopMap.Zoom <= stopMap.MaxZoom)
             {
                 stopMap.Zoom++;
-                if(stopMap.Zoom == 20)
+                if(stopMap.Zoom == 17)
                 {
                     for (int i = 0; i < polygonsOverlays.Count; i++)
                     {
-                        stopMap.Overlays[i].IsVisibile = true;
+                        polygonsOverlays[i].IsVisibile = true;
                     }
                 }
                 Console.WriteLine(stopMap.Zoom);
@@ -1080,12 +1080,12 @@ namespace MIOStopsVisualization
             if (stopMap.Zoom >= stopMap.MinZoom)
             {
                 stopMap.Zoom--;
-                if(stopMap.Zoom < 20)
+                if(stopMap.Zoom < 17)
                 {
-                    for(int i = 0; i < polygonsOverlays.Count; i++)
-                    {
-                        stopMap.Overlays[i].IsVisibile = false;
-                    }
+                    //for(int i = 0; i < polygonsOverlays.Count; i++)
+                    //{
+                    //    stopMap.Overlays[i].IsVisibile = false;
+                    //}
                 }
                 Console.WriteLine(stopMap.Zoom);
             }
@@ -1093,24 +1093,24 @@ namespace MIOStopsVisualization
 
         public void drawStationPolygon()
         {
-            StreamReader sr = new StreamReader("data/StationPolygon.txt");
+            StreamReader sr = new StreamReader("data/StationPolygon2.txt");
             String line = "";
             String[] dats = new String[2];
             int i = 0;
             while ((line = sr.ReadLine()) != null)
             {
-                List<PointLatLng> coordinates = new List<PointLatLng>();                
+                List<PointLatLng> coordinates = new List<PointLatLng>();
                 while (!(line.Equals("---")))
                 {
                     dats = line.Split(',');
                     double lat = double.Parse(dats[0]);
-                    lat /= 100000000;
+                    lat /= 1000000;
                     double lng = double.Parse(dats[1]);
-                    lng /= 100000000;
+                    lng /= 1000000;
                     coordinates.Add(new PointLatLng(lat, lng));
                     line = sr.ReadLine();
                 }
-                polygons.Add(new GMapPolygon(coordinates, "Estacion " + (i + 1)));
+                polygons.Add(new GMapPolygon(coordinates, "Estacion " + (i + 1)));                
                 GMapOverlay gMapOverlayPol = new GMapOverlay();
                 gMapOverlayPol.Polygons.Add(polygons[i]);
                 gMapOverlayPol.IsVisibile = false;
@@ -1118,8 +1118,8 @@ namespace MIOStopsVisualization
                 stopMap.Overlays.Add(polygonsOverlays[i]);
                 i++;
             }
-            stopMap.Zoom = stopMap.Zoom + 1;
-            stopMap.Zoom = stopMap.Zoom - 1;
+            //stopMap.Zoom = stopMap.Zoom + 1;
+            //stopMap.Zoom = stopMap.Zoom - 1;
         }
         
         private void ButStartSimulation_Click(object sender, EventArgs e)
