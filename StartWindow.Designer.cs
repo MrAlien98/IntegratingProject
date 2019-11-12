@@ -51,7 +51,6 @@
             this.cbPrado = new System.Windows.Forms.CheckBox();
             this.cbStation = new System.Windows.Forms.CheckBox();
             this.cbStops = new System.Windows.Forms.CheckBox();
-            this.lbChoose = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.secondsLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -327,18 +326,6 @@
             this.cbStops.UseVisualStyleBackColor = false;
             this.cbStops.CheckedChanged += new System.EventHandler(this.cbStops_CheckedChanged);
             // 
-            // lbChoose
-            // 
-            this.lbChoose.AutoSize = true;
-            this.lbChoose.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.lbChoose.Location = new System.Drawing.Point(279, 481);
-            this.lbChoose.Name = "lbChoose";
-            this.lbChoose.Size = new System.Drawing.Size(175, 13);
-            this.lbChoose.TabIndex = 27;
-            this.lbChoose.Text = "____________________________";
-            this.lbChoose.Visible = false;
-            this.lbChoose.Click += new System.EventHandler(this.label4_Click);
-            // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -468,7 +455,7 @@
             this.routesCheckedList.Name = "routesCheckedList";
             this.routesCheckedList.Size = new System.Drawing.Size(190, 229);
             this.routesCheckedList.TabIndex = 36;
-            this.routesCheckedList.SelectedIndexChanged += new System.EventHandler(this.CheckedListBox1_SelectedIndexChanged);
+            this.routesCheckedList.SelectedIndexChanged += new System.EventHandler(this.routesCheckedListBox1_SelectedIndexChanged);
             // 
             // zonesCheckedList
             // 
@@ -493,7 +480,6 @@
             this.Controls.Add(this.zoomInButton);
             this.Controls.Add(this.zoomOutButton);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.lbChoose);
             this.Controls.Add(this.cbStops);
             this.Controls.Add(this.cbStation);
             this.Controls.Add(this.cbPrado);
@@ -548,7 +534,6 @@
         private System.Windows.Forms.CheckBox cbPrado;
         private System.Windows.Forms.CheckBox cbStation;
         private System.Windows.Forms.CheckBox cbStops;
-        private System.Windows.Forms.Label lbChoose;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label secondsLabel;
         private System.Windows.Forms.Label label5;

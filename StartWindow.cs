@@ -22,7 +22,7 @@ namespace MIOStopsVisualization
 
         public static GMapMarker testBus;
 
-        public List<GMapMarker> buses;
+        public List<GMapMarker> busGMarkers;
 
         GMapOverlay zona0;
         GMapOverlay zona1;
@@ -44,23 +44,16 @@ namespace MIOStopsVisualization
         GMapPolygon poligonoZ7;
         GMapPolygon poligonoZ8;
 
-        GMapOverlay stations;
-        GMapOverlay stationsPolygons;
-
         List<GMapPolygon> polygons;
         List<GMapOverlay> polygonsOverlays;
 
         public StartWindow()
         {
-            stations = new GMapOverlay("Estaciones");
-
-            stationsPolygons = new GMapOverlay("Poligonos de estaciones");
-
             testBus = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(
                         new GMap.NET.PointLatLng(3.4041000, -76.5467650),
                             new Bitmap("images/bus.png"));
 
-            buses = new List<GMapMarker>();
+            busGMarkers = new List<GMapMarker>();
 
             GMapOverlay markers = new GMapOverlay("markers");
 
@@ -109,7 +102,6 @@ namespace MIOStopsVisualization
 
                 routesCheckedList.Items.Add(app.getRoutes()[i].Key);
             }
-
             var vistas = new List<String>();
             vistas.Add("VISTAS");
             vistas.Add("SATELITAL");
@@ -117,31 +109,41 @@ namespace MIOStopsVisualization
             vistas.Add("MAPA 2D");
             this.vistasCombo.DataSource = vistas;
             this.vistasCombo.DropDownStyle = ComboBoxStyle.DropDownList;
-
-            fillBusesList();
-
             Control.CheckForIllegalCrossThreadCalls = false;
-
             ThreadStart delegated = new ThreadStart(new Action(() => RunClock(9, 5, 38)));
             clock = new Thread(delegated);
-
             timer1.Stop();
-
             polygons = new List<GMapPolygon>();
             polygonsOverlays = new List<GMapOverlay>();
-
             drawStationPolygon();
-
             initializeZonesNPolygons();
+            fillBusesList();
+        }
+
+        private void routesCheckedListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            routesListVerification(routesCheckedList.SelectedIndex);
+        }
+
+        public void routesListVerification(int index)
+        {
+            if (routesCheckedList.CheckedIndices.Contains(index))
+            {
+                lineFilter(app.getRoutes()[index].Key, index);
+            }
+            else
+            {
+                deleteLineFilter(app.getRoutes()[index].Key, index);
+            }
         }
 
         public void lineFilter(string line, int index)
         {
             for (int i=0;i<app.getBuses().Count;i++)
             {
-                if (buses[i].IsVisible == false && app.getBuses()[i].getLineId().Equals(app.getRoutes()[index].Value))
+                if (!busGMarkers[i].IsVisible && app.getBuses()[i].getLineId().Equals(app.getRoutes()[index].Value))
                 {
-                    buses[i].IsVisible = true;
+                    busGMarkers[i].IsVisible = true;
                 }
             }
         }
@@ -150,9 +152,9 @@ namespace MIOStopsVisualization
         {
             for (int i = 0; i < app.getBuses().Count; i++)
             {
-                if (buses[i].IsVisible == true && app.getBuses()[i].getLineId().Equals(app.getRoutes()[index].Value))
+                if (busGMarkers[i].IsVisible == true && app.getBuses()[i].getLineId().Equals(app.getRoutes()[index].Value))
                 {
-                    buses[i].IsVisible = false;
+                    busGMarkers[i].IsVisible = false;
                 }
             }
         }
@@ -162,12 +164,9 @@ namespace MIOStopsVisualization
             GMapOverlay markers = new GMapOverlay("markers");
             for (int i = 0; i < app.getBuses().Count; i++)
             {
-                buses.Add(new GMap.NET.WindowsForms.Markers.GMarkerGoogle
-                               (new PointLatLng(app.getBuses()[i].getLat(), app.getBuses()[i].getLon()),
-                                new Bitmap("images/bus.png")));
-                markers.Markers.Add(buses[i]);
-
-                buses[i].IsVisible = false;
+                busGMarkers.Add(new GMarkerGoogle(new PointLatLng(app.getBuses()[i].getLat(), app.getBuses()[i].getLon()), new Bitmap("images/bus.png")));
+                markers.Markers.Add(busGMarkers[i]);
+                busGMarkers[i].IsVisible = false;
             }
             stopMap.Overlays.Add(markers);
         }
@@ -186,7 +185,7 @@ namespace MIOStopsVisualization
                     if (app.getBuses().Count == 0)
                     {
                         app.getBuses().Add(new Bus(lat, lon, line.Split(',')[11], line.Split(',')[7]));
-                        buses.Add(new GMap.NET.WindowsForms.Markers.GMarkerGoogle
+                        busGMarkers.Add(new GMap.NET.WindowsForms.Markers.GMarkerGoogle
                             (new PointLatLng(lat, lon),
                             new Bitmap("images/bus.png")));
                     }
@@ -214,7 +213,7 @@ namespace MIOStopsVisualization
                         else
                         {
                             app.getBuses().Add(new Bus(lat, lon, line.Split(',')[11], line.Split(',')[7]));
-                            buses.Add(new GMap.NET.WindowsForms.Markers.GMarkerGoogle
+                            busGMarkers.Add(new GMap.NET.WindowsForms.Markers.GMarkerGoogle
                                 (new PointLatLng(lat, lon),
                                 new Bitmap("images/bus.png")));
                         }
@@ -397,7 +396,7 @@ namespace MIOStopsVisualization
                         poly.Overlay.Markers.Add(theMarker);
                     }
                 }
-                foreach (var actual in buses)
+                foreach (var actual in busGMarkers)
                 {
                     var p = actual.Position;
                     if (poly.IsInside(p))
@@ -417,7 +416,7 @@ namespace MIOStopsVisualization
                         poly.Overlay.Markers.Add(theMarker);
                     }
                 }
-                foreach (var actual in buses)
+                foreach (var actual in busGMarkers)
                 {
                     var p = actual.Position;
                     if (poly.IsInside(p))
@@ -446,7 +445,7 @@ namespace MIOStopsVisualization
                         poly.Overlay.Markers.Add(theMarker);
                     }
                 }
-                foreach (var actual in buses)
+                foreach (var actual in busGMarkers)
                 {
                     var p = actual.Position;
                     if (poly.IsInside(p))
@@ -501,7 +500,6 @@ namespace MIOStopsVisualization
             cbGuadalupe.Visible = true;
             cbStation.Visible = true;
             cbStops.Visible = true;
-            lbChoose.Visible = true;
             optionComBox.Location = new Point(40, 300);
             btnSatelite.Location = new Point(25, 501);
             btnRelieve.Location = new Point(106, 501);
@@ -889,7 +887,7 @@ namespace MIOStopsVisualization
                     double newLat = app.getBuses()[i].getCoordinates()[index2].Key;
                     double newLon = app.getBuses()[i].getCoordinates()[index2].Value;
 
-                    buses[i].Position = new PointLatLng(newLat, newLon);
+                    busGMarkers[i].Position = new PointLatLng(newLat, newLon);
 
                     index2++;
                 }
@@ -1018,11 +1016,6 @@ namespace MIOStopsVisualization
             timer1.Stop();
             timer2.Stop();
             Application.Exit();
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void cbStation_CheckedChanged(object sender, EventArgs e)
@@ -1196,27 +1189,14 @@ namespace MIOStopsVisualization
             }
         }
 
-        public void routesListVerification(int index)
-        {
-            if (routesCheckedList.CheckedIndices.Contains(index))
-            {
-                lineFilter(app.getRoutes()[index].Key, index);
-            }
-            else
-            {
-                deleteLineFilter(app.getRoutes()[index].Key, index);
-            }
-        }
+        
 
         private void btBorrar_Click(object sender, EventArgs e)
         {
             stopMap.Overlays.Clear();
         }
 
-        private void CheckedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            routesListVerification(routesCheckedList.SelectedIndex);
-        }
+        
 
         public bool zoneCheckedListVerification(int index)
         {
@@ -1298,8 +1278,22 @@ namespace MIOStopsVisualization
                     else
                         zona8.Clear();
                     break;
+            }               
+        }
+
+        public void drawStopsAtStations()
+        {
+            StreamReader reader = new StreamReader("data/StationsStop.txt");
+            string line;
+            while((line = reader.ReadLine()) != null)
+            {
+                string[] array = line.Split(',');
+                double lat = double.Parse(array[3]);
+                lat /= 1000000;
+                double lon = double.Parse(array[4]);
+                lon /= 1000000;
+
             }
-                
         }
     }
 }
