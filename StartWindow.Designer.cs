@@ -38,7 +38,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.label2 = new System.Windows.Forms.Label();
-            this.LAB3 = new System.Windows.Forms.Label();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.cbCentro = new System.Windows.Forms.CheckBox();
@@ -96,7 +95,7 @@
             this.stopMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.stopMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.stopMap.ShowTileGridLines = false;
-            this.stopMap.Size = new System.Drawing.Size(775, 629);
+            this.stopMap.Size = new System.Drawing.Size(1043, 707);
             this.stopMap.TabIndex = 1;
             this.stopMap.Zoom = 0D;
             this.stopMap.Load += new System.EventHandler(this.StopMap_Load);
@@ -155,7 +154,7 @@
             this.splitter1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.splitter1.Location = new System.Drawing.Point(0, 0);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(233, 629);
+            this.splitter1.Size = new System.Drawing.Size(217, 707);
             this.splitter1.TabIndex = 5;
             this.splitter1.TabStop = false;
             // 
@@ -164,21 +163,11 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.label2.Font = new System.Drawing.Font("Arial Rounded MT Bold", 16F);
-            this.label2.Location = new System.Drawing.Point(85, 195);
+            this.label2.Location = new System.Drawing.Point(85, 160);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(54, 26);
             this.label2.TabIndex = 12;
             this.label2.Text = "MIO";
-            // 
-            // LAB3
-            // 
-            this.LAB3.AutoSize = true;
-            this.LAB3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.LAB3.Location = new System.Drawing.Point(9, 221);
-            this.LAB3.Name = "LAB3";
-            this.LAB3.Size = new System.Drawing.Size(205, 13);
-            this.LAB3.TabIndex = 13;
-            this.LAB3.Text = "_________________________________";
             // 
             // timer2
             // 
@@ -190,7 +179,7 @@
             // 
             this.pictureBox2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.pictureBox2.Image = global::MIOStopsVisualization.Properties.Resources.bus_stop_6_removebg_preview;
-            this.pictureBox2.Location = new System.Drawing.Point(40, 25);
+            this.pictureBox2.Location = new System.Drawing.Point(30, 0);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(157, 157);
             this.pictureBox2.TabIndex = 11;
@@ -413,7 +402,7 @@
             this.zoomOutButton.BackColor = System.Drawing.Color.LightGray;
             this.zoomOutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.zoomOutButton.ForeColor = System.Drawing.Color.Black;
-            this.zoomOutButton.Location = new System.Drawing.Point(948, 593);
+            this.zoomOutButton.Location = new System.Drawing.Point(1221, 673);
             this.zoomOutButton.Name = "zoomOutButton";
             this.zoomOutButton.Size = new System.Drawing.Size(37, 29);
             this.zoomOutButton.TabIndex = 29;
@@ -426,7 +415,7 @@
             this.zoomInButton.BackColor = System.Drawing.Color.LightGray;
             this.zoomInButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.zoomInButton.ForeColor = System.Drawing.Color.Black;
-            this.zoomInButton.Location = new System.Drawing.Point(948, 556);
+            this.zoomInButton.Location = new System.Drawing.Point(1221, 638);
             this.zoomInButton.Name = "zoomInButton";
             this.zoomInButton.Size = new System.Drawing.Size(37, 29);
             this.zoomInButton.TabIndex = 29;
@@ -436,9 +425,9 @@
             // 
             // butStartSimulation
             // 
-            this.butStartSimulation.Location = new System.Drawing.Point(40, 437);
+            this.butStartSimulation.Location = new System.Drawing.Point(101, 667);
             this.butStartSimulation.Name = "butStartSimulation";
-            this.butStartSimulation.Size = new System.Drawing.Size(123, 46);
+            this.butStartSimulation.Size = new System.Drawing.Size(101, 28);
             this.butStartSimulation.TabIndex = 30;
             this.butStartSimulation.Text = "Iniciar Simulación";
             this.butStartSimulation.UseVisualStyleBackColor = true;
@@ -447,46 +436,46 @@
             // zonasCombo
             // 
             this.zonasCombo.FormattingEnabled = true;
-            this.zonasCombo.Location = new System.Drawing.Point(73, 210);
+            this.zonasCombo.Location = new System.Drawing.Point(12, 189);
             this.zonasCombo.Name = "zonasCombo";
-            this.zonasCombo.Size = new System.Drawing.Size(144, 21);
+            this.zonasCombo.Size = new System.Drawing.Size(190, 21);
             this.zonasCombo.TabIndex = 31;
             this.zonasCombo.SelectedIndexChanged += new System.EventHandler(this.zonasCombo_SelectedIndexChanged);
             // 
             // vistasCombo
             // 
             this.vistasCombo.FormattingEnabled = true;
-            this.vistasCombo.Location = new System.Drawing.Point(31, 354);
+            this.vistasCombo.Location = new System.Drawing.Point(656, 12);
             this.vistasCombo.Name = "vistasCombo";
-            this.vistasCombo.Size = new System.Drawing.Size(144, 21);
+            this.vistasCombo.Size = new System.Drawing.Size(190, 21);
             this.vistasCombo.TabIndex = 33;
             this.vistasCombo.SelectedIndexChanged += new System.EventHandler(this.vistasCombo_SelectedIndexChanged);
             // 
             // btBorrar
             // 
-            this.btBorrar.Location = new System.Drawing.Point(64, 394);
+            this.btBorrar.Location = new System.Drawing.Point(12, 667);
             this.btBorrar.Name = "btBorrar";
-            this.btBorrar.Size = new System.Drawing.Size(75, 37);
+            this.btBorrar.Size = new System.Drawing.Size(83, 28);
             this.btBorrar.TabIndex = 34;
-            this.btBorrar.Text = "Borrar";
+            this.btBorrar.Text = "Limpiar";
             this.btBorrar.UseVisualStyleBackColor = true;
             this.btBorrar.Click += new System.EventHandler(this.btBorrar_Click);
             // 
             // routesCheckedList
             // 
             this.routesCheckedList.FormattingEnabled = true;
-            this.routesCheckedList.Location = new System.Drawing.Point(31, 309);
+            this.routesCheckedList.Location = new System.Drawing.Point(12, 424);
             this.routesCheckedList.Name = "routesCheckedList";
-            this.routesCheckedList.Size = new System.Drawing.Size(144, 34);
+            this.routesCheckedList.Size = new System.Drawing.Size(190, 229);
             this.routesCheckedList.TabIndex = 36;
             this.routesCheckedList.SelectedIndexChanged += new System.EventHandler(this.CheckedListBox1_SelectedIndexChanged);
             // 
             // zonesCheckedList
             // 
             this.zonesCheckedList.FormattingEnabled = true;
-            this.zonesCheckedList.Location = new System.Drawing.Point(31, 261);
+            this.zonesCheckedList.Location = new System.Drawing.Point(12, 261);
             this.zonesCheckedList.Name = "zonesCheckedList";
-            this.zonesCheckedList.Size = new System.Drawing.Size(144, 34);
+            this.zonesCheckedList.Size = new System.Drawing.Size(190, 154);
             this.zonesCheckedList.TabIndex = 37;
             this.zonesCheckedList.SelectedIndexChanged += new System.EventHandler(this.ZonesCheckedList_SelectedIndexChanged);
             // 
@@ -494,7 +483,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(997, 629);
+            this.ClientSize = new System.Drawing.Size(1265, 707);
             this.Controls.Add(this.zonesCheckedList);
             this.Controls.Add(this.routesCheckedList);
             this.Controls.Add(this.btBorrar);
@@ -516,7 +505,6 @@
             this.Controls.Add(this.cbMenga);
             this.Controls.Add(this.cbValleDeLili);
             this.Controls.Add(this.cbCentro);
-            this.Controls.Add(this.LAB3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.btnRelieve);
@@ -548,7 +536,6 @@
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label LAB3;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.CheckBox cbCentro;
         private System.Windows.Forms.CheckBox cbValleDeLili;
