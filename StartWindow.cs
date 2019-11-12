@@ -355,7 +355,6 @@ namespace MIOStopsVisualization
             {
                 stationsMarker(aux.DecLati, aux.DecLong);
             }
-            //drawStationPolygon();
             stopMap.Zoom = stopMap.Zoom + 1;
             stopMap.Zoom = stopMap.Zoom - 1;
 
@@ -1114,12 +1113,10 @@ namespace MIOStopsVisualization
                 GMapOverlay gMapOverlayPol = new GMapOverlay();
                 gMapOverlayPol.Polygons.Add(polygons[i]);
                 gMapOverlayPol.IsVisibile = false;
-                polygonsOverlays.Add(gMapOverlayPol);                
+                polygonsOverlays.Add(gMapOverlayPol);
                 stopMap.Overlays.Add(polygonsOverlays[i]);
                 i++;
             }
-            //stopMap.Zoom = stopMap.Zoom + 1;
-            //stopMap.Zoom = stopMap.Zoom - 1;
         }
         
         private void ButStartSimulation_Click(object sender, EventArgs e)
