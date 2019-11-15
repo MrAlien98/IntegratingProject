@@ -450,7 +450,10 @@
             // 
             // routesCheckedList
             // 
+            this.routesCheckedList.CheckOnClick = true;
             this.routesCheckedList.FormattingEnabled = true;
+            this.routesCheckedList.Items.AddRange(new object[] {
+            "Todos los buses"});
             this.routesCheckedList.Location = new System.Drawing.Point(12, 424);
             this.routesCheckedList.Name = "routesCheckedList";
             this.routesCheckedList.Size = new System.Drawing.Size(190, 229);
@@ -459,6 +462,7 @@
             // 
             // zonesCheckedList
             // 
+            this.zonesCheckedList.CheckOnClick = true;
             this.zonesCheckedList.FormattingEnabled = true;
             this.zonesCheckedList.Location = new System.Drawing.Point(12, 261);
             this.zonesCheckedList.Name = "zonesCheckedList";

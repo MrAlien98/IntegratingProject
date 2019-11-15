@@ -8,6 +8,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MIOStopsVisualization
@@ -46,7 +47,7 @@ namespace MIOStopsVisualization
 
         List<GMapPolygon> polygons;
         List<GMapOverlay> polygonsOverlays;
-
+        string hour, minute, second;
         public StartWindow()
         {
             testBus = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(
@@ -109,37 +110,85 @@ namespace MIOStopsVisualization
             vistas.Add("MAPA 2D");
             this.vistasCombo.DataSource = vistas;
             this.vistasCombo.DropDownStyle = ComboBoxStyle.DropDownList;
-            Control.CheckForIllegalCrossThreadCalls = false;
-            ThreadStart delegated = new ThreadStart(new Action(() => RunClock(9, 5, 38)));
-            clock = new Thread(delegated);
+            Control.CheckForIllegalCrossThreadCalls = false;            
             timer1.Stop();
             polygons = new List<GMapPolygon>();
             polygonsOverlays = new List<GMapOverlay>();
             drawStationPolygon();
             initializeZonesNPolygons();
+            loadBusesToModel();
             fillBusesList();
+            ThreadStart delegated = new ThreadStart(new Action(() => RunClock(hour, minute, second)));
+            clock = new Thread(delegated);
+        }
+
+        public async Task MoveBusesAsync()
+        {
+            await Task.Run(() =>
+            {
+                for (int i = 0; i < getApp().getBuses().Count; i++)
+                {
+                    if (index2 < getApp().getBuses()[i].getCoordinates().Count)
+                    {
+                        double newLat = app.getBuses()[i].getCoordinates()[index2].Key;
+                        double newLon = app.getBuses()[i].getCoordinates()[index2].Value;
+
+                        busGMarkers[i].Position = new PointLatLng(newLat, newLon);
+
+                        index2++;
+                    }
+                }
+            });            
+        }
+
+        public async void MoveBuses()
+        {
+            await MoveBusesAsync();
         }
 
         private void routesCheckedListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            routesListVerification(routesCheckedList.SelectedIndex);
+            if (routesCheckedList.SelectedIndex == 0)
+            {
+                if ((routesCheckedList.CheckedIndices.Contains(0)))
+                {
+                    for (int i = 1; i < app.getRoutes().Count; i++)
+                    {
+                        lineFilter(i);
+                        routesCheckedList.SetItemChecked(i, true);
+                    }
+                }
+                else
+                {
+                    for (int i = 1; i < app.getRoutes().Count; i++)
+                    {
+                        deleteLineFilter(i);
+                        routesCheckedList.SetItemChecked(i, false);
+                    }
+                }
+            }
+            else
+            {
+                routesListVerification(routesCheckedList.SelectedIndex);
+            }
         }
 
         public void routesListVerification(int index)
         {
             if (routesCheckedList.CheckedIndices.Contains(index))
             {
-                lineFilter(app.getRoutes()[index].Key, index);
+                //lineFilter(app.getRoutes()[index].Key, index);
+                lineFilter(index);
             }
             else
             {
-                deleteLineFilter(app.getRoutes()[index].Key, index);
+                deleteLineFilter(index);
             }
         }
 
-        public void lineFilter(string line, int index)
+        public void lineFilter(int index)
         {
-            for (int i=0;i<app.getBuses().Count;i++)
+            for (int i = 0;i < app.getBuses().Count; i++)
             {
                 if (!busGMarkers[i].IsVisible && app.getBuses()[i].getLineId().Equals(app.getRoutes()[index].Value))
                 {
@@ -148,7 +197,7 @@ namespace MIOStopsVisualization
             }
         }
 
-        public void deleteLineFilter(string line, int index)
+        public void deleteLineFilter(int index)
         {
             for (int i = 0; i < app.getBuses().Count; i++)
             {
@@ -177,47 +226,62 @@ namespace MIOStopsVisualization
             {
                 string line = "";
                 StreamReader sr = new StreamReader("data/DATAGRAM_TEST.txt");
+                bool firstLine = true;
                 while ((line = sr.ReadLine()) != null)
                 {
                     double lat = app.adjustCoordinates(line.Split(',')[4], 0);
                     double lon = app.adjustCoordinates(line.Split(',')[5], 0);
-                    //11 nombre del bus
-                    if (app.getBuses().Count == 0)
+                    if(lat > 0 && lon < -2)
                     {
-                        app.getBuses().Add(new Bus(lat, lon, line.Split(',')[11], line.Split(',')[7]));
-                        busGMarkers.Add(new GMap.NET.WindowsForms.Markers.GMarkerGoogle
-                            (new PointLatLng(lat, lon),
-                            new Bitmap("images/bus.png")));
-                    }
-                    else
-                    {
-                        Boolean flag = false;
-                        int j = getApp().getBuses().Count();
-                        int z = 0;
-                        for (int i = 0; i < j; i++)
+                        //11 nombre del bus
+                        if (firstLine)
                         {
-                            if (getApp().getBuses()[i].getBusId().Equals(line.Split(',')[11]))
-                            {
-                                flag = true;
-                                z = i;
-                            }
-                            if (flag)
-                            {
-                                break;
-                            }
+                            string date = line.Split(',')[10];
+                            string[] arrayDate = date.Split(' ');
+                            string time = arrayDate[1];
+                            string[] arrayTime = time.Split('.');
+                            hour = arrayTime[0];
+                            minute = arrayTime[1];
+                            second = arrayTime[2];
+                            firstLine = false;
                         }
-                        if (flag)
+                        if (app.getBuses().Count == 0)
                         {
-                            getApp().getBuses()[z].getCoordinates().Add(new KeyValuePair<double, double>(lat, lon));
+                            app.getBuses().Add(new Bus(lat, lon, line.Split(',')[11], line.Split(',')[7]));
+                            busGMarkers.Add(new GMarkerGoogle
+                                (new PointLatLng(lat, lon),
+                                new Bitmap("images/bus.png")));                             
                         }
                         else
                         {
-                            app.getBuses().Add(new Bus(lat, lon, line.Split(',')[11], line.Split(',')[7]));
-                            busGMarkers.Add(new GMap.NET.WindowsForms.Markers.GMarkerGoogle
-                                (new PointLatLng(lat, lon),
-                                new Bitmap("images/bus.png")));
+                            Boolean flag = false;
+                            int j = getApp().getBuses().Count();
+                            int z = 0;
+                            for (int i = 0; i < j; i++)
+                            {
+                                if (getApp().getBuses()[i].getBusId().Equals(line.Split(',')[11]))
+                                {
+                                    flag = true;
+                                    z = i;
+                                }
+                                if (flag)
+                                {
+                                    break;
+                                }
+                            }
+                            if (flag)
+                            {
+                                getApp().getBuses()[z].getCoordinates().Add(new KeyValuePair<double, double>(lat, lon));
+                            }
+                            else
+                            {
+                                app.getBuses().Add(new Bus(lat, lon, line.Split(',')[11], line.Split(',')[7]));
+                                busGMarkers.Add(new GMarkerGoogle
+                                    (new PointLatLng(lat, lon),
+                                    new Bitmap("images/bus.png")));
+                            }
                         }
-                    }
+                    }                    
                 }
                 app.saveBuses();
             }
@@ -1028,9 +1092,9 @@ namespace MIOStopsVisualization
             drawStops();
         }
 
-        private void RunClock(int paramHour, int paramMin, int paramSec)
+        private void RunClock(string paramHour, string paramMin, string paramSec)
         {
-            int sec = paramSec, min = paramMin, hour = paramHour;
+            int sec = int.Parse(paramSec), min = int.Parse(paramMin), hour = int.Parse(paramHour);
             while (hour < 24)
             {
                 Thread.Sleep(1000);
@@ -1115,6 +1179,7 @@ namespace MIOStopsVisualization
         private void ButStartSimulation_Click(object sender, EventArgs e)
         {
             clock.Start();
+            MoveBuses();
             timer1.Start();
         }
 
