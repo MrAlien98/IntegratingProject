@@ -25,6 +25,8 @@ namespace MIOStopsVisualization
 
         public List<GMapMarker> busGMarkers;
 
+        public List<GMapOverlay> zonesOverlays;
+
         GMapOverlay zona0;
         GMapOverlay zona1;
         GMapOverlay zona2;
@@ -46,10 +48,15 @@ namespace MIOStopsVisualization
         GMapPolygon poligonoZ8;
 
         List<GMapPolygon> polygons;
+
         List<GMapOverlay> polygonsOverlays;
+
         string hour, minute, second;
+
         public StartWindow()
         {
+            zonesOverlays = new List<GMapOverlay>();
+
             testBus = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(
                         new GMap.NET.PointLatLng(3.4041000, -76.5467650),
                             new Bitmap("images/bus.png"));
@@ -188,11 +195,30 @@ namespace MIOStopsVisualization
 
         public void lineFilter(int index)
         {
-            for (int i = 0;i < app.getBuses().Count; i++)
+            if (zonesCheckedList.CheckedIndices.Count==0)
             {
-                if (!busGMarkers[i].IsVisible && app.getBuses()[i].getLineId().Equals(app.getRoutes()[index].Value))
+                for (int i = 0; i < app.getBuses().Count; i++)
                 {
-                    busGMarkers[i].IsVisible = true;
+                    if (!busGMarkers[i].IsVisible && app.getBuses()[i].getLineId().Equals(app.getRoutes()[index].Value))
+                    {
+                        busGMarkers[i].IsVisible = true;
+                    }
+                }
+            }
+            else
+            {
+                for (int i=0;i<zonesCheckedList.CheckedIndices.Count;i++)
+                {
+                    for (int j = 0; j < app.getBuses().Count; j++)
+                    {
+                        if (!busGMarkers[j].IsVisible && app.getBuses()[j].getLineId().Equals(app.getRoutes()[index].Value))
+                        {
+                            if (zonesOverlays[zonesCheckedList.CheckedIndices[i] - 1].Polygons[0].IsInside(busGMarkers[j].Position))
+                            {
+                                busGMarkers[j].IsVisible = true;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -452,7 +478,7 @@ namespace MIOStopsVisualization
                 {
                     var p = new PointLatLng(actual.DecLati, actual.DecLong);
                     if (poly.IsInside(p))
-                    {
+                    {   
                         GMapMarker theMarker = new GMarkerGoogle(p, new Bitmap("images/bus_station.png"));
                         poly.Overlay.Markers.Add(theMarker);
                     }
@@ -790,6 +816,16 @@ namespace MIOStopsVisualization
 
             poligonoZ8 = new GMapPolygon(puntosZ8, "PRADO");
             zona8.Polygons.Add(poligonoZ8);
+
+            zonesOverlays.Add(zona0);
+            zonesOverlays.Add(zona1);
+            zonesOverlays.Add(zona2);
+            zonesOverlays.Add(zona3);
+            zonesOverlays.Add(zona4);
+            zonesOverlays.Add(zona5);
+            zonesOverlays.Add(zona6);
+            zonesOverlays.Add(zona7);
+            zonesOverlays.Add(zona8);
         }
 
         public void drawZone0()
@@ -1283,18 +1319,11 @@ namespace MIOStopsVisualization
                 case 0:
                     break;
                 case 1:
-                    if (zonesCheckedList.GetItemCheckState(eps) == CheckState.Checked)
-                    {
+                    if (zonesCheckedList.SelectedIndices.Contains(eps))
                         drawZone0();
-                        Console.WriteLine("deberia dibujar el centro");
-                    }
                     else
-                    {
                         zona0.Clear();
-                        Console.WriteLine("deberia limpiar el centro");
-                    }
                     break;
-
                 case 2:
                     if (zonesCheckedList.SelectedIndices.Contains(eps))
                         drawZone1();
