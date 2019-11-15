@@ -233,7 +233,6 @@ namespace MIOStopsVisualization
                     double lon = app.adjustCoordinates(line.Split(',')[5], 0);
                     if(lat > 0 && lon < -2)
                     {
-                        //11 nombre del bus
                         if (firstLine)
                         {
                             string date = line.Split(',')[10];
@@ -319,7 +318,7 @@ namespace MIOStopsVisualization
             return app;
         }
 
-        /*public void ReadFile()
+        public void ReadFile()
         {
             Console.WriteLine("Entro");
             try
@@ -340,8 +339,7 @@ namespace MIOStopsVisualization
 
                     Stop st = new Stop(individual[0], lat, lon);
                     app.getStreetStop().Add(st);
-
-                    Console.WriteLine("Hasta aqui va bien (Paradas) : " + i);
+                   
                     i++;
                 }
                 i = 1;
@@ -358,7 +356,6 @@ namespace MIOStopsVisualization
                     Stop st = new Stop(individual[0], lat, lon);
                     app.getStationStop().Add(st);
 
-                    Console.WriteLine("Hasta aqui va bien (Estaciones): " + i);
                     i++;
                 }
                 MessageBox.Show("" + app.getStationStop().Count);
@@ -368,7 +365,7 @@ namespace MIOStopsVisualization
             { 
                 MessageBox.Show(e.Message);
             }
-        }*/
+        }
 
 
         private void StopMap_Load(object sender, EventArgs e)
@@ -1178,9 +1175,12 @@ namespace MIOStopsVisualization
         
         private void ButStartSimulation_Click(object sender, EventArgs e)
         {
-            clock.Start();
-            MoveBuses();
-            timer1.Start();
+            if ( ! clock.IsAlive)
+            {
+                clock.Start();
+                MoveBuses();
+                timer1.Start();
+            }
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
