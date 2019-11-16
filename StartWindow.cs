@@ -48,10 +48,11 @@ namespace MIOStopsVisualization
         GMapPolygon poligonoZ8;
 
         List<GMapPolygon> polygons;
-
         List<GMapOverlay> polygonsOverlays;
 
         string hour, minute, second;
+
+        GMapOverlay stopsOverlay;
 
         public StartWindow()
         {
@@ -121,7 +122,9 @@ namespace MIOStopsVisualization
             timer1.Stop();
             polygons = new List<GMapPolygon>();
             polygonsOverlays = new List<GMapOverlay>();
+            stopsOverlay = new GMapOverlay("Stops");
             drawStationPolygon();
+            DrawStopsAtStations();
             initializeZonesNPolygons();
             loadBusesToModel();
             fillBusesList();
@@ -145,7 +148,7 @@ namespace MIOStopsVisualization
                         index2++;
                     }
                 }
-            });            
+            });
         }
 
         public async void MoveBuses()
@@ -1159,6 +1162,10 @@ namespace MIOStopsVisualization
                     {
                         polygonsOverlays[i].IsVisibile = true;
                     }
+                    for (int i = 0; i < stopsOverlay.Markers.Count(); i++)
+                    {
+                        stopsOverlay.Markers[i].IsVisible = true;
+                    }
                 }
                 Console.WriteLine(stopMap.Zoom);
             }
@@ -1375,19 +1382,92 @@ namespace MIOStopsVisualization
             }               
         }
 
-        public void drawStopsAtStations()
+        private double AdjustCoordinate(double number)
+        {            
+            if (Math.Abs(number) > 1000 && Math.Abs(number) < 10000)
+            {
+                number /= 1000;
+            }
+            else if (Math.Abs(number) > 10000 && Math.Abs(number) < 100000)
+            {
+                number /= 10000;
+            }
+            else if (Math.Abs(number) > 100000 && Math.Abs(number) < 1000000)
+            {
+                number /= 100000;
+            }
+            else if (Math.Abs(number) > 1000000 && Math.Abs(number) < 10000000)
+            {
+                number /= 1000000;
+            }
+            else if (Math.Abs(number) > 10000000 && Math.Abs(number) < 100000000)
+            {
+                number /= 10000000;
+            }
+            else if (Math.Abs(number) > 100000000 && Math.Abs(number) < 1000000000)
+            {
+                number /= 100000000;
+            }
+            else if (Math.Abs(number) > 1000000000 && Math.Abs(number) < 10000000000)
+            {
+                number /= 1000000000;
+            }             
+            return number;
+        }
+
+        private double AdjustCoordinate2(double number)
         {
-            StreamReader reader = new StreamReader("data/StationsStop.txt");
+            if (Math.Abs(number) > 1000 && Math.Abs(number) < 10000)
+            {
+                number /= 100;
+            }
+            else if (Math.Abs(number) > 10000 && Math.Abs(number) < 100000)
+            {
+                number /= 1000;
+            }
+            else if (Math.Abs(number) > 100000 && Math.Abs(number) < 1000000)
+            {
+                number /= 10000;
+            }
+            else if (Math.Abs(number) > 1000000 && Math.Abs(number) < 10000000)
+            {
+                number /= 100000;
+            }
+            else if (Math.Abs(number) > 10000000 && Math.Abs(number) < 100000000)
+            {
+                number /= 1000000;
+            }
+            else if (Math.Abs(number) > 100000000 && Math.Abs(number) < 1000000000)
+            {
+                number /= 10000000;
+            }
+            else if (Math.Abs(number) > 1000000000 && Math.Abs(number) < 10000000000)
+            {
+                number /= 100000000;
+            }
+            return number;
+        }
+
+        public void DrawStopsAtStations()
+        {
+            StreamReader reader = new StreamReader("data/StationsStops.txt");
             string line;
+            line = reader.ReadLine(); 
             while((line = reader.ReadLine()) != null)
             {
                 string[] array = line.Split(',');
-                double lat = double.Parse(array[3]);
-                lat /= 1000000;
-                double lon = double.Parse(array[4]);
-                lon /= 1000000;
-
+                double lat = double.Parse(array[4]);
+                lat = AdjustCoordinate(lat);
+                double lon = double.Parse(array[3]);
+                lon = AdjustCoordinate2(lon);
+                string toolTipText = array[2];
+                GMarkerGoogle marker = new GMarkerGoogle(new PointLatLng(lat, lon), new Bitmap("images/bus_station.png"));
+                marker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+                marker.ToolTipText = toolTipText;
+                marker.IsVisible = false;
+                stopsOverlay.Markers.Add(marker);
             }
+            stopMap.Overlays.Add(stopsOverlay);
         }
     }
 }
