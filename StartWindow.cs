@@ -123,8 +123,10 @@ namespace MIOStopsVisualization
             polygons = new List<GMapPolygon>();
             polygonsOverlays = new List<GMapOverlay>();
             stopsOverlay = new GMapOverlay("Stops");
+            stopsOverlay.IsVisibile = false;
             drawStationPolygon();
             DrawStopsAtStations();
+            DrawStops2();
             initializeZonesNPolygons();
             loadBusesToModel();
             fillBusesList();
@@ -1162,10 +1164,7 @@ namespace MIOStopsVisualization
                     {
                         polygonsOverlays[i].IsVisibile = true;
                     }
-                    for (int i = 0; i < stopsOverlay.Markers.Count(); i++)
-                    {
-                        stopsOverlay.Markers[i].IsVisible = true;
-                    }
+                    stopsOverlay.IsVisibile = true;
                 }
                 Console.WriteLine(stopMap.Zoom);
             }
@@ -1178,10 +1177,7 @@ namespace MIOStopsVisualization
                 stopMap.Zoom--;
                 if(stopMap.Zoom < 17)
                 {
-                    //for(int i = 0; i < polygonsOverlays.Count; i++)
-                    //{
-                    //    stopMap.Overlays[i].IsVisibile = false;
-                    //}
+                    stopsOverlay.IsVisibile = false;
                 }
                 Console.WriteLine(stopMap.Zoom);
             }
@@ -1464,7 +1460,28 @@ namespace MIOStopsVisualization
                 GMarkerGoogle marker = new GMarkerGoogle(new PointLatLng(lat, lon), new Bitmap("images/bus_station.png"));
                 marker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
                 marker.ToolTipText = toolTipText;
-                marker.IsVisible = false;
+                marker.IsVisible = true;
+                stopsOverlay.Markers.Add(marker);
+            }            
+            stopMap.Overlays.Add(stopsOverlay);
+        }
+
+        public void DrawStops2()
+        {
+            StreamReader reader = new StreamReader("data/Stops.txt");
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                string[] array = line.Split(',');
+                double lat = double.Parse(array[1]);
+                lat = AdjustCoordinate(lat);
+                double lon = double.Parse(array[2]);
+                lon = AdjustCoordinate2(lon);
+                string toolTipText = array[0];
+                GMarkerGoogle marker = new GMarkerGoogle(new PointLatLng(lat, lon), new Bitmap("images/bus_station.png"));
+                marker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+                marker.ToolTipText = toolTipText;
+                marker.IsVisible = true;
                 stopsOverlay.Markers.Add(marker);
             }
             stopMap.Overlays.Add(stopsOverlay);
