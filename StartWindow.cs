@@ -1202,7 +1202,7 @@ namespace MIOStopsVisualization
                     coordinates.Add(new PointLatLng(lat, lng));
                     line = sr.ReadLine();
                 }
-                polygons.Add(new GMapPolygon(coordinates, "Estacion " + (i + 1)));                
+                polygons.Add(new GMapPolygon(coordinates, "Estacion " + (i + 1)));
                 GMapOverlay gMapOverlayPol = new GMapOverlay();
                 gMapOverlayPol.Polygons.Add(polygons[i]);
                 gMapOverlayPol.IsVisibile = false;
