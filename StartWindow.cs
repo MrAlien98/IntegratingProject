@@ -37,6 +37,8 @@ namespace MIOStopsVisualization
         GMapOverlay zona7;
         GMapOverlay zona8;
 
+        List<GMapOverlay> zonesList;
+
         GMapPolygon poligonoZ0;
         GMapPolygon poligonoZ1;
         GMapPolygon poligonoZ2;
@@ -53,6 +55,7 @@ namespace MIOStopsVisualization
         string hour, minute, second;
 
         GMapOverlay stopsOverlay;
+        GMapOverlay stationsOverlay;
 
         public StartWindow()
         {
@@ -124,12 +127,14 @@ namespace MIOStopsVisualization
             polygonsOverlays = new List<GMapOverlay>();
             stopsOverlay = new GMapOverlay("Stops");
             stopsOverlay.IsVisibile = false;
-            drawStationPolygon();
+            stationsOverlay = new GMapOverlay("Stations");
+            DrawStationPolygon();
             DrawStopsAtStations();
             DrawStops2();
             initializeZonesNPolygons();
             loadBusesToModel();
             fillBusesList();
+            drawStations();
             ThreadStart delegated = new ThreadStart(new Action(() => RunClock(hour, minute, second)));
             clock = new Thread(delegated);
         }
@@ -189,7 +194,6 @@ namespace MIOStopsVisualization
         {
             if (routesCheckedList.CheckedIndices.Contains(index))
             {
-                //lineFilter(app.getRoutes()[index].Key, index);
                 lineFilter(index);
             }
             else
@@ -440,26 +444,28 @@ namespace MIOStopsVisualization
 
         public void drawStations()
         {
-            
-
-            foreach (var aux in getApp().getStationStop())
+            string line;
+            StreamReader reader = new StreamReader("data/Stations.txt");
+            while((line = reader.ReadLine()) != null)
             {
-                stationsMarker(aux.DecLati, aux.DecLong);
+                string[] array = line.Split(',');
+                string toolTip = array[0];
+                double lat = double.Parse(array[1]);
+                lat /= 1000000;
+                double lng = double.Parse(array[2]);
+                lng /= 1000000;
+                stationsMarker(lat, lng, toolTip);
             }
-            stopMap.Zoom = stopMap.Zoom + 1;
-            stopMap.Zoom = stopMap.Zoom - 1;
-
         }
 
-        private void stationsMarker(double lat, double lng)
+        private void stationsMarker(double lat, double lng, string toolTip)
         {
             PointLatLng point = new PointLatLng(lat, lng);
             GMapMarker theMarker = new GMarkerGoogle(point, new Bitmap("images/bus_station.png"));
-
-            GMapOverlay markers = new GMapOverlay("markers");
-
-            markers.Markers.Add(theMarker);
-            stopMap.Overlays.Add(markers);
+            theMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+            theMarker.ToolTipText = toolTip;
+            stationsOverlay.Markers.Add(theMarker);
+            stopMap.Overlays.Add(stationsOverlay);
         }
 
         public void clearZone(GMapPolygon zone, GMapOverlay zz)
@@ -618,10 +624,9 @@ namespace MIOStopsVisualization
             puntosZ0.Add(new PointLatLng(3.428423, -76.533186));
             puntosZ0.Add(new PointLatLng(3.434846, -76.523287));
             puntosZ0.Add(new PointLatLng(3.443270, -76.518067));
-
             poligonoZ0 = new GMapPolygon(puntosZ0, "CENTRO");
             zona0.Polygons.Add(poligonoZ0);
-
+            zona0.IsVisibile = false;
 
             zona1 = new GMapOverlay("Zona 1");
             List<PointLatLng> puntosZ1 = new List<PointLatLng>();
@@ -653,10 +658,9 @@ namespace MIOStopsVisualization
             puntosZ1.Add(new PointLatLng(3.366069, -76.508377));
             puntosZ1.Add(new PointLatLng(3.371381, -76.509578));
             puntosZ1.Add(new PointLatLng(3.382049, -76.507089));
-
             poligonoZ1 = new GMapPolygon(puntosZ1, "VALLE DE LILI");
             zona1.Polygons.Add(poligonoZ1);
-
+            zona1.IsVisibile = false;
 
             zona2 = new GMapOverlay("Zona 2");
             List<PointLatLng> puntosZ2 = new List<PointLatLng>();
@@ -687,10 +691,9 @@ namespace MIOStopsVisualization
             puntosZ2.Add(new PointLatLng(3.505948, -76.500053));
             puntosZ2.Add(new PointLatLng(3.505516, -76.492691));
             puntosZ2.Add(new PointLatLng(3.499343, -76.492160));
-
             poligonoZ2 = new GMapPolygon(puntosZ2, "MENGA");
             zona2.Polygons.Add(poligonoZ2);
-
+            zona2.IsVisibile = false;
 
             zona3 = new GMapOverlay("Zona 3");
             List<PointLatLng> puntosZ3 = new List<PointLatLng>();
@@ -703,10 +706,9 @@ namespace MIOStopsVisualization
             puntosZ3.Add(new PointLatLng(3.468334, -76.475987));
             puntosZ3.Add(new PointLatLng(3.458952, -76.513447));
             puntosZ3.Add(new PointLatLng(3.463029, -76.521014));
-
             poligonoZ3 = new GMapPolygon(puntosZ3, "CALIMA");
             zona3.Polygons.Add(poligonoZ3);;
-
+            zona3.IsVisibile = false;
 
             zona4 = new GMapOverlay("Zona4");
             List<PointLatLng> puntosZ4 = new List<PointLatLng>();
@@ -725,10 +727,9 @@ namespace MIOStopsVisualization
             puntosZ4.Add(new PointLatLng(3.428568, -76.483722));
             puntosZ4.Add(new PointLatLng(3.446679, -76.484064));
             puntosZ4.Add(new PointLatLng(3.443159, -76.493519));
-
             poligonoZ4 = new GMapPolygon(puntosZ4, "AGUABLANCA");
             zona4.Polygons.Add(poligonoZ4);
-
+            zona4.IsVisibile = false;
 
             zona5 = new GMapOverlay("Zonas 5");
             List<PointLatLng> puntosZ5 = new List<PointLatLng>();
@@ -752,10 +753,9 @@ namespace MIOStopsVisualization
             puntosZ5.Add(new PointLatLng(3.418084, -76.486381));
             puntosZ5.Add(new PointLatLng(3.428568, -76.483722));
             puntosZ5.Add(new PointLatLng(3.446679, -76.484064));
-
             poligonoZ5 = new GMapPolygon(puntosZ5, "CIUDAD CORDOBA");
             zona5.Polygons.Add(poligonoZ5);
-
+            zona5.IsVisibile = false;
 
             zona6 = new GMapOverlay("Zona 6");
             List<PointLatLng> puntosZ6 = new List<PointLatLng>();
@@ -781,10 +781,9 @@ namespace MIOStopsVisualization
             puntosZ6.Add(new PointLatLng(3.402954, -76.520984));
             puntosZ6.Add(new PointLatLng(3.404841, -76.518878));
             puntosZ6.Add(new PointLatLng(3.407200, -76.521070));
-
             poligonoZ6 = new GMapPolygon(puntosZ6, "GUADALUPE");
             zona6.Polygons.Add(poligonoZ6);
-
+            zona6.IsVisibile = false;
 
             zona7 = new GMapOverlay("Zona 7");
             List<PointLatLng> puntosZ7 = new List<PointLatLng>();
@@ -803,10 +802,9 @@ namespace MIOStopsVisualization
             puntosZ7.Add(new PointLatLng(3.386310, -76.544481));
             puntosZ7.Add(new PointLatLng(3.398277, -76.542537));
             puntosZ7.Add(new PointLatLng(3.398191, -76.538025));
-
             poligonoZ7 = new GMapPolygon(puntosZ7, "CAÑAVERALEJO");
             zona7.Polygons.Add(poligonoZ7);
-
+            zona7.IsVisibile = false;
 
             zona8 = new GMapOverlay("Zona 8");
             List<PointLatLng> puntosZ8 = new List<PointLatLng>();
@@ -818,9 +816,9 @@ namespace MIOStopsVisualization
             puntosZ8.Add(new PointLatLng(3.434846, -76.523287));
             puntosZ8.Add(new PointLatLng(3.443270, -76.518067));
             puntosZ8.Add(new PointLatLng(3.443159, -76.493519));
-
             poligonoZ8 = new GMapPolygon(puntosZ8, "PRADO");
             zona8.Polygons.Add(poligonoZ8);
+            zona8.IsVisibile = false;
 
             zonesOverlays.Add(zona0);
             zonesOverlays.Add(zona1);
@@ -831,6 +829,10 @@ namespace MIOStopsVisualization
             zonesOverlays.Add(zona6);
             zonesOverlays.Add(zona7);
             zonesOverlays.Add(zona8);
+            for(int i = 0; i < zonesOverlays.Count(); i++)
+            {
+                stopMap.Overlays.Add(zonesOverlays[i]);
+            }
         }
 
         public void drawZone0()
@@ -1122,7 +1124,7 @@ namespace MIOStopsVisualization
 
         private void cbStation_CheckedChanged(object sender, EventArgs e)
         {
-            drawStations();
+            
         }
 
         private void cbStops_CheckedChanged(object sender, EventArgs e)
@@ -1165,6 +1167,8 @@ namespace MIOStopsVisualization
                         polygonsOverlays[i].IsVisibile = true;
                     }
                     stopsOverlay.IsVisibile = true;
+                    stationsOverlay.IsVisibile = false;
+                    cbStation.Enabled = false;
                 }
                 Console.WriteLine(stopMap.Zoom);
             }
@@ -1177,24 +1181,32 @@ namespace MIOStopsVisualization
                 stopMap.Zoom--;
                 if(stopMap.Zoom < 17)
                 {
+                    for (int i = 0; i < polygonsOverlays.Count; i++)
+                    {
+                        polygonsOverlays[i].IsVisibile = false;
+                    }
                     stopsOverlay.IsVisibile = false;
+                    if (cbStation.Checked)
+                    {
+                        stationsOverlay.IsVisibile = true;
+                    }                    
+                    cbStation.Enabled = true;
                 }
                 Console.WriteLine(stopMap.Zoom);
             }
         }
 
-        public void drawStationPolygon()
+        public void DrawStationPolygon()
         {
             StreamReader sr = new StreamReader("data/StationPolygon2.txt");
-            String line = "";
-            String[] dats = new String[2];
             int i = 0;
+            string line;
             while ((line = sr.ReadLine()) != null)
             {
                 List<PointLatLng> coordinates = new List<PointLatLng>();
                 while (!(line.Equals("---")))
                 {
-                    dats = line.Split(',');
+                    string[] dats = line.Split(',');
                     double lat = double.Parse(dats[0]);
                     lat /= 1000000;
                     double lng = double.Parse(dats[1]);
@@ -1320,60 +1332,70 @@ namespace MIOStopsVisualization
             switch (eps)
             {
                 case 0:
+                    if (zonesCheckedList.CheckedIndices.Contains(eps))
+                        for(int i = 0; i < zonesOverlays.Count(); i++)
+                        {
+                            zonesOverlays[i].IsVisibile = true;
+                        }
+                    else
+                        for (int i = 0; i < zonesOverlays.Count(); i++)
+                        {
+                            zonesOverlays[i].IsVisibile = false;
+                        }
                     break;
                 case 1:
-                    if (zonesCheckedList.SelectedIndices.Contains(eps))
-                        drawZone0();
+                    if (zonesCheckedList.CheckedIndices.Contains(eps))
+                        zona0.IsVisibile = true;
                     else
-                        zona0.Clear();
+                        zona0.IsVisibile = false;
                     break;
                 case 2:
-                    if (zonesCheckedList.SelectedIndices.Contains(eps))
-                        drawZone1();
+                    if (zonesCheckedList.CheckedIndices.Contains(eps))
+                        zona1.IsVisibile = true;
                     else
-                        zona1.Clear();
+                        zona1.IsVisibile = false;
                     break;
                 case 3:
-                    if (zonesCheckedList.SelectedIndices.Contains(eps))
-                        drawZone2();
+                    if (zonesCheckedList.CheckedIndices.Contains(eps))
+                        zona2.IsVisibile = true;
                     else
-                        zona2.Clear();
+                        zona2.IsVisibile = false;
                     break;
                 case 4:
-                    if (zonesCheckedList.SelectedIndices.Contains(eps))
-                        drawZone3();
+                    if (zonesCheckedList.CheckedIndices.Contains(eps))
+                        zona3.IsVisibile = true;
                     else
-                        zona3.Clear();
+                        zona3.IsVisibile = false;
                     break;
                 case 5:
-                    if (zonesCheckedList.SelectedIndices.Contains(eps))
-                        drawZone4();
+                    if (zonesCheckedList.CheckedIndices.Contains(eps))
+                        zona4.IsVisibile = true;
                     else
-                        zona4.Clear();
+                        zona4.IsVisibile = false;
                     break;
                 case 6:
-                    if (zonesCheckedList.SelectedIndices.Contains(eps))
-                        drawZone5();
+                    if (zonesCheckedList.CheckedIndices.Contains(eps))
+                        zona5.IsVisibile = true;
                     else
-                        zona5.Clear();
+                        zona5.IsVisibile = false;
                     break;
                 case 7:
-                    if (zonesCheckedList.SelectedIndices.Contains(eps))
-                        drawZone6();
+                    if (zonesCheckedList.CheckedIndices.Contains(eps))
+                        zona6.IsVisibile = true;
                     else
-                        zona6.Clear();
+                        zona6.IsVisibile = false;
                     break;
                 case 8:
-                    if (zonesCheckedList.SelectedIndices.Contains(eps))
-                        drawZone7();
+                    if (zonesCheckedList.CheckedIndices.Contains(eps))
+                        zona7.IsVisibile = true;
                     else
-                        zona7.Clear();
+                        zona7.IsVisibile = false;
                     break;
                 case 9:
-                    if (zonesCheckedList.SelectedIndices.Contains(eps))
-                        drawZone8();
+                    if (zonesCheckedList.CheckedIndices.Contains(eps))
+                        zona8.IsVisibile = true;
                     else
-                        zona8.Clear();
+                        zona8.IsVisibile = false;
                     break;
             }               
         }
@@ -1444,6 +1466,18 @@ namespace MIOStopsVisualization
             return number;
         }
 
+        private void CheckedBoxDrawStations(object sender, EventArgs e)
+        {
+            if (cbStation.Checked)
+            {
+                stationsOverlay.IsVisibile = true;
+            }
+            else
+            {
+                stationsOverlay.IsVisibile = false;
+            }
+        }
+
         public void DrawStopsAtStations()
         {
             StreamReader reader = new StreamReader("data/StationsStops.txt");
@@ -1457,7 +1491,7 @@ namespace MIOStopsVisualization
                 double lon = double.Parse(array[3]);
                 lon = AdjustCoordinate2(lon);
                 string toolTipText = array[2];
-                GMarkerGoogle marker = new GMarkerGoogle(new PointLatLng(lat, lon), new Bitmap("images/bus_station.png"));
+                GMarkerGoogle marker = new GMarkerGoogle(new PointLatLng(lat, lon), new Bitmap("images/bus_stop_sign.png"));
                 marker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
                 marker.ToolTipText = toolTipText;
                 marker.IsVisible = true;
@@ -1478,7 +1512,7 @@ namespace MIOStopsVisualization
                 double lon = double.Parse(array[2]);
                 lon = AdjustCoordinate2(lon);
                 string toolTipText = array[0];
-                GMarkerGoogle marker = new GMarkerGoogle(new PointLatLng(lat, lon), new Bitmap("images/bus_station.png"));
+                GMarkerGoogle marker = new GMarkerGoogle(new PointLatLng(lat, lon), new Bitmap("images/bus_stop_sign.png"));
                 marker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
                 marker.ToolTipText = toolTipText;
                 marker.IsVisible = true;

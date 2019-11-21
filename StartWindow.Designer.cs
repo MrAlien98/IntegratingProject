@@ -306,13 +306,15 @@
             // 
             this.cbStation.AutoSize = true;
             this.cbStation.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.cbStation.Checked = true;
+            this.cbStation.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbStation.Location = new System.Drawing.Point(20, 237);
             this.cbStation.Name = "cbStation";
             this.cbStation.Size = new System.Drawing.Size(94, 17);
             this.cbStation.TabIndex = 23;
             this.cbStation.Text = "ESTACIONES";
             this.cbStation.UseVisualStyleBackColor = false;
-            this.cbStation.CheckedChanged += new System.EventHandler(this.cbStation_CheckedChanged);
+            this.cbStation.CheckedChanged += new System.EventHandler(this.CheckedBoxDrawStations);
             // 
             // cbStops
             // 
