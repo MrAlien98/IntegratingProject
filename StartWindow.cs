@@ -16,7 +16,7 @@ namespace MIOStopsVisualization
     public partial class StartWindow : Form
     {
         public static MIOApp app;
-
+       // Loading loading;
         int index2 = 0;
 
         Thread clock;
@@ -56,9 +56,12 @@ namespace MIOStopsVisualization
 
         GMapOverlay stopsOverlay;
         GMapOverlay stationsOverlay;
+        
 
         public StartWindow()
         {
+            
+           
             zonesOverlays = new List<GMapOverlay>();
 
             testBus = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(
@@ -137,8 +140,37 @@ namespace MIOStopsVisualization
             drawStations();
             ThreadStart delegated = new ThreadStart(new Action(() => RunClock(hour, minute, second)));
             clock = new Thread(delegated);
+            
+        }
+        /*
+        public async void prueba()
+        {
+            
+            Task atask = new Task(algo);
+            atask.Start();
+            Show();
+            await atask;
+            Hide();
+           
         }
 
+        public void algo()
+        {
+            Thread.Sleep(10000);
+        }
+
+        public void show()
+        {
+            loading = new Loading();
+            loading.Show();
+        }
+
+        public void Hide()
+        {
+            if (loading != null)
+                loading.Close();
+        }
+        */
         public async Task MoveBusesAsync()
         {
             await Task.Run(() =>
@@ -1134,6 +1166,7 @@ namespace MIOStopsVisualization
 
         private void RunClock(string paramHour, string paramMin, string paramSec)
         {
+            
             int sec = int.Parse(paramSec), min = int.Parse(paramMin), hour = int.Parse(paramHour);
             while (hour < 24)
             {
@@ -1148,9 +1181,31 @@ namespace MIOStopsVisualization
                         hour++;
                     }
                 }
-                secondsLabel.Text = Convert.ToString(sec);
-                minutesLabel.Text = Convert.ToString(min);
-                hoursLabel.Text = Convert.ToString(hour);
+                if (sec < 10)
+                {
+                    secondsLabel.Text = "0" + Convert.ToString(sec);
+                }
+                else
+                {
+                    secondsLabel.Text = Convert.ToString(sec);
+                }
+                if (min < 10)
+                {
+                    minutesLabel.Text = "0" + Convert.ToString(min);
+                }
+                else
+                {
+                    minutesLabel.Text = Convert.ToString(min);
+                }
+                if (hour < 10)
+                {
+                    hoursLabel.Text = "0" + Convert.ToString(hour);
+                }
+                else
+                {
+                    hoursLabel.Text = Convert.ToString(hour);
+                }
+                               
                 sec++;
             }
         }
@@ -1476,6 +1531,16 @@ namespace MIOStopsVisualization
             {
                 stationsOverlay.IsVisibile = false;
             }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void secondsLabel_Click(object sender, EventArgs e)
+        {
+
         }
 
         public void DrawStopsAtStations()
