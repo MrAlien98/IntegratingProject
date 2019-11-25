@@ -1525,11 +1525,13 @@ namespace MIOStopsVisualization
         {
             if (cbStation.Checked)
             {
-                stationsOverlay.IsVisibile = true;
+                //stationsOverlay.IsVisibile = true;
+                drawStations();
             }
             else
             {
-                stationsOverlay.IsVisibile = false;
+                // stationsOverlay.IsVisibile = false;
+                stationsOverlay.Clear();
             }
         }
 
