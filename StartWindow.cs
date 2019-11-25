@@ -113,6 +113,7 @@ namespace MIOStopsVisualization
             var rutas = new List<string>();
             for (int i=0; i<app.getRoutes().Count;i++)
             {
+
                 rutas.Add(app.getRoutes()[i].Key);
 
                 routesCheckedList.Items.Add(app.getRoutes()[i].Key);
