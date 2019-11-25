@@ -1156,12 +1156,27 @@ namespace MIOStopsVisualization
 
         private void cbStation_CheckedChanged(object sender, EventArgs e)
         {
-            
+            if (cbStation.Checked)
+            {
+                drawStations();
+            }
+            else
+            {
+                stationsOverlay.Clear();
+            }
         }
 
         private void cbStops_CheckedChanged(object sender, EventArgs e)
         {
-            drawStops();
+            if (stopsOverlay.IsVisibile == true)
+            {
+                stopsOverlay.IsVisibile = false;
+            }
+            else
+            {
+                stopsOverlay.IsVisibile = true;
+            }
+           
         }
 
         private void RunClock(string paramHour, string paramMin, string paramSec)
